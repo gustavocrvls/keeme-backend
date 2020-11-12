@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
-export class createUsuario1604970698780 implements MigrationInterface {
+export class createTipoDeAcc1605140065523 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
-      name: 'usuario',
+    name: 'tipo_de_acc',
       columns: [
         {
           name: 'id',
@@ -19,42 +19,28 @@ export class createUsuario1604970698780 implements MigrationInterface {
           type: 'varchar',
         },
         {
-          name: 'sexo',
-          type: 'enum',
-          enum: ['M', 'F'],
+          name: 'pontos_por_unidade',
+          type: 'decimal'
         },
         {
-          name: 'username',
-          type: 'varchar',
-        },
-        {
-          name: 'password',
-          type: 'varchar',
-        },
-        {
-          name: 'id_perfil',
+          name: 'limite_de_pontos',
           type: 'integer',
-          unsigned: true,
         },
         {
-          name: 'id_curso',
+          name: 'sobre',
+          type: 'varchar',
+        },
+        {
+          name: 'id_unidade_de_medida',
           type: 'integer',
           unsigned: true,
         },
       ]
     }));
 
-    await queryRunner.createForeignKey("usuario", new TableForeignKey({
-      columnNames: ['id_curso'],
-      referencedTableName: 'curso',
-      referencedColumnNames: ['id'],
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    }));
-
-    await queryRunner.createForeignKey("usuario", new TableForeignKey({
-      columnNames: ['id_perfil'],
-      referencedTableName: 'perfil',
+    await queryRunner.createForeignKey("tipo_de_acc", new TableForeignKey({
+      columnNames: ['id_unidade_de_medida'],
+      referencedTableName: 'unidade_de_medida',
       referencedColumnNames: ['id'],
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
@@ -62,7 +48,7 @@ export class createUsuario1604970698780 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('usuario');
+    await queryRunner.dropTable('tipo_de_acc');
   }
 
 }

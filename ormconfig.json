@@ -5,7 +5,6 @@
   "username": "tcc",
   "password": "tcc",
   "database": "tcc",
-  "synchronize": true,
   "logging": true,
 
   "migrations": [

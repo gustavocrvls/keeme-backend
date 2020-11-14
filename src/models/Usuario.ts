@@ -3,7 +3,7 @@ import Curso from './Curso';
 import Perfil from './Perfil';
 import Pontuacao from './Pontuacao';
 
-@Entity('users')
+@Entity('usuario')
 export default class User {
   @PrimaryGeneratedColumn('increment')
   id: number;

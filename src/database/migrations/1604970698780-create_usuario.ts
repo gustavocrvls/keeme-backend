@@ -15,7 +15,7 @@ export class createUsuario1604970698780 implements MigrationInterface {
           generationStrategy: 'increment'
         },
         {
-          name: 'name',
+          name: 'nome',
           type: 'varchar',
         },
         {
@@ -28,7 +28,7 @@ export class createUsuario1604970698780 implements MigrationInterface {
           type: 'varchar',
         },
         {
-          name: 'password',
+          name: 'senha',
           type: 'varchar',
         },
         {

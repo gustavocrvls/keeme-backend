@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
+import Curso from './Curso';
+import Perfil from './Perfil';
 
 @Entity('users')
 export default class User {
@@ -17,9 +19,11 @@ export default class User {
   @Column()
   senha: string;
 
+  @ManyToOne(() => Curso, curso => curso.id)
   @JoinColumn({ name: 'id_curso' })
-  id_curso: string;
+  curso: Curso;
 
+  @ManyToOne(() => Perfil, perfil => perfil.id)
   @JoinColumn({ name: 'id_perfil' })
-  id_perfil: number;
+  perfil: Perfil;
 }

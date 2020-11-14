@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import Curso from './Curso';
 import Perfil from './Perfil';
+import Pontuacao from './Pontuacao';
 
 @Entity('users')
 export default class User {
@@ -26,4 +27,8 @@ export default class User {
   @ManyToOne(() => Perfil, perfil => perfil.id)
   @JoinColumn({ name: 'id_perfil' })
   perfil: Perfil;
+
+  @OneToMany(() => Pontuacao, pontuacao => pontuacao.usuario)
+  @JoinColumn({ name: 'id_usuario'})
+  pontuacoes: Pontuacao[];
 }

@@ -27,6 +27,11 @@ export class createPontuacao1605141662310 implements MigrationInterface {
           type: 'varchar',
         },
         {
+          name: 'id_usuario',
+          type: 'integer',
+          unsigned: true,
+        },
+        {
           name: 'id_status_da_pontuacao',
           type: 'integer',
           unsigned: true,
@@ -43,6 +48,14 @@ export class createPontuacao1605141662310 implements MigrationInterface {
         },
       ],
       foreignKeys: [
+        {
+          name: 'FK_pontuacao__usuario',
+          columnNames: ['id_usuario'],
+          referencedTableName: 'usuario',
+          referencedColumnNames: ['id'],
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        },
         {
           name: 'FK_pontuacao__status_da_pontuacao',
           columnNames: ['id_status_da_pontuacao'],

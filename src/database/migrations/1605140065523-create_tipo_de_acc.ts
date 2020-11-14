@@ -35,15 +35,17 @@ export class createTipoDeAcc1605140065523 implements MigrationInterface {
           type: 'integer',
           unsigned: true,
         },
+      ],
+      foreignKeys: [
+        {
+          name: 'FK_tipo_de_acc__unidade_de_medida',
+          columnNames: ['id_unidade_de_medida'],
+          referencedTableName: 'unidade_de_medida',
+          referencedColumnNames: ['id'],
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        },
       ]
-    }));
-
-    await queryRunner.createForeignKey("tipo_de_acc", new TableForeignKey({
-      columnNames: ['id_unidade_de_medida'],
-      referencedTableName: 'unidade_de_medida',
-      referencedColumnNames: ['id'],
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
     }));
   }
 

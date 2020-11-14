@@ -41,25 +41,25 @@ export class createPontuacao1605141662310 implements MigrationInterface {
           type: 'integer',
           unsigned: true,
         },
+      ],
+      foreignKeys: [
+        {
+          name: 'FK_pontuacao__status_da_pontuacao',
+          columnNames: ['id_status_da_pontuacao'],
+          referencedTableName: 'status_da_pontuacao',
+          referencedColumnNames: ['id'],
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        },
+        {
+          name: 'FK_pontuacao__tipo_de_acc',
+          columnNames: ['id_tipo_de_acc'],
+          referencedTableName: 'tipo_de_acc',
+          referencedColumnNames: ['id'],
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        },
       ]
-    }));
-
-    await queryRunner.createForeignKey("pontuacao", new TableForeignKey({
-      name: 'FK_pontuacao_status_da_pontuacao',
-      columnNames: ['id_status_da_pontuacao'],
-      referencedTableName: 'status_da_pontuacao',
-      referencedColumnNames: ['id'],
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    }));
-    
-    await queryRunner.createForeignKey("pontuacao", new TableForeignKey({
-      name: 'FK_pontuacao_tipo_de_acc',
-      columnNames: ['id_tipo_de_acc'],
-      referencedTableName: 'tipo_de_acc',
-      referencedColumnNames: ['id'],
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
     }));
   }
 

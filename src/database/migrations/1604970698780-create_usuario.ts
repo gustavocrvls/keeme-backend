@@ -41,23 +41,25 @@ export class createUsuario1604970698780 implements MigrationInterface {
           type: 'integer',
           unsigned: true,
         },
+      ],
+      foreignKeys: [
+        {
+          name: 'FK_usuario__perfil',
+          columnNames: ['id_perfil'],
+          referencedTableName: 'perfil',
+          referencedColumnNames: ['id'],
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        },
+        {
+          name: 'FK_usuario__curso',
+          columnNames: ['id_curso'],
+          referencedTableName: 'curso',
+          referencedColumnNames: ['id'],
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        },
       ]
-    }));
-
-    await queryRunner.createForeignKey("usuario", new TableForeignKey({
-      columnNames: ['id_curso'],
-      referencedTableName: 'curso',
-      referencedColumnNames: ['id'],
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
-    }));
-
-    await queryRunner.createForeignKey("usuario", new TableForeignKey({
-      columnNames: ['id_perfil'],
-      referencedTableName: 'perfil',
-      referencedColumnNames: ['id'],
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
     }));
   }
 

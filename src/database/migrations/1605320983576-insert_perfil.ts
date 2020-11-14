@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class insertPerfil1605044948246 implements MigrationInterface {
+export class insertPerfil1605320983576 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
@@ -13,13 +13,13 @@ export class insertPerfil1605044948246 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      DELETE FROM perfil WHERE name = 'administrador';
+      DELETE FROM perfil WHERE id = 1;
     `);
     await queryRunner.query(`
-      DELETE FROM perfil WHERE name = 'coordenador';
+      DELETE FROM perfil WHERE id = 2;
     `);
     await queryRunner.query(`
-      DELETE FROM perfil WHERE name = 'discente';
+      DELETE FROM perfil WHERE id = 3;
     `);
   }
 

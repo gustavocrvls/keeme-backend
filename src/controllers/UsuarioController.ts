@@ -8,27 +8,26 @@ export default {
   async index(req: Request, res: Response) {
     const usuarioRepository = getRepository(Usuario);
 
-    const orphanages = await usuarioRepository.find({
+    const usuarios = await usuarioRepository.find({
       relations: ['perfil', 'curso']
     });
 
-    return res.json(usuarioView.renderMany(orphanages));
+    return res.json(usuarioView.renderMany(usuarios));
   },
 
   async show(req: Request, res: Response) {
     const { id } = req.params;
 
-    const orphanagesRepository = getRepository(Orphanage);
+    const usuarioRepository = getRepository(Usuario);
 
-    const orphanage = await orphanagesRepository.findOneOrFail(id, {
-      relations: ['images']
+    const usuario = await usuarioRepository.findOneOrFail(id, {
+      relations: ['perfil', 'curso']
     });
 
-    return res.json(orphanageView.render(orphanage));
+    return res.json(usuarioView.render(usuario));
   },
 
   async create(req: Request, res: Response) {
-    console.log(req.body);
     const {
       nome,
       sexo,
@@ -49,27 +48,18 @@ export default {
       perfil,
     };
 
-    console.log(data);
-    
+    const schema = Yup.object().shape({
+      nome: Yup.string().required(),
+      sexo: Yup.string().required(),
+      username: Yup.string().required(),
+      senha: Yup.string().required().max(300),
+      curso: Yup.number().required(),
+      perfil: Yup.number().required(),
+    })
 
-    // const schema = Yup.object().shape({
-    //   name: Yup.string().required(),
-    //   latitude: Yup.number().required(),
-    //   longitude: Yup.number().required(),
-    //   about: Yup.string().required().max(300),
-    //   instructions: Yup.string().required(),
-    //   opening_hours: Yup.string().required(),
-    //   open_on_weekends: Yup.boolean().required(),
-    //   images: Yup.array(
-    //     Yup.object().shape({
-    //       path: Yup.string().required()
-    //     })
-    //   ), 
-    // })
-
-    // await schema.validate(data, {
-    //   abortEarly: false,
-    // })
+    await schema.validate(data, {
+      abortEarly: false,
+    })
 
     const usuario = usuarioRepository.create(data);
   

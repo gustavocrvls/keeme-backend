@@ -15,7 +15,7 @@ export class createTipoDeAcc1605140065523 implements MigrationInterface {
           generationStrategy: 'increment'
         },
         {
-          name: 'name',
+          name: 'nome',
           type: 'varchar',
         },
         {

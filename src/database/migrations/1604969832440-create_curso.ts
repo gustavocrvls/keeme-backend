@@ -15,7 +15,7 @@ export class createCurso1604969832440 implements MigrationInterface {
           generationStrategy: 'increment'
         },
         {
-          name: 'name',
+          name: 'nome',
           type: 'varchar',
         }
       ]

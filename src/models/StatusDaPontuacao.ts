@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 't
 import Pontuacao from './Pontuacao';
 
 @Entity('status_da_pontuacao')
-export default class Curso {
+export default class StatusDaPontuacao {
   @PrimaryGeneratedColumn('increment')
   id: number;
   

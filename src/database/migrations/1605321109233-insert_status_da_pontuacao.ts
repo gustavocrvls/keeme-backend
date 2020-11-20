@@ -4,7 +4,7 @@ export class insertStatusDaPontuacao1605321109233 implements MigrationInterface 
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO status_da_pontuacao (id, name) VALUES
+      INSERT INTO status_da_pontuacao (id, nome) VALUES
       (1, 'Em Análise'),
       (2, 'Aprovada'),
       (3, 'Negada');

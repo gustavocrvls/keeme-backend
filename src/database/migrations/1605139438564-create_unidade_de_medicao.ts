@@ -15,7 +15,7 @@ export class createUnidadeDeMedicao1605139438564 implements MigrationInterface {
 					generationStrategy: 'increment'
 				},
 				{
-					name: 'name',
+					name: 'nome',
 					type: 'varchar',
 				}
 			]

@@ -15,7 +15,7 @@ export class createStatusDaPontuacao1605141562529 implements MigrationInterface 
           generationStrategy: 'increment'
         },
         {
-          name: 'name',
+          name: 'nome',
           type: 'varchar',
         }
       ]

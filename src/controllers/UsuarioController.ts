@@ -80,7 +80,7 @@ export default {
       nome: Yup.string().required(),
       sexo: Yup.string().required(),
       username: Yup.string().required(),
-      senha: Yup.string().required().max(300),
+      senha: Yup.string().required(),
       curso: Yup.number().required(),
       perfil: Yup.number().required(),
     })

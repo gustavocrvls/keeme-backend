@@ -15,7 +15,7 @@ export class createPerfil1604968787391 implements MigrationInterface {
           generationStrategy: 'increment'
         },
         {
-          name: 'name',
+          name: 'nome',
           type: 'varchar',
         }
       ]

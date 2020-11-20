@@ -4,7 +4,7 @@ import StatusDaPontuacao from './StatusDaPontuacao';
 import Usuario from './Usuario';
 
 @Entity('tipo_de_acc')
-export default class Curso {
+export default class Pontuacao {
   @PrimaryGeneratedColumn('increment')
   id: number;
   

@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 export class insertUnidadeDeMedida1605321248292 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO unidade_de_medida (id, name) VALUES
+      INSERT INTO unidade_de_medida (id, nome) VALUES
       (1, 'Hora'),
       (2, 'Evento'),
       (3, 'Semestre');

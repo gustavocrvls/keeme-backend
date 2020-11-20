@@ -3,7 +3,7 @@ import UnidadeDeMedida from './UnidadeDeMedida';
 import Pontuacao from './Pontuacao';
 
 @Entity('tipo_de_acc')
-export default class Curso {
+export default class TipoDeAcc {
   @PrimaryGeneratedColumn('increment')
   id: number;
   

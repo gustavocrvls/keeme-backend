@@ -4,7 +4,7 @@ import Perfil from './Perfil';
 import Pontuacao from './Pontuacao';
 
 @Entity('usuario')
-export default class User {
+export default class Usuario {
   @PrimaryGeneratedColumn('increment')
   id: number;
 

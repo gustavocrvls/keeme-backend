@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 't
 import TipoDeAcc from './TipoDeAcc';
 
 @Entity('unidade_de_medida')
-export default class Curso {
+export default class UnidadeDeMedida {
   @PrimaryGeneratedColumn('increment')
   id: number;
   

@@ -29,6 +29,7 @@ export class createTipoDeAcc1605140065523 implements MigrationInterface {
         {
           name: 'sobre',
           type: 'varchar',
+          isNullable: true,
         },
         {
           name: 'id_unidade_de_medida',

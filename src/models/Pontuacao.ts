@@ -3,7 +3,7 @@ import TipoDeAcc from './TipoDeAcc';
 import StatusDaPontuacao from './StatusDaPontuacao';
 import Usuario from './Usuario';
 
-@Entity('tipo_de_acc')
+@Entity('pontuacao')
 export default class Pontuacao {
   @PrimaryGeneratedColumn('increment')
   id: number;

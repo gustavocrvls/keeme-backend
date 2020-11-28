@@ -49,7 +49,6 @@ export default {
    * 
    * corpo da request: 
    *  nome: string,
-   *  sexo: string,
    *  username: string,
    *  senha: string,
    *  perfil: number,

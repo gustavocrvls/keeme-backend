@@ -1,15 +1,14 @@
-/**
- * @author Gustavo Carvalho Silva
- * @since 19/11/2020
- * 
- */
-
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import TipoDeAcc from '../models/TipoDeAcc';
 import tipoDeAccView from '../views/tipo_de_acc_view';
 import * as Yup from 'yup';
 
+/**
+ * @author Gustavo Carvalho Silva
+ * @since 19/11/2020
+ * 
+ */
 export default {
 
   /**
@@ -78,5 +77,16 @@ export default {
     await tipoDeAccRepository.save(tipoDeAcc);
 
     return res.status(201).json(tipoDeAcc);
+  },
+
+  async remove(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const tipoDeAccRepository = getRepository(TipoDeAcc);
+
+    let tipoDeACCToRemove = await tipoDeAccRepository.findOne(id) || new TipoDeAcc;
+    await tipoDeAccRepository.remove(tipoDeACCToRemove);
+
+    res.sendStatus(200);
   }
 }

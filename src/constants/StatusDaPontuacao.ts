@@ -1,0 +1,7 @@
+const STATUS_DA_PONTUACAO = {
+  EM_ANALISE: 1,
+  APROVADA: 2,
+  NEGADA: 3,
+}
+
+export default STATUS_DA_PONTUACAO;

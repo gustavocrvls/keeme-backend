@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
 import UnidadeDeMedida from './UnidadeDeMedida';
-import Pontuacao from './Pontuacao';
+import Acc from './Acc';
 
 @Entity('tipo_de_acc')
 export default class TipoDeAcc {
@@ -23,7 +23,7 @@ export default class TipoDeAcc {
   @JoinColumn({ name: 'id_unidade_de_medida' })
   unidade_de_medida: UnidadeDeMedida;
 
-  @OneToMany(() => Pontuacao, pontuacao => pontuacao.status_da_pontuacao)
-  @JoinColumn({ name: 'id_status_da_pontuacao' })
-  pontuacao: Pontuacao[];
+  @OneToMany(() => Acc, acc => acc.tipo_de_acc)
+  @JoinColumn({ name: 'id_tipo_de_acc' })
+  accs: Acc[];
 }

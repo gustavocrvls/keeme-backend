@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
-export class createPontuacao1605141662310 implements MigrationInterface {
+export class createAcc1605141662310 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
-      name: 'pontuacao',
+      name: 'acc',
       columns: [
         {
           name: 'id',
@@ -13,10 +13,6 @@ export class createPontuacao1605141662310 implements MigrationInterface {
           isPrimary: true,
           isGenerated: true,
           generationStrategy: 'increment'
-        },
-        {
-          name: 'ativa',
-          type: 'boolean',
         },
         {
           name: 'quantidade',
@@ -32,7 +28,7 @@ export class createPontuacao1605141662310 implements MigrationInterface {
           unsigned: true,
         },
         {
-          name: 'id_status_da_pontuacao',
+          name: 'id_status_da_acc',
           type: 'integer',
           unsigned: true,
           default: 1,
@@ -46,11 +42,12 @@ export class createPontuacao1605141662310 implements MigrationInterface {
           name: 'id_certificado',
           type: 'integer',
           unsigned: true,
+          isNullable: true,
         },
       ],
       foreignKeys: [
         {
-          name: 'FK_pontuacao__usuario',
+          name: 'FK_acc__usuario',
           columnNames: ['id_usuario'],
           referencedTableName: 'usuario',
           referencedColumnNames: ['id'],
@@ -58,15 +55,15 @@ export class createPontuacao1605141662310 implements MigrationInterface {
           onDelete: 'CASCADE',
         },
         {
-          name: 'FK_pontuacao__status_da_pontuacao',
-          columnNames: ['id_status_da_pontuacao'],
-          referencedTableName: 'status_da_pontuacao',
+          name: 'FK_acc__status_da_acc',
+          columnNames: ['id_status_da_acc'],
+          referencedTableName: 'status_da_acc',
           referencedColumnNames: ['id'],
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
         },
         {
-          name: 'FK_pontuacao__tipo_de_acc',
+          name: 'FK_acc__tipo_de_acc',
           columnNames: ['id_tipo_de_acc'],
           referencedTableName: 'tipo_de_acc',
           referencedColumnNames: ['id'],
@@ -78,7 +75,7 @@ export class createPontuacao1605141662310 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('pontuacao');
+    await queryRunner.dropTable('acc');
   }
 
 }

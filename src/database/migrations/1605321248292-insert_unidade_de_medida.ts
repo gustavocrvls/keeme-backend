@@ -6,7 +6,11 @@ export class insertUnidadeDeMedida1605321248292 implements MigrationInterface {
       INSERT INTO unidade_de_medida (id, nome) VALUES
       (1, 'Hora'),
       (2, 'Evento'),
-      (3, 'Semestre');
+      (3, 'Semestre'),
+      (4, 'Visita'),
+      (5, 'Palestra'),
+      (6, 'Trabalho'),
+      (7, 'Certificado');
     `);
   }
 

@@ -20,7 +20,7 @@ export class createTipoDeAcc1605140065523 implements MigrationInterface {
         },
         {
           name: 'pontos_por_unidade',
-          type: 'decimal'
+          type: 'float'
         },
         {
           name: 'limite_de_pontos',

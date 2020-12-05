@@ -19,11 +19,6 @@ export class createUsuario1604970698780 implements MigrationInterface {
           type: 'varchar',
         },
         {
-          name: 'sexo',
-          type: 'enum',
-          enum: ['M', 'F'],
-        },
-        {
           name: 'username',
           type: 'varchar',
         },

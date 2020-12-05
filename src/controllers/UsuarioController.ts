@@ -1,15 +1,15 @@
-/**
- * @author Gustavo Carvalho Silva
- * @since 14/11/2020
- * 
- */
-
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Usuario from '../models/Usuario';
 import usuarioView from '../views/usuario_view';
 import * as Yup from 'yup';
+import crypto from 'crypto';
+import { generateToken } from '../config/authentication';
 
+/**
+ * @author Gustavo Carvalho Silva
+ * @since 14/11/2020
+ */
 export default {
 
   // essa função serve apenas para testes e deverá ser removida
@@ -57,7 +57,6 @@ export default {
   async create(req: Request, res: Response) {
     const {
       nome,
-      sexo,
       username,
       senha,
       perfil,
@@ -68,7 +67,6 @@ export default {
 
     const data = {
       nome,
-      sexo,
       username,
       senha,
       curso,
@@ -77,7 +75,6 @@ export default {
 
     const schema = Yup.object().shape({
       nome: Yup.string().required(),
-      sexo: Yup.string().required(),
       username: Yup.string().required(),
       senha: Yup.string().required(),
       curso: Yup.number().required(),
@@ -88,10 +85,35 @@ export default {
       abortEarly: false,
     })
 
+    data.senha = crypto.createHash('md5').update(data.senha).digest("hex");
+
     const usuario = usuarioRepository.create(data);
 
     await usuarioRepository.save(usuario);
 
     return res.status(201).json(usuario);
+  },
+
+  async login(req: Request, res: Response) {
+    const {
+      username,
+      senha
+    } = req.body;
+
+    const usuarioRepository = getRepository(Usuario);
+
+    const usuario = await usuarioRepository
+      .createQueryBuilder("usuario")
+      .where("username = :username AND senha = MD5(:senha)", {username, senha})
+      .getOne();
+
+    if (usuario) {
+      let token = generateToken(username);
+      res.json({ auth: true, token });
+    }
+    else {
+      res.json({ auth: false }).sendStatus(401)
+    }
+    
   }
 }

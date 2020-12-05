@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class insertStatusDaPontuacao1605321109233 implements MigrationInterface {
+export class insertStatusDaAcc1605321109233 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO status_da_pontuacao (id, nome) VALUES
+      INSERT INTO status_da_acc (id, nome) VALUES
       (1, 'Em Análise'),
       (2, 'Aprovada'),
       (3, 'Negada');
@@ -13,13 +13,13 @@ export class insertStatusDaPontuacao1605321109233 implements MigrationInterface 
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      DELETE FROM status_da_pontuacao WHERE id = 1;
+      DELETE FROM status_da_acc WHERE id = 1;
     `);
     await queryRunner.query(`
-      DELETE FROM status_da_pontuacao WHERE id = 2;
+      DELETE FROM status_da_acc WHERE id = 2;
     `);
     await queryRunner.query(`
-      DELETE FROM status_da_pontuacao WHERE id = 3;
+      DELETE FROM status_da_acc WHERE id = 3;
     `);
   }
 

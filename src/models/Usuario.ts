@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import Curso from './Curso';
 import Perfil from './Perfil';
-import Pontuacao from './Pontuacao';
+import Acc from './Acc';
 
 @Entity('usuario')
 export default class Usuario {
@@ -10,9 +10,6 @@ export default class Usuario {
 
   @Column()
   nome: string;
-
-  @Column()
-  sexo: number;
 
   @Column()
   username: string;
@@ -28,7 +25,7 @@ export default class Usuario {
   @JoinColumn({ name: 'id_perfil' })
   perfil: Perfil;
 
-  @OneToMany(() => Pontuacao, pontuacao => pontuacao.usuario)
+  @OneToMany(() => Acc, acc => acc.usuario)
   @JoinColumn({ name: 'id_usuario'})
-  pontuacoes: Pontuacao[];
+  accs: Acc[];
 }

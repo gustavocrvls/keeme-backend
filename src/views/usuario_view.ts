@@ -1,7 +1,6 @@
 import Usuario from "../models/Usuario";
 import perfilView from "../views/perfil_view";
 import cursoView from "../views/curso_view";
-// import pontuacaoView from 
 
 export default {
   render(usuario: Usuario) {

@@ -79,6 +79,71 @@ export default {
     return res.status(201).json(tipoDeAcc);
   },
 
+  async massCreate(req: Request, res: Response) {
+    const {
+      tiposDeAcc
+    } = req.body;
+    
+    const tipoDeAccRepository = getRepository(TipoDeAcc);
+    
+    tiposDeAcc.map( async (tipoDeAcc : TipoDeAcc) => {
+      console.log(tipoDeAcc);
+      
+      const data = {
+        nome: tipoDeAcc.nome,
+        pontos_por_unidade: tipoDeAcc.pontos_por_unidade,
+        limite_de_pontos: tipoDeAcc.limite_de_pontos,
+        sobre: tipoDeAcc.sobre,
+        unidade_de_medida: tipoDeAcc.unidade_de_medida,
+      };
+
+      const schema = Yup.object().shape({
+        nome: Yup.string().required(),
+        pontos_por_unidade: Yup.number().required(),
+        limite_de_pontos: Yup.number().required(),
+        sobre: Yup.string().optional().max(300),
+        unidade_de_medida: Yup.number().required(),
+      })
+      
+      await schema.validate(data, {
+        abortEarly: false,
+      })
+
+      const newTipoDeAcc = tipoDeAccRepository.create(data);
+  
+      await tipoDeAccRepository.save(newTipoDeAcc);
+    })
+
+    return res.status(201).json(tiposDeAcc);
+  },
+
+  async getTiposDeAccByIdUsuario(req: Request, res: Response) {
+    const {
+      id
+    } = req.params;
+
+    const tipoDeAccRepository = getRepository(TipoDeAcc);
+
+    const tiposDeAcc = await tipoDeAccRepository
+      .createQueryBuilder("tipo_de_acc")
+      .leftJoinAndSelect("tipo_de_acc.unidade_de_medida","unidade_de_medida")
+      .leftJoinAndSelect("tipo_de_acc.accs","acc")
+      .leftJoinAndSelect("acc.usuario","usuario")
+      .leftJoinAndSelect("acc.status_da_acc","status_da_acc")
+      .where("usuario.id = :id_usuario", {id_usuario: id})
+      .getMany();
+    
+    tiposDeAcc.map((tipoDeAcc, index) => {
+      let acumulador = 0;
+      tipoDeAcc.accs.map(acc => {
+        acumulador += acc.quantidade * tipoDeAcc.pontos_por_unidade;
+      })
+      tiposDeAcc[index].pontuacao = acumulador;
+    })
+
+    res.json(tiposDeAcc);
+  },
+
   async remove(req: Request, res: Response) {
     const { id } = req.params;
 

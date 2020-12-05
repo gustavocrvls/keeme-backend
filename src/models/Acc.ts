@@ -1,15 +1,12 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
 import TipoDeAcc from './TipoDeAcc';
-import StatusDaPontuacao from './StatusDaPontuacao';
+import StatusDaAcc from './StatusDaAcc';
 import Usuario from './Usuario';
 
-@Entity('pontuacao')
-export default class Pontuacao {
+@Entity('acc')
+export default class Acc {
   @PrimaryGeneratedColumn('increment')
   id: number;
-  
-  @Column()
-  ativa: boolean;
 
   @Column()
   quantidade: number;
@@ -21,9 +18,9 @@ export default class Pontuacao {
   @JoinColumn({ name: 'id_usuario' })
   usuario: Usuario;
 
-  @ManyToOne(() => StatusDaPontuacao, statusDaPontuacao => statusDaPontuacao.id)
-  @JoinColumn({ name: 'id_status_da_pontuacao' })
-  status_da_pontuacao: StatusDaPontuacao;
+  @ManyToOne(() => StatusDaAcc, statusDaAcc => statusDaAcc.id)
+  @JoinColumn({ name: 'id_status_da_acc' })
+  status_da_acc: StatusDaAcc;
 
   @ManyToOne(() => TipoDeAcc, tipoDeAcc => tipoDeAcc.id)
   @JoinColumn({ name: 'id_tipo_de_acc' })

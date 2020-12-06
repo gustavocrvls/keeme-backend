@@ -7,3 +7,6 @@ yarn-error.log
 .env.production
 .env.development
 .env.local
+
+
+uploads

@@ -3,8 +3,11 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Acc from '../models/Acc';
 import accView from '../views/acc_view';
+import fs from 'fs';
 import * as Yup from 'yup';
 import STATUS_DA_ACC from '../constants/StatusDaAcc';
+import Certificado from '../models/Certificado';
+import { SUPORTED_TYPES } from '../constants/Certificado';
 
 /**
  * @author Gustavo Carvalho Silva
@@ -191,19 +194,25 @@ export default {
       sobre,
       idUsuario,
       tipoDeAcc,
-      ativa,
-      status_da_acc,
     } = req.body;
+    
+    const requestCertificado = req.files as Express.Multer.File[]
+    let certificadoReq = requestCertificado[0];
 
-    const accRepository = getRepository(Acc);
+    const certificadoData = {
+      nome: certificadoReq.filename,
+      tamanho: certificadoReq.size,
+      tipo: certificadoReq.mimetype,
+      arquivo: fs.readFileSync(certificadoReq.path),
+    }
 
-    const data = {
+    const accData = {
       quantidade,
       sobre,
       usuario: idUsuario,
       tipo_de_acc: tipoDeAcc,
     };
-
+    
     const schema = Yup.object().shape({
       quantidade: Yup.number().required(),
       sobre: Yup.string().optional().max(300),
@@ -211,15 +220,39 @@ export default {
       tipo_de_acc: Yup.number().required(),
     })
 
-    await schema.validate(data, {
+    const certificadoSchema = Yup.object().shape({
+      nome: Yup.string().required('Certificado required'),
+      tipo: Yup.string().test({
+        message: '${path} ${value} not supported',
+        test: function (v) {
+          return SUPORTED_TYPES.includes(v)
+        }
+      }),
+    })
+
+    const accRepository = getRepository(Acc);
+    const certificadoRepository = getRepository(Certificado);
+
+    await schema.validate(accData, {
       abortEarly: false,
     })
 
-    const acc = accRepository.create(data);
+    await certificadoSchema.validate(certificadoData, {
+      abortEarly: false,
+    })
+
+    const acc = accRepository.create(accData);
+    const certificado = certificadoRepository.create(certificadoData);   
 
     await accRepository.save(acc);
+    await certificadoRepository.save(certificado);
 
-    return res.status(201).json(acc);
+    await accRepository.update(acc.id, { id_certificado : certificado.id})
+    await certificadoRepository.update(certificado.id, { id_acc : acc.id})
+
+    fs.unlinkSync(certificadoReq.path);
+
+    return res.status(201).json({acc, certificado: certificado.id });
   },
 
   async remover(req: Request, res: Response) {

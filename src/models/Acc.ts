@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import TipoDeAcc from './TipoDeAcc';
 import StatusDaAcc from './StatusDaAcc';
 import Usuario from './Usuario';
+import Certificado from './Certificado';
 
 @Entity('acc')
 export default class Acc {
@@ -14,6 +15,9 @@ export default class Acc {
   @Column()
   sobre: number;
 
+  @Column()
+  id_certificado: number;
+
   @ManyToOne(() => Usuario, usuario => usuario.id)
   @JoinColumn({ name: 'id_usuario' })
   usuario: Usuario;
@@ -25,4 +29,10 @@ export default class Acc {
   @ManyToOne(() => TipoDeAcc, tipoDeAcc => tipoDeAcc.id)
   @JoinColumn({ name: 'id_tipo_de_acc' })
   tipo_de_acc: TipoDeAcc;
+  
+  @OneToOne(() => Certificado, certificado => certificado.id, {
+    cascade: ['insert', 'update']
+  })
+  @JoinColumn({ name: 'id_certificado' })
+  certificado: Certificado;
 }

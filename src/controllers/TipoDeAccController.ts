@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 import TipoDeAcc from '../models/TipoDeAcc';
 import tipoDeAccView from '../views/tipo_de_acc_view';
 import * as Yup from 'yup';
+import StatusDaAccConsts from '../constants/StatusDaAcc';
 
 /**
  * @author Gustavo Carvalho Silva
@@ -128,15 +129,22 @@ export default {
       .createQueryBuilder("tipo_de_acc")
       .leftJoinAndSelect("tipo_de_acc.unidade_de_medida","unidade_de_medida")
       .leftJoinAndSelect("tipo_de_acc.accs","acc")
-      .leftJoinAndSelect("acc.usuario","usuario")
+      .leftJoinAndSelect("acc.usuario","usuario", "usuario.id = :id_usuario", {id_usuario: id})
       .leftJoinAndSelect("acc.status_da_acc","status_da_acc")
-      .where("usuario.id = :id_usuario", {id_usuario: id})
+      .select([
+        'tipo_de_acc',
+        'status_da_acc',
+        'unidade_de_medida',
+        'acc',
+        'usuario'
+      ])
       .getMany();
     
     tiposDeAcc.map((tipoDeAcc, index) => {
       let acumulador = 0;
       tipoDeAcc.accs.map(acc => {
-        acumulador += acc.quantidade * tipoDeAcc.pontos_por_unidade;
+        if (acc.status_da_acc.id == StatusDaAccConsts.APROVADA)
+          acumulador += acc.quantidade * tipoDeAcc.pontos_por_unidade;
       })
       tiposDeAcc[index].pontuacao = acumulador;
     })

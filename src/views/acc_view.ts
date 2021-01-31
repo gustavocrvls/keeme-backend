@@ -18,6 +18,7 @@ export default {
       pontos: acc.quantidade * acc.tipo_de_acc.pontos_por_unidade,
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
       tipo_de_acc: tipoDeAccView.renderMinimal(acc.tipo_de_acc),
+      id_certificado: acc.certificado.id,
     };
   },
 

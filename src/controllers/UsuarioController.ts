@@ -109,7 +109,7 @@ export default {
 
     if (usuario) {
       let token = generateToken(username);
-      res.json({ auth: true, token });
+      res.json({ auth: true, token, usuario: {id: usuario.id, nome: usuario.nome, perfil: usuario.perfil} });
     }
     else {
       res.json({ auth: false }).sendStatus(401)

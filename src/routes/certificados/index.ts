@@ -6,7 +6,7 @@ import multer from 'multer';
 
 const routes = Router();
 
-routes.get('/:id', verifyToken, CertificadoController.download);
+routes.get('/:id', CertificadoController.download);
 
 export default routes;
 

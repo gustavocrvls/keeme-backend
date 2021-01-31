@@ -32,8 +32,11 @@ export default {
     const accRepository = getRepository(Acc);
 
     const accs = await accRepository.findOneOrFail(id, {
-      relations: ['status_da_acc', 'tipo_de_acc', 'tipo_de_acc.unidade_de_medida', 'usuario', 'usuario.perfil', 'usuario.curso'],
+      relations: ['status_da_acc', 'tipo_de_acc', 'tipo_de_acc.unidade_de_medida', 'usuario', 'usuario.perfil', 'usuario.curso', 'certificado'],
     });
+
+    console.log(accs);
+    
 
     return res.json(accView.render(accs));
   },
@@ -180,9 +183,17 @@ export default {
       .leftJoinAndSelect("acc.tipo_de_acc", "tipo_de_acc")
       .leftJoinAndSelect("tipo_de_acc.unidade_de_medida", "unidade_de_medida")
       .leftJoinAndSelect("acc.usuario", "usuario")
+      .leftJoinAndSelect("acc.certificado", "certificado")
       .leftJoinAndSelect("usuario.perfil", "perfil")
       .leftJoinAndSelect("usuario.curso", "curso")
       .where("usuario.id = :id", { id: id })
+      .select([
+        'acc',
+        'status_da_acc',
+        'tipo_de_acc',
+        'unidade_de_medida',
+        'certificado.id',
+      ])
       .getMany();
 
     return res.json({ resumo: { pontosEmAnalise, pontosAprovados, pontosNegados }, accs: accView.renderMany(accs) });

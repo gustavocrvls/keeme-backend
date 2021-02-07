@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import { getRepository, Like } from 'typeorm';
 import Usuario from '../models/Usuario';
 import usuarioView from '../views/usuario_view';
 import * as Yup from 'yup';
@@ -14,11 +14,26 @@ export default {
 
   // essa função serve apenas para testes e deverá ser removida
   async index(req: Request, res: Response) {
+    const { nome, curso } = req.query;
     const usuarioRepository = getRepository(Usuario);
 
-    const usuarios = await usuarioRepository.find({
-      relations: ['perfil', 'curso']
-    });
+    let queryUsuarios = usuarioRepository.
+    createQueryBuilder('usuario')
+    .leftJoinAndSelect('usuario.perfil', 'perfil')
+    .leftJoinAndSelect('usuario.curso', 'curso')
+    
+    console.log(nome);
+    
+
+    if (nome) {
+      queryUsuarios = queryUsuarios.where({nome: Like(`%${nome}%`)})
+    }
+    
+    if (curso) {
+      queryUsuarios = queryUsuarios.andWhere('curso.id = :curso', {curso})
+    }
+
+    const usuarios = await queryUsuarios.getMany();
 
     return res.json(usuarioView.renderMany(usuarios));
   },

@@ -21,14 +21,11 @@ export default {
     createQueryBuilder('usuario')
     .leftJoinAndSelect('usuario.perfil', 'perfil')
     .leftJoinAndSelect('usuario.curso', 'curso')
-    
-    console.log(nome);
-    
 
     if (nome) {
       queryUsuarios = queryUsuarios.where({nome: Like(`%${nome}%`)})
     }
-    
+
     if (curso) {
       queryUsuarios = queryUsuarios.andWhere('curso.id = :curso', {curso})
     }
@@ -41,7 +38,7 @@ export default {
   /**
    * @author Gustavo Carvalho Silva
    * @since 18/11/2020
-   * 
+   *
    * @description Recebe um id como parametro da rota em que for chamado e como resposta retorna o usuário com esse id conforme a view_usuario
    */
   async show(req: Request, res: Response) {
@@ -59,10 +56,10 @@ export default {
   /**
    * @author Gustavo Carvalho Silva
    * @since 14/11/2020
-   * 
+   *
    * @description cria um novo usuário com os parametros recebidos no corpo de uma requisição
-   * 
-   * corpo da request: 
+   *
+   * corpo da request:
    *  nome: string,
    *  username: string,
    *  senha: string,
@@ -119,16 +116,17 @@ export default {
 
     const usuario = await usuarioRepository
       .createQueryBuilder("usuario")
+      .leftJoinAndSelect("usuario.perfil", "perfil")
       .where("username = :username AND senha = MD5(:senha)", {username, senha})
       .getOne();
 
     if (usuario) {
-      let token = generateToken(username);
+      let token = generateToken(usuario.id, usuario.perfil.id);
       res.json({ auth: true, token, usuario: {id: usuario.id, nome: usuario.nome, perfil: usuario.perfil} });
     }
     else {
       res.json({ auth: false }).sendStatus(401)
     }
-    
+
   }
 }

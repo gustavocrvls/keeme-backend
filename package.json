@@ -4,7 +4,8 @@
   "description": "API Rest do Gestor de ACCs para o TCC do curso de sistemas",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.ts",
+    "start": "node dist/server.ts",
+    "build": "tsc",
     "dev": "NODE_ENV=development ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },

@@ -1,11 +1,6 @@
 {
   "type": "mysql",
-  "host": "localhost",
-  "port": 3306,
-  "username": "tcc",
-  "password": "tcc",
-  "database": "tcc",
-  "logging": true,
+  "logging": false,
 
   "migrations": [
     "./src/database/migrations/*.ts"

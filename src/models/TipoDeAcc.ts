@@ -6,7 +6,7 @@ import Acc from './Acc';
 export default class TipoDeAcc {
   @PrimaryGeneratedColumn('increment')
   id: number;
-  
+
   @Column()
   nome: string;
 
@@ -18,6 +18,8 @@ export default class TipoDeAcc {
 
   @Column()
   sobre: string;
+
+  pontuacao: number;
 
   @ManyToOne(() => UnidadeDeMedida, unidadeDeMedida => unidadeDeMedida.id)
   @JoinColumn({ name: 'id_unidade_de_medida' })

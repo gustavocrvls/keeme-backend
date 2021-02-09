@@ -7,7 +7,6 @@ export default {
     return {
       id: usuario.id,
       nome: usuario.nome,
-      sexo: usuario.sexo,
       username: usuario.username,
       perfil: perfilView.render(usuario.perfil),
       curso: cursoView.render(usuario.curso),

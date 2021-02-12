@@ -12,7 +12,7 @@ import { generateToken } from '../config/authentication';
  */
 export default {
   // essa função serve apenas para testes e deverá ser removida
-  async index(req: Request, res: Response) {
+  async index(req: Request, res: Response): Promise<any> {
     const { nome, curso } = req.query;
     const usuarioRepository = getRepository(Usuario);
 
@@ -40,7 +40,7 @@ export default {
    *
    * @description Recebe um id como parametro da rota em que for chamado e como resposta retorna o usuário com esse id conforme a view_usuario
    */
-  async show(req: Request, res: Response) {
+  async show(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
     const usuarioRepository = getRepository(Usuario);
@@ -65,7 +65,7 @@ export default {
    *  perfil: number,
    *  curso: number
    */
-  async create(req: Request, res: Response) {
+  async create(req: Request, res: Response): Promise<any> {
     const { nome, username, senha, perfil, curso } = req.body;
 
     const usuarioRepository = getRepository(Usuario);
@@ -99,7 +99,7 @@ export default {
     return res.status(201).json(usuario);
   },
 
-  async login(req: Request, res: Response) {
+  async login(req: Request, res: Response): Promise<any> {
     const { username, senha } = req.body;
 
     const usuarioRepository = getRepository(Usuario);

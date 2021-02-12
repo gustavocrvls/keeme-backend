@@ -9,6 +9,7 @@ import accView from '../views/acc_view';
 import STATUS_DA_ACC from '../constants/StatusDaAcc';
 import Certificado from '../models/Certificado';
 import { SUPORTED_TYPES } from '../constants/Certificado';
+import IPontuacaoPorTipo from '../ts/interfaces/pontuacao_por_tipo';
 
 /**
  * @author Gustavo Carvalho Silva
@@ -93,13 +94,7 @@ export default {
   async summary(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    interface PontuacaoPorTipo {
-      tipo: number;
-      limite: number;
-      pontos: number;
-    }
-
-    const contarPontos = (accs: PontuacaoPorTipo[]) => {
+    const contarPontos = (accs: IPontuacaoPorTipo[]) => {
       let acumulador = 0;
       accs.map(acc => {
         acumulador += acc.pontos > acc.limite ? acc.limite : acc.pontos;
@@ -161,13 +156,7 @@ export default {
     const { id } = req.params;
     const accRepository = getRepository(Acc);
 
-    interface PontuacaoPorTipo {
-      tipo: number;
-      limite: number;
-      pontos: number;
-    }
-
-    const contarPontos = (accs: PontuacaoPorTipo[]) => {
+    const contarPontos = (accs: IPontuacaoPorTipo[]) => {
       let acumulador = 0;
       accs.map(acc => {
         acumulador += acc.pontos > acc.limite ? acc.limite : acc.pontos;

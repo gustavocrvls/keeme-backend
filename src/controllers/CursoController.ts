@@ -1,10 +1,7 @@
-
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import Curso from '../models/Curso';
-import accView from '../views/acc_view';
 import * as Yup from 'yup';
-import STATUS_DA_ACC from '../constants/StatusDaAcc';
+import Curso from '../models/Curso';
 
 /**
  * @author Gustavo Carvalho Silva
@@ -12,31 +9,27 @@ import STATUS_DA_ACC from '../constants/StatusDaAcc';
  * @description Controller responsável pelas manipulações de Curso
  */
 export default {
-  
-  async create(req: Request, res: Response) {
-    const {
-      nome,
-    } = req.body;
+  async create(req: Request, res: Response): Promise<any> {
+    const { nome } = req.body;
 
     const cursoRepository = getRepository(Curso);
-    
+
     const data = {
-      nome
-    }
+      nome,
+    };
 
     const schema = Yup.object().shape({
       nome: Yup.string().optional(),
-    })
+    });
 
     await schema.validate(data, {
       abortEarly: false,
-    })
+    });
 
     const curso = cursoRepository.create(data);
 
     await cursoRepository.save(curso);
 
     return res.status(201).json(curso);
-
-  }
-}
+  },
+};

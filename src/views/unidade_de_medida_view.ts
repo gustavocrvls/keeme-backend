@@ -1,14 +1,16 @@
-import UnidadeDeMedida from "../models/UnidadeDeMedida";
+import UnidadeDeMedida from '../models/UnidadeDeMedida';
 
 export default {
-  render(unidadeDeMedida: UnidadeDeMedida) {
+  render(unidadeDeMedida: UnidadeDeMedida): any {
     return {
       id: unidadeDeMedida.id,
       nome: unidadeDeMedida.nome,
     };
   },
 
-  renderMany(unidadeDeMedida: UnidadeDeMedida[]) {
-    return unidadeDeMedida.map(unidadeDeMedida => this.render(unidadeDeMedida))
-  }
-}
+  renderMany(unidadeDeMedidas: UnidadeDeMedida[]): any {
+    return unidadeDeMedidas.map(unidadeDeMedida =>
+      this.render(unidadeDeMedida),
+    );
+  },
+};

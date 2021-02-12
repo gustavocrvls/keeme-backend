@@ -1,16 +1,10 @@
-import Acc from "../models/Acc";
-import statusDaAccView from "./status_da_acc_view";
-import usuarioView from "./usuario_view";
-import tipoDeAccView from "./tipo_de_acc_view";
-
-interface Counter {
-  pontosEmAnalise : number,
-  pontosAprovados: number,
-  pontosNegados: number
-}
+import Acc from '../models/Acc';
+import statusDaAccView from './status_da_acc_view';
+import usuarioView from './usuario_view';
+import tipoDeAccView from './tipo_de_acc_view';
 
 export default {
-  render(acc: Acc) {
+  render(acc: Acc): any {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
@@ -22,7 +16,7 @@ export default {
     };
   },
 
-  renderMinimal(acc: Acc) {
+  renderMinimal(acc: Acc): any {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
@@ -30,8 +24,8 @@ export default {
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
     };
   },
-  
-  renderDetails(acc: Acc) {
+
+  renderDetails(acc: Acc): any {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
@@ -42,7 +36,7 @@ export default {
     };
   },
 
-  renderWithUser(acc: Acc) {
+  renderWithUser(acc: Acc): any {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
@@ -54,19 +48,15 @@ export default {
     };
   },
 
-  renderCounters(counter: Counter) {
-    return ''
+  renderMany(accs: Acc[]): any {
+    return accs.map(acc => this.render(acc));
   },
 
-  renderMany(acc: Acc[]) {
-    return acc.map(acc => this.render(acc))
-  },
-  
-  renderManyMinimal(acc: Acc[]) {
-    return acc.map(acc => this.renderMinimal(acc))
+  renderManyMinimal(accs: Acc[]): any {
+    return accs.map(acc => this.renderMinimal(acc));
   },
 
-  renderManyWithUser(acc: Acc[]) {
-    return acc.map(acc => this.renderWithUser(acc))
+  renderManyWithUser(accs: Acc[]): any {
+    return accs.map(acc => this.renderWithUser(acc));
   },
-}
+};

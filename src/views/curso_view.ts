@@ -1,14 +1,14 @@
-import Curso from "../models/Curso";
+import Curso from '../models/Curso';
 
 export default {
-  render(curso: Curso) {
+  render(curso: Curso): any {
     return {
       id: curso.id,
       nome: curso.nome,
     };
   },
 
-  renderMany(curso: Curso[]) {
-    return curso.map(curso => this.render(curso))
-  }
-}
+  renderMany(cursos: Curso[]): any {
+    return cursos.map(curso => this.render(curso));
+  },
+};

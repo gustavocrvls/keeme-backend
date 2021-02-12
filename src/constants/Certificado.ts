@@ -1,3 +1,10 @@
-const SUPORTED_TYPES = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf']
+const SUPORTED_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/jpg',
+  'application/pdf',
+];
 
-export { SUPORTED_TYPES };
+const SIZE = 20000;
+
+export { SUPORTED_TYPES, SIZE };

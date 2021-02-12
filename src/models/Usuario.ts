@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import Curso from './Curso';
 import Perfil from './Perfil';
 import Acc from './Acc';
@@ -26,6 +33,6 @@ export default class Usuario {
   perfil: Perfil;
 
   @OneToMany(() => Acc, acc => acc.usuario)
-  @JoinColumn({ name: 'id_usuario'})
+  @JoinColumn({ name: 'id_usuario' })
   accs: Acc[];
 }

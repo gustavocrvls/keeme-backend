@@ -1,9 +1,9 @@
-import Usuario from "../models/Usuario";
-import perfilView from "../views/perfil_view";
-import cursoView from "../views/curso_view";
+import Usuario from '../models/Usuario';
+import perfilView from './perfil_view';
+import cursoView from './curso_view';
 
 export default {
-  render(usuario: Usuario) {
+  render(usuario: Usuario): any {
     return {
       id: usuario.id,
       nome: usuario.nome,
@@ -13,7 +13,7 @@ export default {
     };
   },
 
-  renderMany(usuarios: Usuario[]) {
-    return usuarios.map(usuario => this.render(usuario))
-  }
-}
+  renderMany(usuarios: Usuario[]): any {
+    return usuarios.map(usuario => this.render(usuario));
+  },
+};

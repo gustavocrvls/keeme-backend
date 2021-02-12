@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  OneToOne,
+} from 'typeorm';
 import Acc from './Acc';
 
 @Entity('certificado')
@@ -11,13 +17,13 @@ export default class Certificado {
 
   @Column()
   tamanho: number;
-  
+
   @Column()
   tipo: string;
-  
+
   @Column()
   arquivo: Buffer;
-  
+
   @Column()
   id_acc: number;
 

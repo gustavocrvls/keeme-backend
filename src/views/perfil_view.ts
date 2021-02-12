@@ -1,14 +1,14 @@
-import Perfil from "../models/Perfil";
+import Perfil from '../models/Perfil';
 
 export default {
-  render(perfil: Perfil) {
+  render(perfil: Perfil): any {
     return {
       id: perfil.id,
       nome: perfil.nome,
     };
   },
 
-  renderMany(perfil: Perfil[]) {
-    return perfil.map(perfil => this.render(perfil))
-  }
-}
+  renderMany(perfis: Perfil[]): any {
+    return perfis.map(perfil => this.render(perfil));
+  },
+};

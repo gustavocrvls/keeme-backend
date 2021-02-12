@@ -17,6 +17,8 @@ routes.get('/user/:id/completo', verifyToken([PERFIL.DISCENTE]), AccController.c
 
 routes.post('/create', verifyToken([PERFIL.DISCENTE]), upload.array('certificado'), AccController.create);
 
+routes.put('/update/:id/status', AccController.updateStatus);
+
 routes.delete('/remover/:id', verifyToken([PERFIL.DISCENTE]), AccController.remover);
 
 export default routes;

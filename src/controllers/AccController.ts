@@ -12,7 +12,7 @@ import { SUPORTED_TYPES } from '../constants/Certificado';
 /**
  * @author Gustavo Carvalho Silva
  * @since 19/11/2020
- * 
+ *
  */
 export default {
 
@@ -36,7 +36,7 @@ export default {
     });
 
     console.log(accs);
-    
+
 
     return res.json(accView.render(accs));
   },
@@ -114,14 +114,14 @@ export default {
         .groupBy("tipo_de_acc.id")
         .where("usuario.id = :id AND status_da_acc.id = :id_status", { id: user_id, id_status: status })
         .getRawMany();
-        
+
         return pontuacaoByStatus;
       }
 
       const pontuacaoStatusEmAnalise = await getPontuacaoByStatus(id, STATUS_DA_ACC.EM_ANALISE);
       const pontuacaoStatusAprovada = await getPontuacaoByStatus(id, STATUS_DA_ACC.APROVADA);
       const pontuacaoStatusNegada = await getPontuacaoByStatus(id, STATUS_DA_ACC.NEGADA);
-      
+
       let pontosEmAnalise = contarPontos(pontuacaoStatusEmAnalise);
       let pontosAprovados = contarPontos(pontuacaoStatusAprovada);
       let pontosNegados = contarPontos(pontuacaoStatusNegada);
@@ -165,7 +165,7 @@ export default {
         .groupBy("tipo_de_acc.id")
         .where("usuario.id = :id AND status_da_acc.id = :id_status", { id: user_id, id_status: status })
         .getRawMany();
-      
+
       return pontuacaoByStatus;
     }
 
@@ -206,7 +206,7 @@ export default {
       idUsuario,
       tipoDeAcc,
     } = req.body;
-    
+
     const requestCertificado = req.files as Express.Multer.File[]
     let certificadoReq = requestCertificado[0];
 
@@ -223,7 +223,7 @@ export default {
       usuario: idUsuario,
       tipo_de_acc: tipoDeAcc,
     };
-    
+
     const schema = Yup.object().shape({
       quantidade: Yup.number().required(),
       sobre: Yup.string().optional().max(300),
@@ -253,7 +253,7 @@ export default {
     })
 
     const acc = accRepository.create(accData);
-    const certificado = certificadoRepository.create(certificadoData);   
+    const certificado = certificadoRepository.create(certificadoData);
 
     await accRepository.save(acc);
     await certificadoRepository.save(certificado);
@@ -275,5 +275,18 @@ export default {
     await accRepository.remove(accRemovida);
 
     res.sendStatus(200);
+  },
+
+  async updateStatus(req: Request, res: Response) {
+    const { id } = req.params;
+    const {
+      status_da_acc,
+    } = req.body;
+
+    const accRepository = getRepository(Acc);
+
+    let updated = await accRepository.update(id, { status_da_acc });
+
+    res.send(updated);
   }
 }

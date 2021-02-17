@@ -39,7 +39,7 @@ export default {
 
     const accRepository = getRepository(Acc);
 
-    const accs = await accRepository.findOneOrFail(id, {
+    const acc = await accRepository.findOneOrFail(id, {
       relations: [
         'status_da_acc',
         'tipo_de_acc',
@@ -50,7 +50,7 @@ export default {
         'certificado',
       ],
     });
-    return res.json(accView.render(accs));
+    return res.json(accView.renderWithUser(acc));
   },
 
   async showByUser(req: Request, res: Response): Promise<any> {

@@ -9,15 +9,19 @@ const routes = Router();
 const upload = multer(uploadConfig);
 
 routes.get('/', verifyToken([PERFIL.DISCENTE]), AccController.index);
-routes.get('/:id', verifyToken([PERFIL.DISCENTE]), AccController.show);
+routes.get(
+  '/:id',
+  verifyToken([PERFIL.DISCENTE, PERFIL.COORDENADOR]),
+  AccController.show,
+);
 routes.get(
   '/status/:id',
-  verifyToken([PERFIL.DISCENTE]),
+  verifyToken([PERFIL.COORDENADOR]),
   AccController.showByStatus,
 );
 routes.get(
   '/user/:id',
-  verifyToken([PERFIL.DISCENTE]),
+  verifyToken([PERFIL.DISCENTE, PERFIL.COORDENADOR]),
   AccController.showByUser,
 );
 routes.get(
@@ -27,7 +31,7 @@ routes.get(
 );
 routes.get(
   '/user/:id/completo',
-  verifyToken([PERFIL.DISCENTE]),
+  verifyToken([PERFIL.DISCENTE, PERFIL.COORDENADOR]),
   AccController.complete,
 );
 

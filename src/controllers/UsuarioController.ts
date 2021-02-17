@@ -124,4 +124,19 @@ export default {
       res.json({ auth: false }).sendStatus(401);
     }
   },
+
+  async findByPerfil(req: Request, res: Response): Promise<any> {
+    const { id } = req.params;
+
+    const usuarioRepository = getRepository(Usuario);
+
+    const usuarios = await usuarioRepository.find({
+      relations: ['perfil'],
+      where: {
+        perfil: id,
+      },
+    });
+
+    res.json({ usuarios });
+  },
 };

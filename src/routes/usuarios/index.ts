@@ -15,6 +15,11 @@ routes.get(
   verifyToken([PERFIL.COORDENADOR, PERFIL.DISCENTE]),
   UsuarioController.show,
 );
+routes.get(
+  '/perfil/:id',
+  verifyToken([PERFIL.ADMINISTRADOR]),
+  UsuarioController.findByPerfil,
+);
 
 routes.post('/', UsuarioController.create);
 routes.post('/login', UsuarioController.login);

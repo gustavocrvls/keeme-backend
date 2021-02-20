@@ -157,4 +157,14 @@ export default {
 
     res.json({ usuarios });
   },
+
+  async delete(req: Request, res: Response): Promise<any> {
+    const { id } = req.params;
+
+    const usuarioRepository = getRepository(Usuario);
+
+    const usuario = await usuarioRepository.delete({ id: Number(id) });
+
+    res.json({ usuario });
+  },
 };

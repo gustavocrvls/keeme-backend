@@ -19,5 +19,6 @@ routes.get(
 
 routes.post('/', UsuarioController.create);
 routes.post('/login', UsuarioController.login);
+routes.delete('/:id', UsuarioController.delete);
 
 export default routes;

@@ -5,20 +5,16 @@ import { verifyToken } from '../../middlewares/auth';
 
 const routes = Router();
 
-routes.get(
-  '/',
-  verifyToken([PERFIL.COORDENADOR, PERFIL.DISCENTE]),
-  UsuarioController.index,
-);
+routes.get('/', verifyToken([PERFIL.ADMINISTRADOR]), UsuarioController.index);
 routes.get(
   '/:id',
   verifyToken([PERFIL.COORDENADOR, PERFIL.DISCENTE]),
   UsuarioController.show,
 );
 routes.get(
-  '/perfil/:id',
+  '/perfil/:id/cursos',
   verifyToken([PERFIL.ADMINISTRADOR]),
-  UsuarioController.findByPerfil,
+  UsuarioController.findByPerfilGroupByCurso,
 );
 
 routes.post('/', UsuarioController.create);

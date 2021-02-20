@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import Usuario from '../models/Usuario';
 import usuarioView from '../views/usuario_view';
 import { generateToken } from '../config/authentication';
+import Curso from '../models/Curso';
 
 /**
  * @author Gustavo Carvalho Silva
@@ -125,15 +126,32 @@ export default {
     }
   },
 
-  async findByPerfil(req: Request, res: Response): Promise<any> {
+  async findByPerfilGroupByCurso(req: Request, res: Response): Promise<any> {
+    const { id } = req.params;
+
+    const cursoRepository = getRepository(Curso);
+
+    const cursos = await cursoRepository
+      .createQueryBuilder('curso')
+      .leftJoinAndSelect('curso.usuarios', 'usuarios')
+      .where('usuarios.perfil.id = :id', { id })
+      .getMany();
+
+    res.json({ cursos });
+  },
+
+  async findByPerfilOld(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
     const usuarioRepository = getRepository(Usuario);
 
     const usuarios = await usuarioRepository.find({
-      relations: ['perfil'],
+      relations: ['perfil', 'curso'],
       where: {
         perfil: id,
+      },
+      order: {
+        curso: 1,
       },
     });
 

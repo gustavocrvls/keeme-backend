@@ -149,15 +149,13 @@ export default {
     res.json(tiposDeAcc);
   },
 
-  async remove(req: Request, res: Response): Promise<any> {
+  async delete(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
     const tipoDeAccRepository = getRepository(TipoDeAcc);
 
-    const tipoDeACCToRemove =
-      (await tipoDeAccRepository.findOne(id)) || new TipoDeAcc();
-    await tipoDeAccRepository.remove(tipoDeACCToRemove);
+    const tipoDeACC = await tipoDeAccRepository.delete({ id: Number(id) });
 
-    res.sendStatus(200);
+    res.send({ tipoDeACC });
   },
 };

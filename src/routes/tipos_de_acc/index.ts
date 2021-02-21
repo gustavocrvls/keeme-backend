@@ -16,17 +16,21 @@ routes.get(
   TipoDeAccController.getTiposDeAccByIdUsuario,
 );
 
-routes.post('/', verifyToken([PERFIL.DISCENTE]), TipoDeAccController.create);
+routes.post(
+  '/',
+  verifyToken([PERFIL.ADMINISTRADOR]),
+  TipoDeAccController.create,
+);
 routes.post(
   '/mass',
-  verifyToken([PERFIL.DISCENTE]),
+  verifyToken([PERFIL.ADMINISTRADOR]),
   TipoDeAccController.massCreate,
 );
 
 routes.delete(
-  '/remove/:id',
-  verifyToken([PERFIL.DISCENTE]),
-  TipoDeAccController.remove,
+  '/:id',
+  verifyToken([PERFIL.ADMINISTRADOR]),
+  TipoDeAccController.delete,
 );
 
 export default routes;

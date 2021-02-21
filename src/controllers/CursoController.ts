@@ -9,6 +9,14 @@ import Curso from '../models/Curso';
  * @description Controller responsável pelas manipulações de Curso
  */
 export default {
+  async index(req: Request, res: Response): Promise<any> {
+    const cursoRepository = getRepository(Curso);
+
+    const cursos = await cursoRepository.find({});
+
+    return res.json({ cursos });
+  },
+
   async create(req: Request, res: Response): Promise<any> {
     const { nome } = req.body;
 

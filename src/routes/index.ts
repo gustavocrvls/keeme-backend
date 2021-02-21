@@ -6,6 +6,7 @@ import tiposDeAccRoutes from './tipos_de_acc';
 import accRoutes from './acc';
 import certificadosRoutes from './certificados';
 import avaliacaoDaAccRoutes from './avaliacao_da_acc';
+import unidadeDeMedidaRoutes from './unidades_de_medida';
 
 const routes = Router();
 
@@ -15,5 +16,6 @@ routes.use('/usuarios', usuarioRoutes);
 routes.use('/tipos-de-acc', tiposDeAccRoutes);
 routes.use('/certificados', certificadosRoutes);
 routes.use('/avaliacoes-das-accs', avaliacaoDaAccRoutes);
+routes.use('/unidades-de-medida', unidadeDeMedidaRoutes);
 
 export default routes;

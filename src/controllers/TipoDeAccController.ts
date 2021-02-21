@@ -37,14 +37,14 @@ export default {
     const { id } = req.params;
     const tipoDeAccRepository = getRepository(TipoDeAcc);
 
-    const tipoDeAcc = await tipoDeAccRepository.findOne({
+    const tipoDeACC = await tipoDeAccRepository.findOne({
       relations: ['unidade_de_medida'],
       where: {
         id,
       },
     });
 
-    return res.json({ tipoDeAcc });
+    return res.json({ tipoDeACC });
   },
 
   /**
@@ -97,6 +97,31 @@ export default {
     await tipoDeAccRepository.save(tipoDeAcc);
 
     return res.status(201).json(tipoDeAcc);
+  },
+
+  async delete(req: Request, res: Response): Promise<any> {
+    const { id } = req.params;
+
+    const tipoDeAccRepository = getRepository(TipoDeAcc);
+
+    const tipoDeACC = await tipoDeAccRepository.delete({ id: Number(id) });
+
+    res.send({ tipoDeACC });
+  },
+
+  async update(req: Request, res: Response): Promise<any> {
+    const { id } = req.params;
+
+    const tipoDeACCRepository = getRepository(TipoDeAcc);
+
+    const tipoDeACC = await tipoDeACCRepository
+      .createQueryBuilder('tipo-de-acc')
+      .update(TipoDeAcc)
+      .set(req.body)
+      .where({ id: Number(id) })
+      .execute();
+
+    res.json({ tipoDeACC });
   },
 
   async massCreate(req: Request, res: Response): Promise<any> {
@@ -167,15 +192,5 @@ export default {
     });
 
     res.json(tiposDeAcc);
-  },
-
-  async delete(req: Request, res: Response): Promise<any> {
-    const { id } = req.params;
-
-    const tipoDeAccRepository = getRepository(TipoDeAcc);
-
-    const tipoDeACC = await tipoDeAccRepository.delete({ id: Number(id) });
-
-    res.send({ tipoDeACC });
   },
 };

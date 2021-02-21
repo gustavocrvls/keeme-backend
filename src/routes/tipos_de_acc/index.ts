@@ -38,4 +38,10 @@ routes.delete(
   TipoDeAccController.delete,
 );
 
+routes.put(
+  '/:id',
+  verifyToken([PERFIL.ADMINISTRADOR]),
+  TipoDeAccController.update,
+);
+
 export default routes;

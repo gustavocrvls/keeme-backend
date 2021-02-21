@@ -11,6 +11,11 @@ routes.get(
   TipoDeAccController.index,
 );
 routes.get(
+  '/:id',
+  verifyToken([PERFIL.ADMINISTRADOR]),
+  TipoDeAccController.show,
+);
+routes.get(
   '/usuario/:id',
   verifyToken([PERFIL.DISCENTE]),
   TipoDeAccController.getTiposDeAccByIdUsuario,

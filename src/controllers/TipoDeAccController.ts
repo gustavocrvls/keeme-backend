@@ -29,6 +29,26 @@ export default {
 
   /**
    * @author Gustavo Carvalho Silva
+   * @since 21/02/2021
+   *
+   * @description retorna um Tipo de ACC pelo id recebido na requisição
+   */
+  async show(req: Request, res: Response): Promise<any> {
+    const { id } = req.params;
+    const tipoDeAccRepository = getRepository(TipoDeAcc);
+
+    const tipoDeAcc = await tipoDeAccRepository.findOne({
+      relations: ['unidade_de_medida'],
+      where: {
+        id,
+      },
+    });
+
+    return res.json({ tipoDeAcc });
+  },
+
+  /**
+   * @author Gustavo Carvalho Silva
    * @since 14/11/2020
    *
    * @description cria um novo Tipo de ACC com os parametros recebidos no corpo da requisição

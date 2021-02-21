@@ -4,7 +4,7 @@ import UnidadeDeMedida from '../models/UnidadeDeMedida';
 
 /**
  * @author Gustavo Carvalho Silva
- * @since 21/02/2020
+ * @since 21/02/2021
  */
 export default {
   async index(req: Request, res: Response): Promise<any> {

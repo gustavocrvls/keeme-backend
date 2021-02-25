@@ -18,5 +18,5 @@ app.use(errorHandler);
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 app.listen(process.env.API_PORT || 3000, () =>
-  console.log(`Server online on port ${process.env.API_PORT || 3000}`),
+  console.log(`Server online on port ${process.env.API_PORT || process.env.PORT}`),
 );

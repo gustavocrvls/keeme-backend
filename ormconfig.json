@@ -1,6 +1,5 @@
 {
   "type": "mysql",
-  "logging": false,
 
   "migrations": [
     "./src/database/migrations/*.ts"
@@ -10,6 +9,5 @@
   ],
   "cli": {
     "migrationsDir": "./src/database/migrations"
-  },
-  "extra": { "insecureAuth": true }
+  }
 }

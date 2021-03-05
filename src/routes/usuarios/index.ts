@@ -5,7 +5,11 @@ import { verifyToken } from '../../middlewares/auth';
 
 const routes = Router();
 
-routes.get('/', verifyToken([PERFIL.ADMINISTRADOR]), UsuarioController.index);
+routes.get(
+  '/',
+  verifyToken([PERFIL.ADMINISTRADOR, PERFIL.COORDENADOR]),
+  UsuarioController.index,
+);
 routes.get(
   '/:id',
   verifyToken([PERFIL.COORDENADOR, PERFIL.DISCENTE]),

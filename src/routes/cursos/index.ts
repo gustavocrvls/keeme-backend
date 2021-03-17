@@ -5,7 +5,7 @@ import { verifyToken } from '../../middlewares/auth';
 
 const routes = Router();
 
-routes.get('/', verifyToken([PERFIL.ADMINISTRADOR]), CursoController.index);
+routes.get('/', CursoController.index);
 routes.post(
   '/create',
   verifyToken([PERFIL.ADMINISTRADOR]),

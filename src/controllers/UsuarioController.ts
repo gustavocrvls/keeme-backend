@@ -6,6 +6,7 @@ import Usuario from '../models/Usuario';
 import usuarioView from '../views/usuario_view';
 import { generateToken } from '../config/authentication';
 import Curso from '../models/Curso';
+import PERFIL from '../constants/Perfil';
 
 /**
  * @author Gustavo Carvalho Silva
@@ -90,6 +91,71 @@ export default {
     await schema.validate(data, {
       abortEarly: false,
     });
+
+    const usuarioExistente = await usuarioRepository.findOne({
+      where: {
+        username,
+      },
+    });
+
+    if (usuarioExistente) {
+      return res.status(401).json({ msg: 'Usuário já existe!' });
+    }
+
+    data.senha = crypto.createHash('md5').update(data.senha).digest('hex');
+
+    const usuario = usuarioRepository.create(data);
+
+    await usuarioRepository.save(usuario);
+
+    return res.status(201).json(usuario);
+  },
+
+  /**
+   * @author Gustavo Carvalho Silva
+   * @since 14/11/2020
+   *
+   * @description cria um novo usuário do tipo discente com os parametros recebidos no corpo de uma requisição
+   *
+   * corpo da request:
+   *  nome: string,
+   *  username: string,
+   *  senha: string,
+   *  curso: number
+   */
+  async createDiscente(req: Request, res: Response): Promise<any> {
+    const { nome, username, senha, curso } = req.body;
+
+    const usuarioRepository = getRepository(Usuario);
+
+    const data = {
+      nome,
+      username,
+      senha,
+      curso,
+      perfil: <any>PERFIL.DISCENTE,
+    };
+
+    const schema = Yup.object().shape({
+      nome: Yup.string().required(),
+      username: Yup.string().required(),
+      senha: Yup.string().required(),
+      curso: Yup.number().required(),
+    });
+
+    await schema.validate(data, {
+      abortEarly: false,
+    });
+
+    const usuarioExistente = await usuarioRepository.findOne({
+      where: {
+        username,
+      },
+    });
+
+    if (usuarioExistente) {
+      return res.status(401).json({ msg: 'Usuário já existe!' });
+    }
 
     data.senha = crypto.createHash('md5').update(data.senha).digest('hex');
 

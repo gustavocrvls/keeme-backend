@@ -7,7 +7,7 @@ const routes = Router();
 
 routes.get(
   '/',
-  verifyToken([PERFIL.ADMINISTRADOR, PERFIL.COORDENADOR]),
+  // verifyToken([PERFIL.ADMINISTRADOR, PERFIL.COORDENADOR]),
   UsuarioController.index,
 );
 routes.get(
@@ -21,7 +21,9 @@ routes.get(
   UsuarioController.findByPerfilGroupByCurso,
 );
 
-routes.post('/', UsuarioController.create);
+routes.post('/', verifyToken([PERFIL.ADMINISTRADOR]), UsuarioController.create);
+routes.post('/create-discente', UsuarioController.createDiscente);
+
 routes.post('/login', UsuarioController.login);
 routes.delete('/:id', UsuarioController.delete);
 

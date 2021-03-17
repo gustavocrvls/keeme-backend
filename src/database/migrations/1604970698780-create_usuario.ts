@@ -43,6 +43,7 @@ export class createUsuario1604970698780 implements MigrationInterface {
           name: 'id_curso',
           type: 'integer',
           unsigned: true,
+          isNullable: true,
         },
       ],
       foreignKeys: [

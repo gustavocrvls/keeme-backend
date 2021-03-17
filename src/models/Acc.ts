@@ -20,7 +20,10 @@ export default class Acc {
   quantidade: number;
 
   @Column()
-  sobre: number;
+  descricao: number;
+
+  @Column({ type: 'timestamp' })
+  criado_em: Date;
 
   @Column()
   id_certificado: number;

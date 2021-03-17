@@ -14,10 +14,10 @@ export default class AvaliacaoDaAcc {
   id: number;
 
   @Column()
-  descricao: string;
+  comentario: string;
 
   @Column({ type: 'timestamp' })
-  created_at: Date;
+  criado_em: Date;
 
   @ManyToOne(() => Acc, acc => acc.id)
   @JoinColumn({ name: 'id_acc' })

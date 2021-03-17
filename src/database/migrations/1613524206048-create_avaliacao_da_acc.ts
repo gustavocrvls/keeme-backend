@@ -19,7 +19,7 @@ export class createAvaliacaoDaAcc1613524206048 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'created_at',
+            name: 'criado_em',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',
           },

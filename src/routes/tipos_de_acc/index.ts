@@ -28,7 +28,7 @@ routes.post(
 );
 routes.post(
   '/mass',
-  verifyToken([PERFIL.ADMINISTRADOR]),
+  // verifyToken([PERFIL.ADMINISTRADOR]),
   TipoDeAccController.massCreate,
 );
 

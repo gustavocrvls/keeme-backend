@@ -19,7 +19,13 @@ export default class Usuario {
   nome: string;
 
   @Column()
-  username: string;
+  usuario: string;
+
+  @Column()
+  cpf: string;
+
+  @Column()
+  email: string;
 
   @Column()
   senha: string;

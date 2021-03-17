@@ -27,7 +27,7 @@ export class createTipoDeAcc1605140065523 implements MigrationInterface {
           type: 'integer',
         },
         {
-          name: 'sobre',
+          name: 'descricao',
           type: 'varchar',
           isNullable: true,
         },

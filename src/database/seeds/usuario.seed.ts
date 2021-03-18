@@ -8,7 +8,7 @@ const senha = crypto
 const UsuarioSeed = [
   {
     nome: 'Administrador',
-    usuario: 'admin',
+    username: 'admin',
     cpf: '00000000000',
     email: 'admin@admin.com',
     perfil: 1,

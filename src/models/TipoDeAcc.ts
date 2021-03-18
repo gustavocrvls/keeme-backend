@@ -24,7 +24,7 @@ export default class TipoDeAcc {
   limite_de_pontos: number;
 
   @Column()
-  sobre: string;
+  descricao: string;
 
   pontuacao: number;
 

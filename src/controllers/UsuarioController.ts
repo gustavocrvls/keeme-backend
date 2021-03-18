@@ -68,12 +68,14 @@ export default {
    *  curso: number
    */
   async create(req: Request, res: Response): Promise<any> {
-    const { nome, username, senha, perfil, curso } = req.body;
+    const { nome, cpf, email, username, senha, perfil, curso } = req.body;
 
     const usuarioRepository = getRepository(Usuario);
 
     const data = {
       nome,
+      cpf,
+      email,
       username,
       senha,
       curso,
@@ -82,6 +84,8 @@ export default {
 
     const schema = Yup.object().shape({
       nome: Yup.string().required(),
+      cpf: Yup.string().required(),
+      email: Yup.string().required(),
       username: Yup.string().required(),
       senha: Yup.string().required(),
       curso: Yup.number().required(),
@@ -124,12 +128,14 @@ export default {
    *  curso: number
    */
   async createDiscente(req: Request, res: Response): Promise<any> {
-    const { nome, username, senha, curso } = req.body;
+    const { nome, cpf, email, username, senha, curso } = req.body;
 
     const usuarioRepository = getRepository(Usuario);
 
     const data = {
       nome,
+      cpf,
+      email,
       username,
       senha,
       curso,
@@ -138,6 +144,8 @@ export default {
 
     const schema = Yup.object().shape({
       nome: Yup.string().required(),
+      cpf: Yup.string().required(),
+      email: Yup.string().required(),
       username: Yup.string().required(),
       senha: Yup.string().required(),
       curso: Yup.number().required(),

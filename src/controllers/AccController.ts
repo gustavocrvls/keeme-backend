@@ -233,7 +233,7 @@ export default {
   },
 
   async create(req: Request, res: Response): Promise<any> {
-    const { quantidade, sobre, idUsuario, tipoDeAcc } = req.body;
+    const { quantidade, descricao, idUsuario, tipoDeAcc } = req.body;
 
     const requestCertificado = req.files as Express.Multer.File[];
     const certificadoReq = requestCertificado[0];
@@ -247,14 +247,14 @@ export default {
 
     const accData = {
       quantidade,
-      sobre,
+      descricao,
       usuario: idUsuario,
       tipo_de_acc: tipoDeAcc,
     };
 
     const schema = Yup.object().shape({
       quantidade: Yup.number().required(),
-      sobre: Yup.string().optional().max(300),
+      descricao: Yup.string().optional().max(300),
       usuario: Yup.number().required(),
       tipo_de_acc: Yup.number().required(),
     });

@@ -57,7 +57,7 @@ export default {
    *  nome: string,
    *  pontosPorUnidade: number,
    *  limiteDePontos: number,
-   *  sobre: string,
+   *  descricao: string,
    *  unidadeDeMedida: number,
    *  curso: number
    */
@@ -66,7 +66,7 @@ export default {
       nome,
       pontosPorUnidade,
       limiteDePontos,
-      sobre,
+      descricao,
       unidadeDeMedida,
     } = req.body;
 
@@ -76,7 +76,7 @@ export default {
       nome,
       pontos_por_unidade: pontosPorUnidade,
       limite_de_pontos: limiteDePontos,
-      sobre,
+      descricao,
       unidade_de_medida: unidadeDeMedida,
     };
 
@@ -84,7 +84,7 @@ export default {
       nome: Yup.string().required(),
       pontos_por_unidade: Yup.number().required(),
       limite_de_pontos: Yup.number().required(),
-      sobre: Yup.string().optional().max(300),
+      descricao: Yup.string().optional().max(300),
       unidade_de_medida: Yup.number().required(),
     });
 
@@ -134,7 +134,7 @@ export default {
         nome: tipoDeAcc.nome,
         pontos_por_unidade: tipoDeAcc.pontos_por_unidade,
         limite_de_pontos: tipoDeAcc.limite_de_pontos,
-        sobre: tipoDeAcc.sobre,
+        descricao: tipoDeAcc.descricao,
         unidade_de_medida: tipoDeAcc.unidade_de_medida,
       };
 
@@ -142,7 +142,7 @@ export default {
         nome: Yup.string().required(),
         pontos_por_unidade: Yup.number().required(),
         limite_de_pontos: Yup.number().required(),
-        sobre: Yup.string().optional().max(300),
+        descricao: Yup.string().optional().max(300),
         unidade_de_medida: Yup.number().required(),
       });
 

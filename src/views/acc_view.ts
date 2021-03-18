@@ -8,7 +8,7 @@ export default {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
-      sobre: acc.sobre,
+      descricao: acc.descricao,
       pontos: acc.quantidade * acc.tipo_de_acc.pontos_por_unidade,
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
       tipo_de_acc: tipoDeAccView.renderMinimal(acc.tipo_de_acc),
@@ -20,7 +20,7 @@ export default {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
-      // sobre: acc.sobre,
+      // descricao: acc.descricao,
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
     };
   },
@@ -29,7 +29,7 @@ export default {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
-      sobre: acc.sobre,
+      descricao: acc.descricao,
       pontos: acc.quantidade * acc.tipo_de_acc.pontos_por_unidade,
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
       tipo_de_acc: tipoDeAccView.render(acc.tipo_de_acc),
@@ -40,7 +40,7 @@ export default {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
-      sobre: acc.sobre,
+      descricao: acc.descricao,
       usuario: usuarioView.render(acc.usuario),
       pontos: acc.quantidade * acc.tipo_de_acc.pontos_por_unidade,
       status_da_acc: statusDaAccView.render(acc.status_da_acc),

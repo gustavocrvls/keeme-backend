@@ -37,6 +37,16 @@ export class createCertificado1607197782329 implements MigrationInterface {
           unsigned: true,
           isNullable: true,
         }
+      ],
+      foreignKeys: [
+        {
+          name: 'FK_certificado__acc',
+          columnNames: ['id_acc'],
+          referencedTableName: 'acc',
+          referencedColumnNames: ['id'],
+          onUpdate: 'CASCADE',
+          onDelete: 'CASCADE',
+        },
       ]
     }));
   }

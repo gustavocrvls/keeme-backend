@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import UnidadeDeMedida from './UnidadeDeMedida';
 import Acc from './Acc';
+import VarianteDeAcc from './VarianteDaACC';
 
 @Entity('tipo_de_acc')
 export default class TipoDeAcc {
@@ -16,9 +17,6 @@ export default class TipoDeAcc {
 
   @Column()
   nome: string;
-
-  @Column()
-  pontos_por_unidade: number;
 
   @Column()
   limite_de_pontos: number;
@@ -35,4 +33,11 @@ export default class TipoDeAcc {
   @OneToMany(() => Acc, acc => acc.tipo_de_acc)
   @JoinColumn({ name: 'id_tipo_de_acc' })
   accs: Acc[];
+
+  @OneToMany(() => VarianteDeAcc, varianteDeAcc => varianteDeAcc.tipo_de_acc, {
+    eager: true,
+    cascade: true,
+  })
+  @JoinColumn({ name: 'id_tipo_de_acc' })
+  variantes_de_acc: VarianteDeAcc[];
 }

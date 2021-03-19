@@ -7,7 +7,7 @@ const routes = Router();
 
 routes.get(
   '/',
-  verifyToken([PERFIL.DISCENTE, PERFIL.ADMINISTRADOR]),
+  // verifyToken([PERFIL.DISCENTE, PERFIL.ADMINISTRADOR]),
   TipoDeAccController.index,
 );
 routes.get(
@@ -23,7 +23,7 @@ routes.get(
 
 routes.post(
   '/',
-  verifyToken([PERFIL.ADMINISTRADOR]),
+  // verifyToken([PERFIL.ADMINISTRADOR]),
   TipoDeAccController.create,
 );
 routes.post(

@@ -37,7 +37,7 @@ routes.get(
 
 routes.post(
   '/create',
-  verifyToken([PERFIL.DISCENTE]),
+  // verifyToken([PERFIL.DISCENTE]),
   upload.array('certificado'),
   AccController.create,
 );

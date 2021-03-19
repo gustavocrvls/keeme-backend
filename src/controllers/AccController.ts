@@ -233,65 +233,34 @@ export default {
   },
 
   async create(req: Request, res: Response): Promise<any> {
-    const { quantidade, descricao, idUsuario, tipoDeAcc } = req.body;
+    const { quantidade, descricao, idUsuario, tipoDeAcc, variante_de_acc } = req.body;
 
     const requestCertificado = req.files as Express.Multer.File[];
     const certificadoReq = requestCertificado[0];
-
-    const certificadoData = {
-      nome: certificadoReq.filename,
-      tamanho: certificadoReq.size,
-      tipo: certificadoReq.mimetype,
-      arquivo: fs.readFileSync(certificadoReq.path),
-    };
 
     const accData = {
       quantidade,
       descricao,
       usuario: idUsuario,
       tipo_de_acc: tipoDeAcc,
+      variante_de_acc,
+      certificado: {
+        nome: certificadoReq.filename,
+        tamanho: certificadoReq.size,
+        tipo: certificadoReq.mimetype,
+        arquivo: fs.readFileSync(certificadoReq.path),
+      }
     };
 
-    const schema = Yup.object().shape({
-      quantidade: Yup.number().required(),
-      descricao: Yup.string().optional().max(300),
-      usuario: Yup.number().required(),
-      tipo_de_acc: Yup.number().required(),
-    });
-
-    const certificadoSchema = Yup.object().shape({
-      nome: Yup.string().required('Certificado required'),
-      tipo: Yup.string().test({
-        message: "${path} ${value} not supported",
-        test(v) {
-          return SUPORTED_TYPES.includes(v);
-        },
-      }),
-    });
-
     const accRepository = getRepository(Acc);
-    const certificadoRepository = getRepository(Certificado);
 
-    await schema.validate(accData, {
-      abortEarly: false,
-    });
-
-    await certificadoSchema.validate(certificadoData, {
-      abortEarly: false,
-    });
 
     const acc = accRepository.create(accData);
-    const certificado = certificadoRepository.create(certificadoData);
-
     await accRepository.save(acc);
-    await certificadoRepository.save(certificado);
-
-    await accRepository.update(acc.id, { id_certificado: certificado.id });
-    await certificadoRepository.update(certificado.id, { id_acc: acc.id });
 
     fs.unlinkSync(certificadoReq.path);
 
-    return res.status(201).json({ acc, certificado: certificado.id });
+    return res.sendStatus(201);
   },
 
   async remover(req: Request, res: Response): Promise<any> {

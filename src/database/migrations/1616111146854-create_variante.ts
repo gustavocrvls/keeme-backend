@@ -17,6 +17,7 @@ export class createVariante1616111146854 implements MigrationInterface {
             {
               name: 'descricao',
               type: 'varchar',
+              isNullable: true,
             },
             {
               name: 'pontos_por_unidade',

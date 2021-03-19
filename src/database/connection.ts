@@ -1,3 +1,5 @@
 import { createConnection } from 'typeorm';
 
-createConnection();
+createConnection().then(connection => {
+  if (connection.isConnected) console.log('📦 Database connected!');
+});

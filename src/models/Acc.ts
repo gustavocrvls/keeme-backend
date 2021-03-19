@@ -10,6 +10,7 @@ import TipoDeAcc from './TipoDeAcc';
 import StatusDaAcc from './StatusDaAcc';
 import Usuario from './Usuario';
 import Certificado from './Certificado';
+import VarianteDeAcc from './VarianteDaACC';
 
 @Entity('acc')
 export default class Acc {
@@ -25,9 +26,6 @@ export default class Acc {
   @Column({ type: 'timestamp' })
   criado_em: Date;
 
-  @Column()
-  id_certificado: number;
-
   @ManyToOne(() => Usuario, usuario => usuario.id)
   @JoinColumn({ name: 'id_usuario' })
   usuario: Usuario;
@@ -40,9 +38,14 @@ export default class Acc {
   @JoinColumn({ name: 'id_tipo_de_acc' })
   tipo_de_acc: TipoDeAcc;
 
-  @OneToOne(() => Certificado, certificado => certificado.id, {
-    cascade: ['insert', 'update'],
+  @ManyToOne(() => VarianteDeAcc, varianteDeAcc => varianteDeAcc.id)
+  @JoinColumn({ name: 'id_variante_de_acc' })
+  variante_de_acc: VarianteDeAcc;
+
+  @OneToOne(() => Certificado, certificado => certificado.acc, {
+    cascade: true,
+    eager: true,
   })
-  @JoinColumn({ name: 'id_certificado' })
+  // @JoinColumn({ name: 'id_acc' })
   certificado: Certificado;
 }

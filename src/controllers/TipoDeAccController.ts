@@ -18,13 +18,18 @@ export default {
    * @description retorna um objeto contendo todos os Tipos de ACC presentes no banco de dados
    */
   async index(req: Request, res: Response): Promise<any> {
-    const tipoDeAccRepository = getRepository(TipoDeAcc);
+    try {
+      const tipoDeAccRepository = getRepository(TipoDeAcc);
 
-    const tiposDeAcc = await tipoDeAccRepository.find({
-      relations: ['unidade_de_medida'],
-    });
+      const tiposDeAcc = await tipoDeAccRepository.find({
+        relations: ['unidade_de_medida', 'variantes_de_acc'],
+      });
 
-    return res.json(tipoDeAccView.renderMany(tiposDeAcc));
+      return res.json(tiposDeAcc);
+    } catch (err) {
+      console.log(err);
+      return res.sendStatus(500);
+    }
   },
 
   /**
@@ -64,25 +69,24 @@ export default {
   async create(req: Request, res: Response): Promise<any> {
     const {
       nome,
-      pontosPorUnidade,
       limiteDePontos,
       descricao,
       unidadeDeMedida,
+      variantes_de_acc,
     } = req.body;
 
     const tipoDeAccRepository = getRepository(TipoDeAcc);
 
     const data = {
       nome,
-      pontos_por_unidade: pontosPorUnidade,
       limite_de_pontos: limiteDePontos,
       descricao,
       unidade_de_medida: unidadeDeMedida,
+      variantes_de_acc,
     };
 
     const schema = Yup.object().shape({
       nome: Yup.string().required(),
-      pontos_por_unidade: Yup.number().required(),
       limite_de_pontos: Yup.number().required(),
       descricao: Yup.string().optional().max(300),
       unidade_de_medida: Yup.number().required(),
@@ -93,6 +97,7 @@ export default {
     });
 
     const tipoDeAcc = tipoDeAccRepository.create(data);
+    console.log(tipoDeAcc);
 
     await tipoDeAccRepository.save(tipoDeAcc);
 
@@ -132,15 +137,14 @@ export default {
     tiposDeAcc.map(async (tipoDeAcc: TipoDeAcc) => {
       const data = {
         nome: tipoDeAcc.nome,
-        pontos_por_unidade: tipoDeAcc.pontos_por_unidade,
         limite_de_pontos: tipoDeAcc.limite_de_pontos,
         descricao: tipoDeAcc.descricao,
         unidade_de_medida: tipoDeAcc.unidade_de_medida,
+        variantes_de_acc: tipoDeAcc.variantes_de_acc,
       };
 
       const schema = Yup.object().shape({
         nome: Yup.string().required(),
-        pontos_por_unidade: Yup.number().required(),
         limite_de_pontos: Yup.number().required(),
         descricao: Yup.string().optional().max(300),
         unidade_de_medida: Yup.number().required(),

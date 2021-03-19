@@ -19,10 +19,6 @@ export class createTipoDeAcc1605140065523 implements MigrationInterface {
           type: 'varchar',
         },
         {
-          name: 'pontos_por_unidade',
-          type: 'float'
-        },
-        {
           name: 'limite_de_pontos',
           type: 'integer',
         },

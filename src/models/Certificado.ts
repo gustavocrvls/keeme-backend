@@ -24,9 +24,6 @@ export default class Certificado {
   @Column()
   arquivo: Buffer;
 
-  @Column()
-  id_acc: number;
-
   @OneToOne(() => Acc, acc => acc.id)
   @JoinColumn({ name: 'id_acc' })
   acc: Acc;

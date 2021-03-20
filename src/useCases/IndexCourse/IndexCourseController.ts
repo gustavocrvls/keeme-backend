@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { IIndexCourseRequestDTO } from './IndexCourseDTO';
 import { IndexCourseUseCase } from './IndexCourseUseCase';
 
 export class IndexCourseController {

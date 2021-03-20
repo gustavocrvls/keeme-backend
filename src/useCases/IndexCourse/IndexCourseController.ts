@@ -17,7 +17,7 @@ export class IndexCourseController {
         sortOrder: <'ASC' | 'DESC'>sortOrder,
         nome: <string>nome,
       });
-      response.status(201).json({ courses });
+      response.status(200).json({ courses });
     } catch (err) {
       console.error(err);
       response.sendStatus(400);

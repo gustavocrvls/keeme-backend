@@ -3,12 +3,6 @@ import Curso from '../../models/Curso';
 import { IIndexCourseRequestDTO } from '../../useCases/IndexCourse/IndexCourseDTO';
 import { ICoursesRepository } from '../ICoursesRepository';
 
-/**
- * @author Gustavo Carvalho Silva
- * @since 19/03/2021
- * @class MySQLCoursesRepository
- * @implements ICoursesRepository
- */
 export class MySQLCoursesRepository implements ICoursesRepository {
   private coursesRepository: Repository<Curso>;
 
@@ -22,7 +16,6 @@ export class MySQLCoursesRepository implements ICoursesRepository {
     let { sortOrder } = data;
 
     this.coursesRepository = getRepository(Curso);
-
     let coursesQuery = this.coursesRepository.createQueryBuilder('curso');
 
     if (nome) coursesQuery = coursesQuery.where({ nome: Like(`%${nome}%`) });

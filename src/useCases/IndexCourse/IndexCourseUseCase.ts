@@ -11,7 +11,6 @@ export class IndexCourseUseCase {
 
   async execute(data: IIndexCourseRequestDTO): Promise<Curso[]> {
     const courses = await this.courseRepository.index(data);
-    console.log(courses);
     return courses;
   }
 }

@@ -9,7 +9,7 @@ const StatusDaACCSeed = [
   },
   {
     id: 3,
-    nome: 'Negada',
+    nome: 'Reprovada',
   },
 ];
 

@@ -108,6 +108,10 @@ export default {
     return res.status(201).json(tipoDeAcc);
   },
 
+  /**
+   *
+   * @deprecated
+   */
   async delete(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 

@@ -9,6 +9,11 @@ export class DeleteACCTypeUseCase {
   }
 
   async execute(data: IDeleteACCTypeRequestDTO): Promise<void> {
+    const accsLength = await this.accTypesRepository.getACCsLength(data);
+
+    if (accsLength > 0)
+      throw new Error('Este Tipo de ACC possui ACCs associadas a ele.');
+
     await this.accTypesRepository.delete(data);
   }
 }

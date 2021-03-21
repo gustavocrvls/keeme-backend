@@ -83,6 +83,14 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
 
     this.accTypeRepository = getRepository(TipoDeAcc);
 
+    await this.accTypeRepository.delete({ id });
+  }
+
+  public async getACCsLength(data: IDeleteACCTypeRequestDTO): Promise<number> {
+    const { id } = data;
+
+    this.accTypeRepository = getRepository(TipoDeAcc);
+
     const accTypes = await this.accTypeRepository
       .createQueryBuilder('tipo_de_acc')
       .leftJoin('tipo_de_acc.accs', 'accs')
@@ -90,9 +98,6 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
       .where({ id })
       .getRawOne();
 
-    if (Number(accTypes.accs_length) > 0)
-      throw new Error('Este Tipo de ACC possui ACCs associadas a ele.');
-
-    await this.accTypeRepository.delete({ id });
+    return accTypes.accs_length;
   }
 }

@@ -9,4 +9,6 @@ export interface IACCTypesRepository {
   show(data: IShowACCTypeDTO): Promise<TipoDeAcc>;
   save(accType: TipoDeAcc): Promise<void>;
   delete(data: IDeleteACCTypeRequestDTO): Promise<void>;
+
+  getACCsLength(data: IDeleteACCTypeRequestDTO): Promise<number>;
 }

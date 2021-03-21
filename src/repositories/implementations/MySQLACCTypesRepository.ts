@@ -17,7 +17,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   }
 
   async index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray> {
-    const { nome, sortField, limit } = data;
+    const { nome, sortField, limit, unidade_de_medida } = data;
     let { sortOrder, page } = data;
 
     this.coursesRepository = getRepository(TipoDeAcc);
@@ -29,6 +29,11 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
         nome: Like(`%${nome}%`),
       });
+    if (unidade_de_medida)
+      unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
+        unidade_de_medida,
+      });
+
     if (!sortOrder) sortOrder = 'ASC';
     if (sortField)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.orderBy({

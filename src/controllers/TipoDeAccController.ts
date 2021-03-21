@@ -16,6 +16,7 @@ export default {
    * @since 19/11/2020
    *
    * @description retorna um objeto contendo todos os Tipos de ACC presentes no banco de dados
+   * @deprecated
    */
   async index(req: Request, res: Response): Promise<any> {
     try {

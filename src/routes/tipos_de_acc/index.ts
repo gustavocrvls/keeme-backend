@@ -2,19 +2,20 @@ import { Router } from 'express';
 import PERFIL from '../../constants/Perfil';
 import TipoDeAccController from '../../controllers/TipoDeAccController';
 import { verifyToken } from '../../middlewares/auth';
+import { createACCTypeController } from '../../useCases/CreateACCType';
 import { indexACCTypeController } from '../../useCases/IndexACCType';
+import { showACCTypeController } from '../../useCases/ShowACCType';
+import { deleteACCTypeController } from '../../useCases/DeleteACCType';
 
 const routes = Router();
 
 routes.get(
   '/',
-  // verifyToken([PERFIL.DISCENTE, PERFIL.ADMINISTRADOR]),
+  verifyToken([PERFIL.DISCENTE, PERFIL.ADMINISTRADOR]),
   (req, res) => indexACCTypeController.handle(req, res),
 );
-routes.get(
-  '/:id',
-  verifyToken([PERFIL.ADMINISTRADOR]),
-  TipoDeAccController.show,
+routes.get('/:id', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+  showACCTypeController.handle(req, res),
 );
 routes.get(
   '/usuario/:id',
@@ -22,21 +23,17 @@ routes.get(
   TipoDeAccController.getTiposDeAccByIdUsuario,
 );
 
-routes.post(
-  '/',
-  // verifyToken([PERFIL.ADMINISTRADOR]),
-  TipoDeAccController.create,
+routes.post('/', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+  createACCTypeController.handle(req, res),
 );
 routes.post(
   '/mass',
-  // verifyToken([PERFIL.ADMINISTRADOR]),
+  verifyToken([PERFIL.ADMINISTRADOR]),
   TipoDeAccController.massCreate,
 );
 
-routes.delete(
-  '/:id',
-  verifyToken([PERFIL.ADMINISTRADOR]),
-  TipoDeAccController.delete,
+routes.delete('/:id', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+  deleteACCTypeController.handle(req, res),
 );
 
 routes.put(

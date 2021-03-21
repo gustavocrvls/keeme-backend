@@ -13,31 +13,39 @@ import VarianteDeAcc from './VarianteDaACC';
 @Entity('tipo_de_acc')
 export default class TipoDeAcc {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  public readonly id: number;
 
   @Column()
-  nome: string;
+  public nome: string;
 
   @Column()
-  limite_de_pontos: number;
+  public limite_de_pontos: number;
 
   @Column()
-  descricao: string;
+  public descricao: string;
 
-  pontuacao: number;
+  public pontuacao: number;
 
   @ManyToOne(() => UnidadeDeMedida, unidadeDeMedida => unidadeDeMedida.id)
   @JoinColumn({ name: 'id_unidade_de_medida' })
-  unidade_de_medida: UnidadeDeMedida;
+  public unidade_de_medida: UnidadeDeMedida;
 
   @OneToMany(() => Acc, acc => acc.tipo_de_acc)
   @JoinColumn({ name: 'id_tipo_de_acc' })
-  accs: Acc[];
+  public accs: Acc[];
 
   @OneToMany(() => VarianteDeAcc, varianteDeAcc => varianteDeAcc.tipo_de_acc, {
     eager: true,
     cascade: true,
   })
   @JoinColumn({ name: 'id_tipo_de_acc' })
-  variantes_de_acc: VarianteDeAcc[];
+  public variantes_de_acc: VarianteDeAcc[];
+
+  constructor(
+    props: Omit<TipoDeAcc, 'accs' | 'id' | 'pontuacao'>,
+    id?: number,
+    pontuacao?: number,
+  ) {
+    Object.assign(this, props);
+  }
 }

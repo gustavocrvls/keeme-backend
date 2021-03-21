@@ -16,6 +16,7 @@ export default {
    * @since 19/11/2020
    *
    * @description retorna um objeto contendo todos os Tipos de ACC presentes no banco de dados
+   * @deprecated
    */
   async index(req: Request, res: Response): Promise<any> {
     try {
@@ -37,6 +38,7 @@ export default {
    * @since 21/02/2021
    *
    * @description retorna um Tipo de ACC pelo id recebido na requisição
+   * @deprecated
    */
   async show(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
@@ -65,6 +67,8 @@ export default {
    *  descricao: string,
    *  unidadeDeMedida: number,
    *  curso: number
+   *
+   * @deprecated
    */
   async create(req: Request, res: Response): Promise<any> {
     const {

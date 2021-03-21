@@ -3,14 +3,14 @@ import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
 import { IIndexACCTypeRequestDTO } from './IndexACCTypeDTO';
 
 export class IndexACCTypeUseCase {
-  private accTypeRepository;
+  private accTypesRepository;
 
-  constructor(accTypeRepository: IACCTypesRepository) {
-    this.accTypeRepository = accTypeRepository;
+  constructor(accTypesRepository: IACCTypesRepository) {
+    this.accTypesRepository = accTypesRepository;
   }
 
   async execute(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray> {
-    const accTypes = await this.accTypeRepository.index(data);
+    const accTypes = await this.accTypesRepository.index(data);
     return accTypes;
   }
 }

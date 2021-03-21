@@ -13,8 +13,8 @@ export class MySQLUnityOfMeasurementRepository
 
   private arrayPaginator: IArrayPaginatorProvider;
 
-  constructor(arrayPaginator: IArrayPaginatorProvider) {
-    this.arrayPaginator = arrayPaginator;
+  constructor(arrayPaginator?: IArrayPaginatorProvider) {
+    if (arrayPaginator) this.arrayPaginator = arrayPaginator;
   }
 
   async index(data: IIndexUnityOfMeasurementDTO): Promise<IPaginatedArray> {

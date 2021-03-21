@@ -9,13 +9,15 @@ export class IndexCourseController {
   }
 
   async handle(request: Request, response: Response): Promise<void> {
-    const { sortField, sortOrder, nome } = request.query;
+    const { sortField, sortOrder, nome, limit, page } = request.query;
 
     try {
       const courses = await this.indexCourseUseCase.execute({
         sortField: <string>sortField,
         sortOrder: <'ASC' | 'DESC'>sortOrder,
         nome: <string>nome,
+        limit: Number(<string>limit),
+        page: Number(<string>page),
       });
       response.status(200).json({ courses });
     } catch (err) {

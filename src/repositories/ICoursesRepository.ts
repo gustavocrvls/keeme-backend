@@ -1,4 +1,5 @@
 import Course from '../models/Curso';
+import IArrayPaginatorProvider from '../providers/IArrayPaginatorProvider';
 import { IIndexCourseRequestDTO } from '../useCases/IndexCourse/IndexCourseDTO';
 
 export interface ICoursesRepository {

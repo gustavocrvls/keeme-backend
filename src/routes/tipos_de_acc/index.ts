@@ -2,6 +2,7 @@ import { Router } from 'express';
 import PERFIL from '../../constants/Perfil';
 import TipoDeAccController from '../../controllers/TipoDeAccController';
 import { verifyToken } from '../../middlewares/auth';
+import { createACCTypeController } from '../../useCases/CreateACCType';
 import { indexACCTypeController } from '../../useCases/IndexACCType';
 import { showACCTypeController } from '../../useCases/ShowACCType';
 
@@ -26,7 +27,7 @@ routes.get(
 routes.post(
   '/',
   // verifyToken([PERFIL.ADMINISTRADOR]),
-  TipoDeAccController.create,
+  (req, res) => createACCTypeController.handle(req, res),
 );
 routes.post(
   '/mass',

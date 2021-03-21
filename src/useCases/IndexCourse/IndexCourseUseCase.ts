@@ -3,14 +3,14 @@ import { ICoursesRepository } from '../../repositories/ICoursesRepository';
 import { IIndexCourseRequestDTO } from './IndexCourseDTO';
 
 export class IndexCourseUseCase {
-  private courseRepository;
+  private coursesRepository;
 
-  constructor(courseRepository: ICoursesRepository) {
-    this.courseRepository = courseRepository;
+  constructor(coursesRepository: ICoursesRepository) {
+    this.coursesRepository = coursesRepository;
   }
 
   async execute(data: IIndexCourseRequestDTO): Promise<IPaginatedArray> {
-    const courses = await this.courseRepository.index(data);
+    const courses = await this.coursesRepository.index(data);
     return courses;
   }
 }

@@ -6,4 +6,5 @@ import { IShowACCTypeDTO } from '../useCases/ShowACCType/ShowACCTypeDTO';
 export interface IACCTypesRepository {
   index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray>;
   show(data: IShowACCTypeDTO): Promise<TipoDeAcc>;
+  save(accType: TipoDeAcc): Promise<void>;
 }

@@ -1,16 +1,16 @@
 import TipoDeAcc from '../../models/TipoDeAcc';
 import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
-import { IShowACCTypeDTO } from './ShowACCTypeDTO';
+import { ICreateACCTypeRequestDTO } from './CreateACCTypeDTO';
 
-export class ShowACCTypeUseCase {
+export class CreateACCTypeUseCase {
   private accTypesRepository;
 
   constructor(accTypesRepository: IACCTypesRepository) {
     this.accTypesRepository = accTypesRepository;
   }
 
-  async execute(data: IShowACCTypeDTO): Promise<TipoDeAcc> {
-    const accType = await this.accTypesRepository.show(data);
-    return accType;
+  async execute(data: ICreateACCTypeRequestDTO): Promise<void> {
+    const accType = new TipoDeAcc(data);
+    this.accTypesRepository.save(accType);
   }
 }

@@ -13,8 +13,8 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
 
   private arrayPaginator: IArrayPaginatorProvider;
 
-  constructor(arrayPaginator: IArrayPaginatorProvider) {
-    this.arrayPaginator = arrayPaginator;
+  constructor(arrayPaginator?: IArrayPaginatorProvider) {
+    if (arrayPaginator) this.arrayPaginator = arrayPaginator;
   }
 
   public async index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray> {
@@ -67,8 +67,13 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
 
     this.coursesRepository = getRepository(TipoDeAcc);
 
-    const accType = this.coursesRepository.findOneOrFail(id);
+    const accType = await this.coursesRepository.findOneOrFail(id);
 
     return accType;
+  }
+
+  public async save(accType: TipoDeAcc): Promise<void> {
+    this.coursesRepository = getRepository(TipoDeAcc);
+    await this.coursesRepository.save(accType);
   }
 }

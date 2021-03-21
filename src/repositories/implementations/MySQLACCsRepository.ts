@@ -63,6 +63,11 @@ export class MySQLACCsRepository implements IACCsRepository {
       .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
       .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
       .leftJoinAndSelect('acc.variante_de_acc', 'variante_de_acc')
+      .leftJoinAndSelect('acc.avaliacao_da_acc', 'avaliacao_da_acc')
+      .leftJoinAndSelect(
+        'avaliacao_da_acc.usuario',
+        'avaliacao_da_acc__usuario',
+      )
       .getMany();
     const total_items = await accsQuery.getCount();
 

@@ -11,6 +11,7 @@ import StatusDaAcc from './StatusDaAcc';
 import Usuario from './Usuario';
 import Certificado from './Certificado';
 import VarianteDeAcc from './VarianteDaACC';
+import AvaliacaoDaAcc from './AvaliacaoDaAcc';
 
 @Entity('acc')
 export default class Acc {
@@ -48,4 +49,7 @@ export default class Acc {
   })
   // @JoinColumn({ name: 'id_acc' })
   certificado: Certificado;
+
+  @OneToOne(() => AvaliacaoDaAcc, avaliacaoDaAcc => avaliacaoDaAcc.acc)
+  public avaliacao_da_acc: AvaliacaoDaAcc;
 }

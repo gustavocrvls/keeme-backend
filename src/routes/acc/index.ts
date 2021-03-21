@@ -4,11 +4,14 @@ import AccController from '../../controllers/AccController';
 import { verifyToken } from '../../middlewares/auth';
 import uploadConfig from '../../config/upload';
 import PERFIL from '../../constants/Perfil';
+import { indexACCController } from '../../useCases/IndexACC';
 
 const routes = Router();
 const upload = multer(uploadConfig);
 
-routes.get('/', verifyToken([PERFIL.DISCENTE]), AccController.index);
+routes.get('/', verifyToken([PERFIL.DISCENTE]), (req, res) =>
+  indexACCController.handle(req, res),
+);
 routes.get(
   '/:id',
   verifyToken([PERFIL.DISCENTE, PERFIL.COORDENADOR]),

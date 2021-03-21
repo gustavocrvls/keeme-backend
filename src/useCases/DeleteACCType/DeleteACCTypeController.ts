@@ -8,7 +8,7 @@ export class DeleteACCTypeController {
     this.deleteACCTypeUseCase = deleteACCTypeUseCase;
   }
 
-  async handle(request: Request, response: Response): Promise<void> {
+  public async handle(request: Request, response: Response): Promise<void> {
     const { id } = request.params;
 
     try {

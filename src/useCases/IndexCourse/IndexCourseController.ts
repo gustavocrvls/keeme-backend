@@ -19,7 +19,7 @@ export class IndexCourseController {
         limit: Number(<string>limit),
         page: Number(<string>page),
       });
-      response.status(200).json({ courses });
+      response.status(200).json(courses);
     } catch (err) {
       console.error(err);
       response.sendStatus(400);

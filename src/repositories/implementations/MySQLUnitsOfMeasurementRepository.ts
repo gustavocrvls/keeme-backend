@@ -4,7 +4,6 @@ import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
-import { ArrayPaginatorProvider } from '../../providers/implementations/ArrayPaginatorProvider';
 import { IIndexUnityOfMeasurementDTO } from '../../useCases/IndexUnityOfMeasurement/IndexUnityOfMeasurementDTO';
 import { IUnitsOfMeasurementRepository } from '../IUnitsOfMeasurementRepository';
 
@@ -12,7 +11,7 @@ export class MySQLUnityOfMeasurementRepository
   implements IUnitsOfMeasurementRepository {
   private coursesRepository: Repository<UnidadeDeMedida>;
 
-  private arrayPaginator: ArrayPaginatorProvider;
+  private arrayPaginator: IArrayPaginatorProvider;
 
   constructor(arrayPaginator: IArrayPaginatorProvider) {
     this.arrayPaginator = arrayPaginator;

@@ -11,13 +11,11 @@ const routes = Router();
 
 routes.get(
   '/',
-  // verifyToken([PERFIL.DISCENTE, PERFIL.ADMINISTRADOR]),
+  verifyToken([PERFIL.DISCENTE, PERFIL.ADMINISTRADOR]),
   (req, res) => indexACCTypeController.handle(req, res),
 );
-routes.get(
-  '/:id',
-  // verifyToken([PERFIL.ADMINISTRADOR]),
-  (req, res) => showACCTypeController.handle(req, res),
+routes.get('/:id', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+  showACCTypeController.handle(req, res),
 );
 routes.get(
   '/usuario/:id',
@@ -25,21 +23,17 @@ routes.get(
   TipoDeAccController.getTiposDeAccByIdUsuario,
 );
 
-routes.post(
-  '/',
-  // verifyToken([PERFIL.ADMINISTRADOR]),
-  (req, res) => createACCTypeController.handle(req, res),
+routes.post('/', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+  createACCTypeController.handle(req, res),
 );
 routes.post(
   '/mass',
-  // verifyToken([PERFIL.ADMINISTRADOR]),
+  verifyToken([PERFIL.ADMINISTRADOR]),
   TipoDeAccController.massCreate,
 );
 
-routes.delete(
-  '/:id',
-  // verifyToken([PERFIL.ADMINISTRADOR]),
-  (req, res) => deleteACCTypeController.handle(req, res),
+routes.delete('/:id', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+  deleteACCTypeController.handle(req, res),
 );
 
 routes.put(

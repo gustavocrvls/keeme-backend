@@ -259,8 +259,8 @@ export default {
 
     const accRepository = getRepository(Acc);
 
-
     const acc = accRepository.create(accData);
+
     await accRepository.save(acc);
 
     fs.unlinkSync(certificadoReq.path);

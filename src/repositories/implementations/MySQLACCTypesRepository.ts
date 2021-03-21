@@ -10,7 +10,7 @@ import { IShowACCTypeDTO } from '../../useCases/ShowACCType/ShowACCTypeDTO';
 import { IACCTypesRepository } from '../IACCTypesRepository';
 
 export class MySQLACCTypesRepository implements IACCTypesRepository {
-  private coursesRepository: Repository<TipoDeAcc>;
+  private accTypeRepository: Repository<TipoDeAcc>;
 
   private arrayPaginator: IArrayPaginatorProvider;
 
@@ -22,8 +22,8 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     const { nome, sortField, limit, unidade_de_medida } = data;
     let { sortOrder, page } = data;
 
-    this.coursesRepository = getRepository(TipoDeAcc);
-    let unitsOfMeasurementQuery = await this.coursesRepository.createQueryBuilder(
+    this.accTypeRepository = getRepository(TipoDeAcc);
+    let unitsOfMeasurementQuery = await this.accTypeRepository.createQueryBuilder(
       'tipo_de_acc',
     );
 
@@ -66,23 +66,33 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   public async show(data: IShowACCTypeDTO): Promise<TipoDeAcc> {
     const { id } = data;
 
-    this.coursesRepository = getRepository(TipoDeAcc);
+    this.accTypeRepository = getRepository(TipoDeAcc);
 
-    const accType = await this.coursesRepository.findOneOrFail(id);
+    const accType = await this.accTypeRepository.findOneOrFail(id);
 
     return accType;
   }
 
   public async save(accType: TipoDeAcc): Promise<void> {
-    this.coursesRepository = getRepository(TipoDeAcc);
-    await this.coursesRepository.save(accType);
+    this.accTypeRepository = getRepository(TipoDeAcc);
+    await this.accTypeRepository.save(accType);
   }
 
   public async delete(data: IDeleteACCTypeRequestDTO): Promise<void> {
     const { id } = data;
 
-    this.coursesRepository = getRepository(TipoDeAcc);
+    this.accTypeRepository = getRepository(TipoDeAcc);
 
-    await this.coursesRepository.delete({ id });
+    const accTypes = await this.accTypeRepository
+      .createQueryBuilder('tipo_de_acc')
+      .leftJoin('tipo_de_acc.accs', 'accs')
+      .select('COUNT(accs.id) as accs_length')
+      .where({ id })
+      .getRawOne();
+
+    if (Number(accTypes.accs_length) > 0)
+      throw new Error('Este Tipo de ACC possui ACCs associadas a ele.');
+
+    await this.accTypeRepository.delete({ id });
   }
 }

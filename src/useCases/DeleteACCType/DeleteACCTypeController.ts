@@ -17,9 +17,7 @@ export class DeleteACCTypeController {
       });
       response.sendStatus(200);
     } catch (err) {
-      response
-        .status(400)
-        .json({ msg: 'Este Tipo de ACC possui ACCs associadas a ele.' });
+      response.status(400).json({ msg: err.message });
     }
   }
 }

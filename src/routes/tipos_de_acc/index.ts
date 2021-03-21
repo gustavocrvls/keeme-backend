@@ -2,13 +2,14 @@ import { Router } from 'express';
 import PERFIL from '../../constants/Perfil';
 import TipoDeAccController from '../../controllers/TipoDeAccController';
 import { verifyToken } from '../../middlewares/auth';
+import { indexACCTypeController } from '../../useCases/IndexACCType';
 
 const routes = Router();
 
 routes.get(
   '/',
   // verifyToken([PERFIL.DISCENTE, PERFIL.ADMINISTRADOR]),
-  TipoDeAccController.index,
+  (req, res) => indexACCTypeController.handle(req, res),
 );
 routes.get(
   '/:id',

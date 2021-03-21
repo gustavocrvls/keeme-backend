@@ -5,6 +5,7 @@ import {
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
 import { IIndexACCTypeRequestDTO } from '../../useCases/IndexACCType/IndexACCTypeDTO';
+import { IShowACCTypeDTO } from '../../useCases/ShowACCType/ShowACCTypeDTO';
 import { IACCTypesRepository } from '../IACCTypesRepository';
 
 export class MySQLACCTypesRepository implements IACCTypesRepository {
@@ -16,7 +17,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     this.arrayPaginator = arrayPaginator;
   }
 
-  async index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray> {
+  public async index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray> {
     const { nome, sortField, limit, unidade_de_medida } = data;
     let { sortOrder, page } = data;
 
@@ -59,5 +60,15 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
       limit,
       total_items,
     );
+  }
+
+  public async show(data: IShowACCTypeDTO): Promise<TipoDeAcc> {
+    const { id } = data;
+
+    this.coursesRepository = getRepository(TipoDeAcc);
+
+    const accType = this.coursesRepository.findOneOrFail(id);
+
+    return accType;
   }
 }

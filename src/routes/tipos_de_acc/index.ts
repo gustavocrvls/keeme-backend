@@ -3,6 +3,7 @@ import PERFIL from '../../constants/Perfil';
 import TipoDeAccController from '../../controllers/TipoDeAccController';
 import { verifyToken } from '../../middlewares/auth';
 import { indexACCTypeController } from '../../useCases/IndexACCType';
+import { showACCTypeController } from '../../useCases/ShowACCType';
 
 const routes = Router();
 
@@ -13,8 +14,8 @@ routes.get(
 );
 routes.get(
   '/:id',
-  verifyToken([PERFIL.ADMINISTRADOR]),
-  TipoDeAccController.show,
+  // verifyToken([PERFIL.ADMINISTRADOR]),
+  (req, res) => showACCTypeController.handle(req, res),
 );
 routes.get(
   '/usuario/:id',

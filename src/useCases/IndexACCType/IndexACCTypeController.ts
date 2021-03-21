@@ -17,7 +17,6 @@ export class IndexACCTypeController {
       page,
       unidade_de_medida,
     } = request.query;
-    console.log(nome, limit);
 
     try {
       const accTypes = await this.indexACCTypeUseCase.execute({

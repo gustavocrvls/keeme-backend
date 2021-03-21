@@ -1,15 +1,14 @@
 import { getRepository, Like, Repository } from 'typeorm';
-import UnidadeDeMedida from '../../models/UnidadeDeMedida';
+import TipoDeAcc from '../../models/TipoDeAcc';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
-import { IIndexUnityOfMeasurementDTO } from '../../useCases/IndexUnityOfMeasurement/IndexUnityOfMeasurementDTO';
-import { IUnitsOfMeasurementRepository } from '../IUnitsOfMeasurementRepository';
+import { IIndexACCTypeRequestDTO } from '../../useCases/IndexACCType/IndexACCTypeDTO';
+import { IACCTypesRepository } from '../IACCTypesRepository';
 
-export class MySQLUnityOfMeasurementRepository
-  implements IUnitsOfMeasurementRepository {
-  private coursesRepository: Repository<UnidadeDeMedida>;
+export class MySQLACCTypesRepository implements IACCTypesRepository {
+  private coursesRepository: Repository<TipoDeAcc>;
 
   private arrayPaginator: IArrayPaginatorProvider;
 
@@ -17,13 +16,13 @@ export class MySQLUnityOfMeasurementRepository
     this.arrayPaginator = arrayPaginator;
   }
 
-  async index(data: IIndexUnityOfMeasurementDTO): Promise<IPaginatedArray> {
+  async index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray> {
     const { nome, sortField, limit } = data;
     let { sortOrder, page } = data;
 
-    this.coursesRepository = getRepository(UnidadeDeMedida);
+    this.coursesRepository = getRepository(TipoDeAcc);
     let unitsOfMeasurementQuery = await this.coursesRepository.createQueryBuilder(
-      'unidades_de_medida',
+      'tipo_de_acc',
     );
 
     if (nome)
@@ -43,7 +42,10 @@ export class MySQLUnityOfMeasurementRepository
         .skip(page * limit);
     }
 
-    const unitsOfMeasurement = await unitsOfMeasurementQuery.getMany();
+    const unitsOfMeasurement = await unitsOfMeasurementQuery
+      .leftJoinAndSelect('tipo_de_acc.variantes_de_acc', 'variante_de_acc')
+      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
+      .getMany();
     const total_items = await unitsOfMeasurementQuery.getCount();
 
     return this.arrayPaginator.paginate(

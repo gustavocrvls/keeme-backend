@@ -1,4 +1,4 @@
-export interface IIndexUnityOfMeasurementDTO {
+export interface IIndexACCTypeRequestDTO {
   sortField?: string;
   sortOrder?: 'ASC' | 'DESC';
   nome?: string;

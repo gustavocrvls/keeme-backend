@@ -1,4 +1,4 @@
-import UnidadeDeMedida from '../../models/UnidadeDeMedida';
+import { IPaginatedArray } from '../../providers/IArrayPaginatorProvider';
 import { IUnitsOfMeasurementRepository } from '../../repositories/IUnitsOfMeasurementRepository';
 import { IIndexUnityOfMeasurementDTO } from './IndexUnityOfMeasurementDTO';
 
@@ -9,7 +9,7 @@ export class IndexUnityOfMeasurementUseCase {
     this.unityOfMeasurementRepository = unityOfMeasurementRepository;
   }
 
-  async execute(data: IIndexUnityOfMeasurementDTO): Promise<UnidadeDeMedida[]> {
+  async execute(data: IIndexUnityOfMeasurementDTO): Promise<IPaginatedArray> {
     const unitsOfMeasurement = await this.unityOfMeasurementRepository.index(
       data,
     );

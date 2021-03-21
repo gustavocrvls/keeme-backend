@@ -5,7 +5,7 @@ import { indexUnityOfMeasurementController } from '../../useCases/IndexUnityOfMe
 
 const routes = Router();
 
-routes.get('/', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+routes.get('/', (req, res) =>
   indexUnityOfMeasurementController.handle(req, res),
 );
 

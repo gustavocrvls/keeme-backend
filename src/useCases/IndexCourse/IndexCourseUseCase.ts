@@ -1,4 +1,4 @@
-import Curso from '../../models/Curso';
+import { IPaginatedArray } from '../../providers/IArrayPaginatorProvider';
 import { ICoursesRepository } from '../../repositories/ICoursesRepository';
 import { IIndexCourseRequestDTO } from './IndexCourseDTO';
 
@@ -9,7 +9,7 @@ export class IndexCourseUseCase {
     this.courseRepository = courseRepository;
   }
 
-  async execute(data: IIndexCourseRequestDTO): Promise<Curso[]> {
+  async execute(data: IIndexCourseRequestDTO): Promise<IPaginatedArray> {
     const courses = await this.courseRepository.index(data);
     return courses;
   }

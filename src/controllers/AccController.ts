@@ -9,7 +9,12 @@ import accView from '../views/acc_view';
 import STATUS_DA_ACC from '../constants/StatusDaAcc';
 import Certificado from '../models/Certificado';
 import { SUPORTED_TYPES } from '../constants/Certificado';
-import IPontuacaoPorTipo from '../ts/interfaces/pontuacao_por_tipo';
+
+interface IPontuacaoPorTipo {
+  tipo: number;
+  limite: number;
+  pontos: number;
+}
 
 /**
  * @author Gustavo Carvalho Silva

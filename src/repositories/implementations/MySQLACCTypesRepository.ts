@@ -4,6 +4,7 @@ import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
+import { IDeleteACCTypeRequestDTO } from '../../useCases/DeleteACCType/DeleteACCTypeDTO';
 import { IIndexACCTypeRequestDTO } from '../../useCases/IndexACCType/IndexACCTypeDTO';
 import { IShowACCTypeDTO } from '../../useCases/ShowACCType/ShowACCTypeDTO';
 import { IACCTypesRepository } from '../IACCTypesRepository';
@@ -75,5 +76,13 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   public async save(accType: TipoDeAcc): Promise<void> {
     this.coursesRepository = getRepository(TipoDeAcc);
     await this.coursesRepository.save(accType);
+  }
+
+  public async delete(data: IDeleteACCTypeRequestDTO): Promise<void> {
+    const { id } = data;
+
+    this.coursesRepository = getRepository(TipoDeAcc);
+
+    await this.coursesRepository.delete({ id });
   }
 }

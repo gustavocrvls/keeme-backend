@@ -5,6 +5,7 @@ import { verifyToken } from '../../middlewares/auth';
 import { createACCTypeController } from '../../useCases/CreateACCType';
 import { indexACCTypeController } from '../../useCases/IndexACCType';
 import { showACCTypeController } from '../../useCases/ShowACCType';
+import { deleteACCTypeController } from '../../useCases/DeleteACCType';
 
 const routes = Router();
 
@@ -37,8 +38,8 @@ routes.post(
 
 routes.delete(
   '/:id',
-  verifyToken([PERFIL.ADMINISTRADOR]),
-  TipoDeAccController.delete,
+  // verifyToken([PERFIL.ADMINISTRADOR]),
+  (req, res) => deleteACCTypeController.handle(req, res),
 );
 
 routes.put(

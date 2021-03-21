@@ -2,7 +2,13 @@
 /* eslint-disable func-names */
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
-import IToken from '../ts/interfaces/token_interface';
+
+interface IToken {
+  id: string;
+  perfil: string;
+  iat: string;
+  exp: string;
+}
 
 const privateKey = process.env.JWT_SECRET || '';
 

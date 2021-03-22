@@ -3,15 +3,15 @@ import { ICoursesRepository } from '../../repositories/ICoursesRepository';
 import { ICreateCourseRequestDTO } from './CreateCourseDTO';
 
 export class CreateCourseUseCase {
-  private courseRepository;
+  private coursesRepository;
 
-  constructor(courseRepository: ICoursesRepository) {
-    this.courseRepository = courseRepository;
+  constructor(coursesRepository: ICoursesRepository) {
+    this.coursesRepository = coursesRepository;
   }
 
   async execute(data: ICreateCourseRequestDTO): Promise<void> {
     const course = new Curso(data);
 
-    this.courseRepository.save(course);
+    this.coursesRepository.save(course);
   }
 }

@@ -9,7 +9,12 @@ import accView from '../views/acc_view';
 import STATUS_DA_ACC from '../constants/StatusDaAcc';
 import Certificado from '../models/Certificado';
 import { SUPORTED_TYPES } from '../constants/Certificado';
-import IPontuacaoPorTipo from '../ts/interfaces/pontuacao_por_tipo';
+
+interface IPontuacaoPorTipo {
+  tipo: number;
+  limite: number;
+  pontos: number;
+}
 
 /**
  * @author Gustavo Carvalho Silva
@@ -17,6 +22,10 @@ import IPontuacaoPorTipo from '../ts/interfaces/pontuacao_por_tipo';
  *
  */
 export default {
+  /**
+   *
+   * @deprecated
+   */
   async index(req: Request, res: Response): Promise<any> {
     const accRepository = getRepository(Acc);
 
@@ -48,6 +57,8 @@ export default {
         'usuario.perfil',
         'usuario.curso',
         'certificado',
+        'avaliacao_da_acc',
+        'avaliacao_da_acc.usuario',
       ],
     });
     return res.json(accView.renderWithUser(acc));
@@ -254,8 +265,8 @@ export default {
 
     const accRepository = getRepository(Acc);
 
-
     const acc = accRepository.create(accData);
+
     await accRepository.save(acc);
 
     fs.unlinkSync(certificadoReq.path);

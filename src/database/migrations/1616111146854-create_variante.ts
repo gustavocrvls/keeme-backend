@@ -21,7 +21,7 @@ export class createVariante1616111146854 implements MigrationInterface {
             },
             {
               name: 'pontos_por_unidade',
-              type: 'integer',
+              type: 'float',
             },
             {
               name: 'id_tipo_de_acc',

@@ -4,24 +4,26 @@ import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
+import { IDeleteACCTypeRequestDTO } from '../../useCases/DeleteACCType/DeleteACCTypeDTO';
 import { IIndexACCTypeRequestDTO } from '../../useCases/IndexACCType/IndexACCTypeDTO';
+import { IShowACCTypeDTO } from '../../useCases/ShowACCType/ShowACCTypeDTO';
 import { IACCTypesRepository } from '../IACCTypesRepository';
 
 export class MySQLACCTypesRepository implements IACCTypesRepository {
-  private coursesRepository: Repository<TipoDeAcc>;
+  private accTypeRepository: Repository<TipoDeAcc>;
 
   private arrayPaginator: IArrayPaginatorProvider;
 
-  constructor(arrayPaginator: IArrayPaginatorProvider) {
-    this.arrayPaginator = arrayPaginator;
+  constructor(arrayPaginator?: IArrayPaginatorProvider) {
+    if (arrayPaginator) this.arrayPaginator = arrayPaginator;
   }
 
-  async index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray> {
-    const { nome, sortField, limit } = data;
+  public async index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray> {
+    const { nome, sortField, limit, unidade_de_medida } = data;
     let { sortOrder, page } = data;
 
-    this.coursesRepository = getRepository(TipoDeAcc);
-    let unitsOfMeasurementQuery = await this.coursesRepository.createQueryBuilder(
+    this.accTypeRepository = getRepository(TipoDeAcc);
+    let unitsOfMeasurementQuery = await this.accTypeRepository.createQueryBuilder(
       'tipo_de_acc',
     );
 
@@ -29,6 +31,11 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
         nome: Like(`%${nome}%`),
       });
+    if (unidade_de_medida)
+      unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
+        unidade_de_medida,
+      });
+
     if (!sortOrder) sortOrder = 'ASC';
     if (sortField)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.orderBy({
@@ -54,5 +61,43 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
       limit,
       total_items,
     );
+  }
+
+  public async show(data: IShowACCTypeDTO): Promise<TipoDeAcc> {
+    const { id } = data;
+
+    this.accTypeRepository = getRepository(TipoDeAcc);
+
+    const accType = await this.accTypeRepository.findOneOrFail(id);
+
+    return accType;
+  }
+
+  public async save(accType: TipoDeAcc): Promise<void> {
+    this.accTypeRepository = getRepository(TipoDeAcc);
+    await this.accTypeRepository.save(accType);
+  }
+
+  public async delete(data: IDeleteACCTypeRequestDTO): Promise<void> {
+    const { id } = data;
+
+    this.accTypeRepository = getRepository(TipoDeAcc);
+
+    await this.accTypeRepository.delete({ id });
+  }
+
+  public async getACCsLength(data: IDeleteACCTypeRequestDTO): Promise<number> {
+    const { id } = data;
+
+    this.accTypeRepository = getRepository(TipoDeAcc);
+
+    const accTypes = await this.accTypeRepository
+      .createQueryBuilder('tipo_de_acc')
+      .leftJoin('tipo_de_acc.accs', 'accs')
+      .select('COUNT(accs.id) as accs_length')
+      .where({ id })
+      .getRawOne();
+
+    return accTypes.accs_length;
   }
 }

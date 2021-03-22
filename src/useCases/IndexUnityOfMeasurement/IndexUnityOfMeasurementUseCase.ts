@@ -3,14 +3,14 @@ import { IUnitsOfMeasurementRepository } from '../../repositories/IUnitsOfMeasur
 import { IIndexUnityOfMeasurementDTO } from './IndexUnityOfMeasurementDTO';
 
 export class IndexUnityOfMeasurementUseCase {
-  private unityOfMeasurementRepository;
+  private unitsOfMeasurementRepository;
 
-  constructor(unityOfMeasurementRepository: IUnitsOfMeasurementRepository) {
-    this.unityOfMeasurementRepository = unityOfMeasurementRepository;
+  constructor(unitsOfMeasurementRepository: IUnitsOfMeasurementRepository) {
+    this.unitsOfMeasurementRepository = unitsOfMeasurementRepository;
   }
 
   async execute(data: IIndexUnityOfMeasurementDTO): Promise<IPaginatedArray> {
-    const unitsOfMeasurement = await this.unityOfMeasurementRepository.index(
+    const unitsOfMeasurement = await this.unitsOfMeasurementRepository.index(
       data,
     );
     return unitsOfMeasurement;

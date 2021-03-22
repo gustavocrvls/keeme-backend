@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   ManyToOne,
+  OneToOne,
 } from 'typeorm';
 import Acc from './Acc';
 import Usuario from './Usuario';
@@ -11,19 +12,19 @@ import Usuario from './Usuario';
 @Entity('avaliacao_da_acc')
 export default class AvaliacaoDaAcc {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  public readonly id: number;
 
   @Column()
-  comentario: string;
+  public descricao: string;
 
   @Column({ type: 'timestamp' })
-  criado_em: Date;
+  public criado_em: Date;
 
-  @ManyToOne(() => Acc, acc => acc.id)
+  @OneToOne(() => Acc, acc => acc.id)
   @JoinColumn({ name: 'id_acc' })
-  acc: number;
+  public acc: Acc;
 
   @ManyToOne(() => Usuario, usuario => usuario.id)
   @JoinColumn({ name: 'id_usuario' })
-  usuario: Usuario;
+  public usuario: Usuario;
 }

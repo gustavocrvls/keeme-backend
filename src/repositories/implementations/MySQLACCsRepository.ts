@@ -50,7 +50,7 @@ export class MySQLACCsRepository implements IACCsRepository {
     if (!sortOrder) sortOrder = 'ASC';
     if (sortField)
       accsQuery = accsQuery.orderBy({
-        [sortField]: sortOrder,
+        [`acc.${sortField}`]: sortOrder,
       });
 
     if (limit && limit !== undefined && page && page !== undefined) {

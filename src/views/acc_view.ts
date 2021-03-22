@@ -46,6 +46,15 @@ export default {
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
       tipo_de_acc: tipoDeAccView.render(acc.tipo_de_acc),
       id_certificado: acc.certificado.id,
+      avaliacao_da_acc: {
+        id: acc.avaliacao_da_acc.id,
+        descricao: acc.avaliacao_da_acc.descricao,
+        criado_em: acc.avaliacao_da_acc.criado_em,
+        usuario: {
+          id: acc.avaliacao_da_acc.usuario.id,
+          nome: acc.avaliacao_da_acc.usuario.nome,
+        },
+      },
     };
   },
 

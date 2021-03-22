@@ -22,6 +22,10 @@ interface IPontuacaoPorTipo {
  *
  */
 export default {
+  /**
+   *
+   * @deprecated
+   */
   async index(req: Request, res: Response): Promise<any> {
     const accRepository = getRepository(Acc);
 
@@ -53,6 +57,8 @@ export default {
         'usuario.perfil',
         'usuario.curso',
         'certificado',
+        'avaliacao_da_acc',
+        'avaliacao_da_acc.usuario',
       ],
     });
     return res.json(accView.renderWithUser(acc));

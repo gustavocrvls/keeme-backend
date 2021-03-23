@@ -59,6 +59,7 @@ export default {
         'certificado',
         'avaliacao_da_acc',
         'avaliacao_da_acc.usuario',
+        'variante_de_acc',
       ],
     });
     return res.json(accView.renderWithUser(acc));
@@ -265,8 +266,6 @@ export default {
         arquivo: fs.readFileSync(certificadoReq.path),
       }
     };
-
-    console.log(accData);
 
     const accRepository = getRepository(Acc);
 

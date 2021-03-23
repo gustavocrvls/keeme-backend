@@ -46,6 +46,7 @@ export default {
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
       tipo_de_acc: tipoDeAccView.render(acc.tipo_de_acc),
       id_certificado: acc.certificado.id,
+      criado_em: acc.criado_em,
       avaliacao_da_acc: {
         id: acc.avaliacao_da_acc.id,
         descricao: acc.avaliacao_da_acc.descricao,
@@ -54,6 +55,12 @@ export default {
           id: acc.avaliacao_da_acc.usuario.id,
           nome: acc.avaliacao_da_acc.usuario.nome,
         },
+      },
+      variante_de_acc: {
+        id: acc.variante_de_acc.id,
+        descricao: acc.variante_de_acc.descricao,
+        pontos_por_unidade: acc.variante_de_acc.pontos_por_unidade,
+        tipo_de_acc: acc.variante_de_acc.tipo_de_acc,
       },
     };
   },

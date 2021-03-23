@@ -5,6 +5,7 @@ import { verifyToken } from '../../middlewares/auth';
 import uploadConfig from '../../config/upload';
 import PERFIL from '../../constants/Perfil';
 import { indexACCController } from '../../useCases/IndexACC';
+import { deleteACCController } from '../../useCases/DeleteACC';
 
 const routes = Router();
 const upload = multer(uploadConfig);
@@ -47,10 +48,8 @@ routes.post(
 
 routes.put('/update/:id/status', AccController.updateStatus);
 
-routes.delete(
-  '/remover/:id',
-  verifyToken([PERFIL.DISCENTE]),
-  AccController.remover,
+routes.delete('/:id', verifyToken([PERFIL.DISCENTE]), (req, res) =>
+  deleteACCController.handle(req, res),
 );
 
 export default routes;

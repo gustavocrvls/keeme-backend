@@ -4,6 +4,7 @@ import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
+import { IDeleteACCRequestDTO } from '../../useCases/DeleteACC/DeleteACCDTO';
 import { IIndexACCRequestDTO } from '../../useCases/IndexACC/IndexACCDTO';
 import { IACCsRepository } from '../IACCsRepository';
 
@@ -73,5 +74,12 @@ export class MySQLACCsRepository implements IACCsRepository {
     const total_items = await accsQuery.getCount();
 
     return this.arrayPaginator.paginate(accs, page + 1, limit, total_items);
+  }
+
+  public async delete(data: IDeleteACCRequestDTO): Promise<void> {
+    const { id } = data;
+    this.accRepository = getRepository(Acc);
+
+    await this.accRepository.delete({ id });
   }
 }

@@ -179,6 +179,7 @@ export default {
       .createQueryBuilder('tipo_de_acc')
       .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
       .leftJoinAndSelect('tipo_de_acc.accs', 'acc')
+      .leftJoinAndSelect('tipo_de_acc.variantes_de_acc', 'variante_da_acc')
       .leftJoinAndSelect('acc.usuario', 'usuario', 'usuario.id = :id_usuario', {
         id_usuario: id,
       })
@@ -189,6 +190,7 @@ export default {
         'unidade_de_medida',
         'acc',
         'usuario',
+        'variante_da_acc',
       ])
       .getMany();
 
@@ -196,7 +198,8 @@ export default {
       let acumulador = 0;
       tipoDeAcc.accs.map(acc => {
         if (acc.status_da_acc.id === StatusDaAccConsts.APROVADA)
-          acumulador += acc.quantidade * tipoDeAcc.pontos_por_unidade;
+          acumulador +=
+            acc.quantidade * tipoDeAcc.variantes_de_acc[0].pontos_por_unidade;
         return acumulador;
       });
       tiposDeAcc[index].pontuacao = acumulador;

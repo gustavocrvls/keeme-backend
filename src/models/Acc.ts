@@ -41,7 +41,7 @@ export default class Acc {
 
   @ManyToOne(() => VarianteDeAcc, varianteDeAcc => varianteDeAcc.id)
   @JoinColumn({ name: 'id_variante_de_acc' })
-  variante_de_acc: VarianteDeAcc;
+  variante_de_acc: VarianteDeAcc; /// ///// CORRIGIR NOME
 
   @OneToOne(() => Certificado, certificado => certificado.acc, {
     cascade: true,

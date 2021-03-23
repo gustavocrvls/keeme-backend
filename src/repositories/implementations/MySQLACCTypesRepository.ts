@@ -39,7 +39,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     if (!sortOrder) sortOrder = 'ASC';
     if (sortField)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.orderBy({
-        [sortField]: sortOrder,
+        [`tipo_de_acc.${sortField}`]: sortOrder,
       });
 
     if (limit && limit !== undefined && page && page !== undefined) {

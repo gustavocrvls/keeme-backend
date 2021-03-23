@@ -62,6 +62,7 @@ export class MySQLACCsRepository implements IACCsRepository {
       .leftJoinAndSelect('acc.usuario', 'usuario')
       .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
       .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
+      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
       .leftJoinAndSelect('acc.variante_de_acc', 'variante_de_acc')
       .leftJoinAndSelect('acc.avaliacao_da_acc', 'avaliacao_da_acc')
       .leftJoinAndSelect(

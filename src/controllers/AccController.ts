@@ -123,10 +123,11 @@ export default {
         .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
         .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
         .leftJoinAndSelect('acc.usuario', 'usuario')
+        .leftJoinAndSelect('acc.variante_de_acc', 'variante_de_acc')
         .leftJoinAndSelect('usuario.perfil', 'perfil')
         .leftJoinAndSelect('usuario.curso', 'curso')
         .select(
-          'SUM(acc.quantidade * tipo_de_acc.pontos_por_unidade)',
+          'SUM(acc.quantidade * variante_de_acc.pontos_por_unidade)',
           'pontos',
         )
         .addSelect('status_da_acc.id', 'status')
@@ -183,10 +184,11 @@ export default {
         .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
         .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
         .leftJoinAndSelect('acc.usuario', 'usuario')
+        .leftJoinAndSelect('acc.variante_de_acc', 'variante_de_acc')
         .leftJoinAndSelect('usuario.perfil', 'perfil')
         .leftJoinAndSelect('usuario.curso', 'curso')
         .select(
-          'SUM(acc.quantidade * tipo_de_acc.pontos_por_unidade)',
+          'SUM(acc.quantidade * variante_de_acc.pontos_por_unidade)',
           'pontos',
         )
         .addSelect('status_da_acc.id', 'status')
@@ -201,10 +203,11 @@ export default {
       return pontuacaoByStatus;
     };
 
-    const pontuacaoStatusEmAnalise = await getPontuacaoByStatus(
-      id,
-      STATUS_DA_ACC.EM_ANALISE,
-    );
+      const pontuacaoStatusEmAnalise = await getPontuacaoByStatus(
+        id,
+        STATUS_DA_ACC.EM_ANALISE,
+      );
+
     const pontuacaoStatusAprovada = await getPontuacaoByStatus(
       id,
       STATUS_DA_ACC.APROVADA,
@@ -262,6 +265,8 @@ export default {
         arquivo: fs.readFileSync(certificadoReq.path),
       }
     };
+
+    console.log(accData);
 
     const accRepository = getRepository(Acc);
 

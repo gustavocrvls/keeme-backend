@@ -42,18 +42,17 @@ export default {
       quantidade: acc.quantidade,
       descricao: acc.descricao,
       usuario: usuarioView.render(acc.usuario),
-      pontos: acc.quantidade * acc.tipo_de_acc.pontos_por_unidade,
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
       tipo_de_acc: tipoDeAccView.render(acc.tipo_de_acc),
       id_certificado: acc.certificado.id,
       criado_em: acc.criado_em,
       avaliacao_da_acc: {
-        id: acc.avaliacao_da_acc.id,
-        descricao: acc.avaliacao_da_acc.descricao,
-        criado_em: acc.avaliacao_da_acc.criado_em,
+        id: acc.avaliacao_da_acc?.id,
+        descricao: acc.avaliacao_da_acc?.descricao,
+        criado_em: acc.avaliacao_da_acc?.criado_em,
         usuario: {
-          id: acc.avaliacao_da_acc.usuario.id,
-          nome: acc.avaliacao_da_acc.usuario.nome,
+          id: acc.avaliacao_da_acc?.usuario.id,
+          nome: acc.avaliacao_da_acc?.usuario.nome,
         },
       },
       variante_de_acc: {

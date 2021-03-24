@@ -1,11 +1,11 @@
 const StatusDaACCSeed = [
   {
     id: 1,
-    nome: 'Em Análise',
+    nome: 'Aprovada',
   },
   {
     id: 2,
-    nome: 'Aprovada',
+    nome: 'Em Análise',
   },
   {
     id: 3,

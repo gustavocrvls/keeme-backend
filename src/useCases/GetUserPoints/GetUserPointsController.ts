@@ -8,7 +8,7 @@ export class GetUserPointsController {
     this.getUserPointsUseCase = getUserPointsUseCase;
   }
 
-  public async handle(request: Request, response: Response) {
+  public async handle(request: Request, response: Response): Promise<void> {
     const { id } = request.params;
     const summary = await this.getUserPointsUseCase.execute({
       id: Number(<string>id),

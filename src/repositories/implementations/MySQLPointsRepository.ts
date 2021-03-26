@@ -35,6 +35,6 @@ export class MySQLPointsRepository implements IPointsRepository {
       })
       .getRawMany();
 
-    return <IACCPoints[]>points;
+    return points as IACCPoints[];
   }
 }

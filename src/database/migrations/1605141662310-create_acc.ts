@@ -41,7 +41,7 @@ export class createAcc1605141662310 implements MigrationInterface {
             name: 'id_status_da_acc',
             type: 'integer',
             unsigned: true,
-            default: 1,
+            default: 2,
           },
           {
             name: 'id_tipo_de_acc',

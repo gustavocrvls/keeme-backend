@@ -6,8 +6,12 @@ import {
 } from '../../providers/IArrayPaginatorProvider';
 import { IDeleteACCTypeRequestDTO } from '../../useCases/DeleteACCType/DeleteACCTypeDTO';
 import { IIndexACCTypeRequestDTO } from '../../useCases/IndexACCType/IndexACCTypeDTO';
+import { IIndexACCTypesWithUserPointsRequestDTO } from '../../useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
 import { IShowACCTypeDTO } from '../../useCases/ShowACCType/ShowACCTypeDTO';
-import { IACCTypesRepository } from '../IACCTypesRepository';
+import {
+  IACCTypesRepository,
+  IACCTypeWithUserACCs,
+} from '../IACCTypesRepository';
 
 export class MySQLACCTypesRepository implements IACCTypesRepository {
   private accTypeRepository: Repository<TipoDeAcc>;
@@ -99,5 +103,36 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
       .getRawOne();
 
     return accTypes.accs_length;
+  }
+
+  public async getACCTypeByUser(
+    data: IIndexACCTypesWithUserPointsRequestDTO,
+  ): Promise<IACCTypeWithUserACCs[]> {
+    const { user_id } = data;
+
+    this.accTypeRepository = getRepository(TipoDeAcc);
+
+    const accTypes = await this.accTypeRepository
+      .createQueryBuilder('tipo_de_acc')
+      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
+      .leftJoinAndSelect('tipo_de_acc.accs', 'acc')
+      .leftJoinAndSelect('acc.variante_de_acc', 'variante_da_acc')
+      .leftJoinAndSelect('acc.usuario', 'usuario', 'usuario.id = :id_usuario', {
+        id_usuario: user_id,
+      })
+      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
+      .select([
+        'tipo_de_acc',
+        'status_da_acc',
+        'unidade_de_medida',
+        'acc.usuario',
+        'acc.quantidade',
+        'acc.status_da_acc',
+        'variante_da_acc.pontos_por_unidade',
+        'usuario.nome',
+      ])
+      .getMany();
+
+    return accTypes as IACCTypeWithUserACCs[];
   }
 }

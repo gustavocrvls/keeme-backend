@@ -145,15 +145,15 @@ export default {
 
     const pontuacaoStatusEmAnalise = await getPontuacaoByStatus(
       id,
-      STATUS_DA_ACC.EM_ANALISE,
+      STATUS_DA_ACC.UNDER_ANALYSIS,
     );
     const pontuacaoStatusAprovada = await getPontuacaoByStatus(
       id,
-      STATUS_DA_ACC.APROVADA,
+      STATUS_DA_ACC.APPROVED,
     );
     const pontuacaoStatusNegada = await getPontuacaoByStatus(
       id,
-      STATUS_DA_ACC.NEGADA,
+      STATUS_DA_ACC.FAILED,
     );
 
     const pontosEmAnalise = contarPontos(pontuacaoStatusEmAnalise);
@@ -206,16 +206,16 @@ export default {
 
       const pontuacaoStatusEmAnalise = await getPontuacaoByStatus(
         id,
-        STATUS_DA_ACC.EM_ANALISE,
+        STATUS_DA_ACC.UNDER_ANALYSIS,
       );
 
     const pontuacaoStatusAprovada = await getPontuacaoByStatus(
       id,
-      STATUS_DA_ACC.APROVADA,
+      STATUS_DA_ACC.APPROVED,
     );
     const pontuacaoStatusNegada = await getPontuacaoByStatus(
       id,
-      STATUS_DA_ACC.NEGADA,
+      STATUS_DA_ACC.FAILED,
     );
 
     const pontosEmAnalise = contarPontos(pontuacaoStatusEmAnalise);

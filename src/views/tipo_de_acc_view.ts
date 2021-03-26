@@ -7,7 +7,6 @@ export default {
     return {
       id: tipoDeAcc.id,
       nome: tipoDeAcc.nome,
-      pontos_por_unidade: tipoDeAcc.pontos_por_unidade,
       limite_de_pontos: tipoDeAcc.limite_de_pontos,
       descricao: tipoDeAcc.descricao,
       unidade_de_medida: unidadeDeMedidaView.render(
@@ -20,7 +19,6 @@ export default {
     return {
       id: tipoDeAcc.id,
       nome: tipoDeAcc.nome,
-      pontos_por_unidade: tipoDeAcc.pontos_por_unidade,
       limite_de_pontos: tipoDeAcc.limite_de_pontos,
       descricao: tipoDeAcc.descricao,
       unidade_de_medida: unidadeDeMedidaView.render(

@@ -3,7 +3,7 @@ import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 import TipoDeAcc from '../models/TipoDeAcc';
 import tipoDeAccView from '../views/tipo_de_acc_view';
-import StatusDaAccConsts from '../constants/StatusDaAcc';
+import STATUS_DA_ACC from '../constants/StatusDaAcc';
 
 /**
  * @author Gustavo Carvalho Silva
@@ -197,7 +197,7 @@ export default {
     tiposDeAcc.map((tipoDeAcc, index) => {
       let acumulador = 0;
       tipoDeAcc.accs.map(acc => {
-        if (acc.status_da_acc.id === StatusDaAccConsts.APROVADA)
+        if (acc.status_da_acc.id === STATUS_DA_ACC.APPROVED)
           acumulador +=
             acc.quantidade * tipoDeAcc.variantes_de_acc[0].pontos_por_unidade;
         return acumulador;

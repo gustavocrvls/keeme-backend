@@ -9,7 +9,6 @@ export default {
       id: acc.id,
       quantidade: acc.quantidade,
       descricao: acc.descricao,
-      pontos: acc.quantidade * acc.tipo_de_acc.pontos_por_unidade,
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
       tipo_de_acc: tipoDeAccView.renderMinimal(acc.tipo_de_acc),
       id_certificado: acc.certificado.id,
@@ -22,17 +21,6 @@ export default {
       quantidade: acc.quantidade,
       // descricao: acc.descricao,
       status_da_acc: statusDaAccView.render(acc.status_da_acc),
-    };
-  },
-
-  renderDetails(acc: Acc): any {
-    return {
-      id: acc.id,
-      quantidade: acc.quantidade,
-      descricao: acc.descricao,
-      pontos: acc.quantidade * acc.tipo_de_acc.pontos_por_unidade,
-      status_da_acc: statusDaAccView.render(acc.status_da_acc),
-      tipo_de_acc: tipoDeAccView.render(acc.tipo_de_acc),
     };
   },
 

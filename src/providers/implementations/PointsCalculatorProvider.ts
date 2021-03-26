@@ -44,7 +44,10 @@ export class PointsCalculatorProvider implements IPointsCalculatorProvider {
           description: variante.descricao,
           points_per_unity: variante.pontos_por_unidade,
         })),
-        approved_points: approvedAcumulator,
+        approved_points:
+          approvedAcumulator > accType.limite_de_pontos
+            ? accType.limite_de_pontos
+            : approvedAcumulator,
         points_under_analisys: underAnalisysAcumulator,
       };
     });

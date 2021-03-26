@@ -9,6 +9,7 @@ import { IIndexACCTypeRequestDTO } from '../../useCases/IndexACCType/IndexACCTyp
 import { IIndexACCTypesWithUserPointsRequestDTO } from '../../useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
 import { IShowACCTypeDTO } from '../../useCases/ShowACCType/ShowACCTypeDTO';
 import {
+  IACCsLength,
   IACCTypesRepository,
   IACCTypeWithUserACCs,
 } from '../IACCTypesRepository';
@@ -90,7 +91,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     await this.accTypeRepository.delete({ id });
   }
 
-  public async getACCsLength(data: IDeleteACCTypeRequestDTO): Promise<number> {
+  public async getACCsLength(data: IACCsLength): Promise<number> {
     const { id } = data;
 
     this.accTypeRepository = getRepository(TipoDeAcc);
@@ -108,11 +109,12 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   public async getACCTypeByUser(
     data: IIndexACCTypesWithUserPointsRequestDTO,
   ): Promise<IACCTypeWithUserACCs[]> {
-    const { user_id } = data;
+    const { user_id, name, sortField, limit } = data;
+    let { sortOrder, page } = data;
 
     this.accTypeRepository = getRepository(TipoDeAcc);
 
-    const accTypes = await this.accTypeRepository
+    let accTypeQuery = this.accTypeRepository
       .createQueryBuilder('tipo_de_acc')
       .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
       .leftJoinAndSelect('tipo_de_acc.accs', 'acc')
@@ -125,14 +127,41 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
         'tipo_de_acc',
         'status_da_acc',
         'unidade_de_medida',
+        'acc.id',
         'acc.usuario',
         'acc.quantidade',
         'acc.status_da_acc',
         'variante_da_acc.pontos_por_unidade',
         'usuario.nome',
-      ])
-      .getMany();
+      ]);
+    if (name)
+      accTypeQuery = accTypeQuery.where('tipo_de_acc.nome LIKE :name', {
+        name: `%${name}%`,
+      });
+
+    if (!sortOrder) sortOrder = 'ASC';
+    if (sortField)
+      accTypeQuery = accTypeQuery.orderBy({
+        [`tipo_de_acc.${sortField}`]: sortOrder,
+      });
+
+    if (limit && limit !== undefined && page && page !== undefined) {
+      if (page > 0) page -= 1;
+      accTypeQuery = accTypeQuery.take(limit).skip(page * limit);
+    }
+
+    const accTypes = await accTypeQuery.getMany();
 
     return accTypes as IACCTypeWithUserACCs[];
+  }
+
+  public async getACCTypesLength(): Promise<number> {
+    this.accTypeRepository = getRepository(TipoDeAcc);
+
+    const accTypesLength = await this.accTypeRepository
+      .createQueryBuilder('tipo_de_acc')
+      .getCount();
+
+    return accTypesLength;
   }
 }

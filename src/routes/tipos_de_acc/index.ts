@@ -6,7 +6,7 @@ import { createACCTypeController } from '../../useCases/CreateACCType';
 import { indexACCTypeController } from '../../useCases/IndexACCType';
 import { showACCTypeController } from '../../useCases/ShowACCType';
 import { deleteACCTypeController } from '../../useCases/DeleteACCType';
-import { indexACCTypeWithUserPointsController } from '../../useCases/IndexACCTypeWithUserPoints';
+import { indexACCTypesWithUserPointsController } from '../../useCases/IndexACCTypesWithUserPoints';
 
 const routes = Router();
 
@@ -19,7 +19,7 @@ routes.get('/:id', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
   showACCTypeController.handle(req, res),
 );
 routes.get('/user/:user_id', verifyToken([PERFIL.DISCENTE]), (req, res) =>
-  indexACCTypeWithUserPointsController.handle(req, res),
+  indexACCTypesWithUserPointsController.handle(req, res),
 );
 
 routes.post('/', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>

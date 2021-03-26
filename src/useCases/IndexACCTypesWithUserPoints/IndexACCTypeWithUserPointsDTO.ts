@@ -1,5 +1,11 @@
 export interface IIndexACCTypesWithUserPointsRequestDTO {
   user_id: number;
+
+  sortField: string;
+  sortOrder: 'ASC' | 'DESC';
+  name: string;
+  page: number;
+  limit: number;
 }
 
 export interface IACCTypesWithUserPointsResponseDTO {

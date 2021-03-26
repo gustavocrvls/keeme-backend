@@ -23,6 +23,7 @@ export class PointsCalculatorProvider implements IPointsCalculatorProvider {
       let approvedAcumulator = 0;
       let underAnalisysAcumulator = 0;
       accType.accs.forEach(acc => {
+        console.log(acc, approvedAcumulator);
         if (acc.status_da_acc.id === STATUS_DA_ACC.APPROVED)
           approvedAcumulator +=
             acc.quantidade * acc.variante_de_acc.pontos_por_unidade;

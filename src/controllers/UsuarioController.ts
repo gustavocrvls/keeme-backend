@@ -16,6 +16,7 @@ export default {
   // essa função serve apenas para testes e deverá ser removida
   async index(req: Request, res: Response): Promise<any> {
     const { nome, curso } = req.query;
+    let { profile_id } = req.query;
     const usuarioRepository = getRepository(Usuario);
 
     let queryUsuarios = usuarioRepository
@@ -31,9 +32,15 @@ export default {
       queryUsuarios = queryUsuarios.andWhere('curso.id = :curso', { curso });
     }
 
+    if (!profile_id) profile_id = String(PERFIL.DISCENTE);
+
+    queryUsuarios = queryUsuarios.andWhere('perfil.id = :profile_id', {
+      profile_id,
+    });
+
     const usuarios = await queryUsuarios.getMany();
 
-    return res.json(usuarioView.renderMany(usuarios));
+    return res.json({ data: usuarios });
   },
 
   /**

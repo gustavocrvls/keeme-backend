@@ -118,7 +118,11 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
       .createQueryBuilder('tipo_de_acc')
       .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
       .leftJoinAndSelect('tipo_de_acc.accs', 'acc')
-      .leftJoinAndSelect('acc.variante_de_acc', 'variante_da_acc')
+      .leftJoinAndSelect('acc.variante_de_acc', 'acc.variante_da_acc')
+      .leftJoinAndSelect(
+        'tipo_de_acc.variantes_de_acc',
+        'tipo_de_acc.variantes_de_acc',
+      )
       .leftJoinAndSelect('acc.usuario', 'usuario', 'usuario.id = :id_usuario', {
         id_usuario: user_id,
       })
@@ -131,8 +135,9 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
         'acc.usuario',
         'acc.quantidade',
         'acc.status_da_acc',
-        'variante_da_acc.pontos_por_unidade',
+        'acc.variante_da_acc.pontos_por_unidade',
         'usuario.nome',
+        'tipo_de_acc.variantes_de_acc',
       ]);
     if (name)
       accTypeQuery = accTypeQuery.where('tipo_de_acc.nome LIKE :name', {

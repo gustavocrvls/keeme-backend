@@ -23,7 +23,6 @@ export class PointsCalculatorProvider implements IPointsCalculatorProvider {
       let approvedAcumulator = 0;
       let underAnalisysAcumulator = 0;
       accType.accs.forEach(acc => {
-        console.log(acc, approvedAcumulator);
         if (acc.status_da_acc.id === STATUS_DA_ACC.APPROVED)
           approvedAcumulator +=
             acc.quantidade * acc.variante_de_acc.pontos_por_unidade;
@@ -40,6 +39,11 @@ export class PointsCalculatorProvider implements IPointsCalculatorProvider {
           id: accType.unidade_de_medida.id,
           name: accType.unidade_de_medida.nome,
         },
+        acc_variants: accType.variantes_de_acc.map(variante => ({
+          id: variante.id,
+          description: variante.descricao,
+          points_per_unity: variante.pontos_por_unidade,
+        })),
         approved_points: approvedAcumulator,
         points_under_analisys: underAnalisysAcumulator,
       };

@@ -14,6 +14,11 @@ export interface IACCTypeWithUserACCs {
     id: number;
     nome: string;
   };
+  variantes_de_acc: {
+    id: number;
+    pontos_por_unidade: number;
+    descricao: string;
+  }[];
   accs: {
     quantidade: number;
     variante_de_acc: {

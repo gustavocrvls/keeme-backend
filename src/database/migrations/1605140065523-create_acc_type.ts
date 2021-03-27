@@ -1,10 +1,10 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
-export class createCertificado1607197782329 implements MigrationInterface {
+export class createACCType1605140065523 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
-      name: 'certificado',
+    name: 'acc_type',
       columns: [
         {
           name: 'id',
@@ -15,34 +15,29 @@ export class createCertificado1607197782329 implements MigrationInterface {
           generationStrategy: 'increment'
         },
         {
-          name: 'nome',
+          name: 'name',
           type: 'varchar',
         },
         {
-          name: 'tamanho',
+          name: 'point_limit',
           type: 'integer',
-          unsigned: true,
         },
         {
-          name: 'tipo',
+          name: 'description',
           type: 'varchar',
-        },
-        {
-          name: 'arquivo',
-          type: 'mediumblob',
-        },
-        {
-          name: 'id_acc',
-          type: 'integer',
-          unsigned: true,
           isNullable: true,
-        }
+        },
+        {
+          name: 'unity_of_measurement_id',
+          type: 'integer',
+          unsigned: true,
+        },
       ],
       foreignKeys: [
         {
-          name: 'FK_certificado__acc',
-          columnNames: ['id_acc'],
-          referencedTableName: 'acc',
+          name: 'FK_acc_type__unity_of_measurement',
+          columnNames: ['unity_of_measurement_id'],
+          referencedTableName: 'unity_of_measurement',
           referencedColumnNames: ['id'],
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
@@ -52,6 +47,7 @@ export class createCertificado1607197782329 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('certificado');
+    await queryRunner.dropTable('acc_type');
   }
+
 }

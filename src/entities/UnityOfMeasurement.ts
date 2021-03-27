@@ -12,7 +12,7 @@ export class UnityOfMeasurement {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column('nome')
+  @Column()
   public name: string;
 
   @OneToMany(() => ACCType, accType => accType.unity_of_measurement)

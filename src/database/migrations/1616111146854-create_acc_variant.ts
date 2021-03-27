@@ -4,7 +4,7 @@ export class createVariante1616111146854 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(new Table({
-        name: 'variante_de_acc',
+        name: 'acc_variant',
           columns: [
             {
               name: 'id',
@@ -15,25 +15,25 @@ export class createVariante1616111146854 implements MigrationInterface {
               generationStrategy: 'increment'
             },
             {
-              name: 'descricao',
+              name: 'description',
               type: 'varchar',
               isNullable: true,
             },
             {
-              name: 'pontos_por_unidade',
+              name: 'points_per_unity',
               type: 'float',
             },
             {
-              name: 'id_tipo_de_acc',
+              name: 'acc_type_id',
               type: 'integer',
               unsigned: true,
             },
           ],
           foreignKeys: [
             {
-              name: 'FK_variante_de_acc__tipo_de_acc',
-              columnNames: ['id_tipo_de_acc'],
-              referencedTableName: 'tipo_de_acc',
+              name: 'FK_variante_de_acc__acc_type',
+              columnNames: ['acc_type_id'],
+              referencedTableName: 'acc_type',
               referencedColumnNames: ['id'],
               onUpdate: 'CASCADE',
               onDelete: 'CASCADE',

@@ -1,19 +1,17 @@
 import crypto from 'crypto';
 
-const senha = crypto
+const password = crypto
   .createHash('md5')
   .update(process.env.ADMIN_PASSWORD || 'password')
   .digest('hex');
 
-const UsuarioSeed = [
+export const UserSeed = [
   {
-    nome: 'Administrador',
-    username: 'admin',
+    name: 'Administrador',
     cpf: '00000000000',
     email: 'admin@admin.com',
-    perfil: 1,
-    senha,
+    username: 'admin',
+    profile: 1,
+    password,
   },
 ];
-
-export default UsuarioSeed;

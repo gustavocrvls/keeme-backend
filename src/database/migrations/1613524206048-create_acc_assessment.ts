@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class createAvaliacaoDaAcc1613524206048 implements MigrationInterface {
+export class createACCAssesment1613524206048 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'avaliacao_da_acc',
+        name: 'acc_assessment',
         columns: [
           {
             name: 'id',
@@ -15,22 +15,22 @@ export class createAvaliacaoDaAcc1613524206048 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'descricao',
+            name: 'description',
             type: 'varchar',
           },
           {
-            name: 'criado_em',
+            name: 'criated_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',
           },
           {
-            name: 'id_acc',
+            name: 'acc_id',
             type: 'integer',
             unsigned: true,
             isNullable: false,
           },
           {
-            name: 'id_usuario',
+            name: 'user_id',
             type: 'integer',
             unsigned: true,
             isNullable: false,
@@ -38,16 +38,16 @@ export class createAvaliacaoDaAcc1613524206048 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FK_avaliacao_da_acc__usuario',
-            columnNames: ['id_usuario'],
-            referencedTableName: 'usuario',
+            name: 'FK_acc_assessment__user',
+            columnNames: ['user_id'],
+            referencedTableName: 'user',
             referencedColumnNames: ['id'],
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
           {
-            name: 'FK_avaliacao_da_acc__acc',
-            columnNames: ['id_acc'],
+            name: 'FK_acc_assessment__acc',
+            columnNames: ['acc_id'],
             referencedTableName: 'acc',
             referencedColumnNames: ['id'],
             onUpdate: 'CASCADE',
@@ -59,6 +59,6 @@ export class createAvaliacaoDaAcc1613524206048 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('avaliacao_da_acc');
+    await queryRunner.dropTable('acc_assessment');
   }
 }

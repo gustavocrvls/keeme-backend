@@ -2,10 +2,9 @@ import {
   MigrationInterface,
   QueryRunner,
   Table,
-  TableForeignKey,
 } from 'typeorm';
 
-export class createAcc1605141662310 implements MigrationInterface {
+export class createACC1605141662310 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -20,56 +19,56 @@ export class createAcc1605141662310 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'quantidade',
+            name: 'quantity',
             type: 'integer',
           },
           {
-            name: 'descricao',
+            name: 'description',
             type: 'varchar',
           },
           {
-            name: 'criado_em',
+            name: 'created_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',
           },
           {
-            name: 'id_usuario',
+            name: 'user_id',
             type: 'integer',
             unsigned: true,
           },
           {
-            name: 'id_status_da_acc',
+            name: 'acc_status_id',
             type: 'integer',
             unsigned: true,
             default: 2,
           },
           {
-            name: 'id_tipo_de_acc',
+            name: 'acc_type_id',
             type: 'integer',
             unsigned: true,
           },
         ],
         foreignKeys: [
           {
-            name: 'FK_acc__usuario',
-            columnNames: ['id_usuario'],
-            referencedTableName: 'usuario',
+            name: 'FK_acc__user',
+            columnNames: ['user_id'],
+            referencedTableName: 'user',
             referencedColumnNames: ['id'],
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
           {
-            name: 'FK_acc__status_da_acc',
-            columnNames: ['id_status_da_acc'],
-            referencedTableName: 'status_da_acc',
+            name: 'FK_acc__acc_status',
+            columnNames: ['acc_status_id'],
+            referencedTableName: 'acc_status',
             referencedColumnNames: ['id'],
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
           {
-            name: 'FK_acc__tipo_de_acc',
-            columnNames: ['id_tipo_de_acc'],
-            referencedTableName: 'tipo_de_acc',
+            name: 'FK_acc__acc_type',
+            columnNames: ['acc_type_id'],
+            referencedTableName: 'acc_type',
             referencedColumnNames: ['id'],
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',

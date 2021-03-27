@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
-export class createUsuario1604970698780 implements MigrationInterface {
+export class createUser1604970698780 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
-      name: 'usuario',
+      name: 'user',
       columns: [
         {
           name: 'id',
@@ -15,11 +15,7 @@ export class createUsuario1604970698780 implements MigrationInterface {
           generationStrategy: 'increment'
         },
         {
-          name: 'nome',
-          type: 'varchar',
-        },
-        {
-          name: 'username',
+          name: 'name',
           type: 'varchar',
         },
         {
@@ -31,16 +27,20 @@ export class createUsuario1604970698780 implements MigrationInterface {
           type: 'varchar',
         },
         {
-          name: 'senha',
+          name: 'username',
           type: 'varchar',
         },
         {
-          name: 'id_perfil',
+          name: 'password',
+          type: 'varchar',
+        },
+        {
+          name: 'profile_id',
           type: 'integer',
           unsigned: true,
         },
         {
-          name: 'id_curso',
+          name: 'course_id',
           type: 'integer',
           unsigned: true,
           isNullable: true,
@@ -48,17 +48,17 @@ export class createUsuario1604970698780 implements MigrationInterface {
       ],
       foreignKeys: [
         {
-          name: 'FK_usuario__perfil',
-          columnNames: ['id_perfil'],
-          referencedTableName: 'perfil',
+          name: 'FK_user__profile',
+          columnNames: ['profile_id'],
+          referencedTableName: 'profile',
           referencedColumnNames: ['id'],
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
         },
         {
-          name: 'FK_usuario__curso',
-          columnNames: ['id_curso'],
-          referencedTableName: 'curso',
+          name: 'FK_user__course',
+          columnNames: ['course_id'],
+          referencedTableName: 'course',
           referencedColumnNames: ['id'],
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
@@ -68,7 +68,7 @@ export class createUsuario1604970698780 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('usuario');
+    await queryRunner.dropTable('user');
   }
 
 }

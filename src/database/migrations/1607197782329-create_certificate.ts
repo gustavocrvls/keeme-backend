@@ -1,10 +1,10 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class createTipoDeAcc1605140065523 implements MigrationInterface {
+export class createCertificate1607197782329 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(new Table({
-    name: 'tipo_de_acc',
+      name: 'certificate',
       columns: [
         {
           name: 'id',
@@ -15,29 +15,34 @@ export class createTipoDeAcc1605140065523 implements MigrationInterface {
           generationStrategy: 'increment'
         },
         {
-          name: 'nome',
+          name: 'name',
           type: 'varchar',
         },
         {
-          name: 'limite_de_pontos',
-          type: 'integer',
-        },
-        {
-          name: 'descricao',
-          type: 'varchar',
-          isNullable: true,
-        },
-        {
-          name: 'id_unidade_de_medida',
+          name: 'size',
           type: 'integer',
           unsigned: true,
         },
+        {
+          name: 'type',
+          type: 'varchar',
+        },
+        {
+          name: 'file',
+          type: 'mediumblob',
+          isNullable: true,
+        },
+        {
+          name: 'acc_id',
+          type: 'integer',
+          unsigned: true,
+        }
       ],
       foreignKeys: [
         {
-          name: 'FK_tipo_de_acc__unidade_de_medida',
-          columnNames: ['id_unidade_de_medida'],
-          referencedTableName: 'unidade_de_medida',
+          name: 'FK_certificate__acc',
+          columnNames: ['acc_id'],
+          referencedTableName: 'acc',
           referencedColumnNames: ['id'],
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',
@@ -47,7 +52,6 @@ export class createTipoDeAcc1605140065523 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('tipo_de_acc');
+    await queryRunner.dropTable('certificate');
   }
-
 }

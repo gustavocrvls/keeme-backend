@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class createUnidadeDeMedicao1605139438564 implements MigrationInterface {
+export class createUnityOfMeasurement1605139438564 implements MigrationInterface {
 
 	public async up(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.createTable(new Table({
-			name: 'unidade_de_medida',
+			name: 'unity_of_measurement',
 			columns: [
 				{
 					name: 'id',
@@ -15,7 +15,7 @@ export class createUnidadeDeMedicao1605139438564 implements MigrationInterface {
 					generationStrategy: 'increment'
 				},
 				{
-					name: 'nome',
+					name: 'name',
 					type: 'varchar',
 				}
 			]
@@ -23,7 +23,7 @@ export class createUnidadeDeMedicao1605139438564 implements MigrationInterface {
 	}
 
 	public async down(queryRunner: QueryRunner): Promise<void> {
-		await queryRunner.dropTable('unidade_de_medida');
+		await queryRunner.dropTable('unity_of_measurement');
 	}
 
 }

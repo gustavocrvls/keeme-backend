@@ -1,14 +1,14 @@
 import {getRepository, MigrationInterface, QueryRunner} from "typeorm";
-import PerfilSeed from "../seeds/perfil.seed";
+import {UserSeed} from "../seeds/user.seed";
 
-export class seedPerfil1616020110540 implements MigrationInterface {
+export class seedUser1616022115309 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-      await getRepository("perfil").save(PerfilSeed);
+      await getRepository("user").save(UserSeed);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-      await getRepository("perfil").delete({});
+      await getRepository("user").delete({});
     }
 
 }

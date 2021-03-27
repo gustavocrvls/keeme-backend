@@ -7,7 +7,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import UnidadeDeMedida from './UnidadeDeMedida';
-import Acc from './Acc';
+import { ACC } from '../entities/ACC';
 import VarianteDeAcc from './VarianteDaACC';
 
 @Entity('tipo_de_acc')
@@ -30,9 +30,9 @@ export default class TipoDeAcc {
   @JoinColumn({ name: 'id_unidade_de_medida' })
   public unidade_de_medida: UnidadeDeMedida;
 
-  @OneToMany(() => Acc, acc => acc.tipo_de_acc)
+  @OneToMany(() => ACC, acc => acc.tipo_de_acc)
   @JoinColumn({ name: 'id_tipo_de_acc' })
-  public accs: Acc[];
+  public accs: ACC[];
 
   @OneToMany(() => VarianteDeAcc, varianteDeAcc => varianteDeAcc.tipo_de_acc, {
     eager: true,

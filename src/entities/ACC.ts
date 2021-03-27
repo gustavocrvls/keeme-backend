@@ -6,15 +6,15 @@ import {
   ManyToOne,
   OneToOne,
 } from 'typeorm';
-import TipoDeAcc from './TipoDeAcc';
-import StatusDaAcc from './StatusDaAcc';
-import Usuario from './Usuario';
-import Certificado from './Certificado';
-import VarianteDeAcc from './VarianteDaACC';
-import AvaliacaoDaAcc from './AvaliacaoDaAcc';
+import TipoDeAcc from '../models/TipoDeAcc';
+import StatusDaAcc from '../models/StatusDaAcc';
+import Usuario from '../models/Usuario';
+import Certificado from '../models/Certificado';
+import VarianteDeAcc from '../models/VarianteDaACC';
+import AvaliacaoDaAcc from '../models/AvaliacaoDaAcc';
 
 @Entity('acc')
-export default class Acc {
+export class ACC {
   @PrimaryGeneratedColumn('increment')
   id: number;
 

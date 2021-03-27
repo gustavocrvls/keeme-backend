@@ -5,7 +5,7 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm';
-import Acc from './Acc';
+import { ACC } from '../entities/ACC';
 
 @Entity('certificado')
 export default class Certificado {
@@ -24,7 +24,7 @@ export default class Certificado {
   @Column()
   arquivo: Buffer;
 
-  @OneToOne(() => Acc, acc => acc.id)
+  @OneToOne(() => ACC, acc => acc.id)
   @JoinColumn({ name: 'id_acc' })
-  acc: Acc;
+  acc: ACC;
 }

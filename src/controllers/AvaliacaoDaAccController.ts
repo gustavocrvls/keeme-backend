@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
-import Acc from '../models/Acc';
+import { ACC } from '../entities/ACC';
 import AvaliacaoDaAcc from '../models/AvaliacaoDaAcc';
 
 /**
@@ -24,7 +24,7 @@ export default {
     const { descricao, acc, usuario, status_da_acc } = req.body;
 
     const avaliacaoDaAccRepository = getRepository(AvaliacaoDaAcc);
-    const accRepository = getRepository(Acc);
+    const accRepository = getRepository(ACC);
 
     const data = {
       descricao,

@@ -1,5 +1,5 @@
 import { getRepository, Like, Repository } from 'typeorm';
-import Acc from '../../models/Acc';
+import { ACC } from '../../entities/ACC';
 import {
   IShowACCWithUserRequestDTO,
   IShowACCWithUserResponseDTO,
@@ -13,7 +13,7 @@ import { IIndexACCRequestDTO } from '../../useCases/IndexACC/IndexACCDTO';
 import { IACCsRepository } from '../IACCsRepository';
 
 export class MySQLACCsRepository implements IACCsRepository {
-  private accRepository: Repository<Acc>;
+  private accRepository: Repository<ACC>;
 
   private arrayPaginator: IArrayPaginatorProvider;
 
@@ -32,7 +32,7 @@ export class MySQLACCsRepository implements IACCsRepository {
     } = data;
     let { sortOrder, page } = data;
 
-    this.accRepository = getRepository(Acc);
+    this.accRepository = getRepository(ACC);
     let accsQuery = await this.accRepository.createQueryBuilder('acc');
 
     if (nome)
@@ -82,13 +82,13 @@ export class MySQLACCsRepository implements IACCsRepository {
 
   public async delete(data: IDeleteACCRequestDTO): Promise<void> {
     const { id } = data;
-    this.accRepository = getRepository(Acc);
+    this.accRepository = getRepository(ACC);
 
     await this.accRepository.delete({ id });
   }
 
   getWithUser(data: IShowACCWithUserRequestDTO): Promise<any> {
-    this.accRepository = getRepository(Acc);
+    this.accRepository = getRepository(ACC);
 
     const { id } = data;
 

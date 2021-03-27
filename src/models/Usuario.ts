@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import Curso from './Curso';
 import Perfil from './Perfil';
-import Acc from './Acc';
+import { ACC } from '../entities/ACC';
 
 @Entity('usuario')
 export default class Usuario {
@@ -38,7 +38,7 @@ export default class Usuario {
   @JoinColumn({ name: 'id_perfil' })
   perfil: Perfil;
 
-  @OneToMany(() => Acc, acc => acc.usuario)
+  @OneToMany(() => ACC, acc => acc.usuario)
   @JoinColumn({ name: 'id_usuario' })
-  accs: Acc[];
+  accs: ACC[];
 }

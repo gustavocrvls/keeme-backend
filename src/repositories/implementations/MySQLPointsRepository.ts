@@ -4,14 +4,14 @@ import {
   IPointsByStatus,
   IPointsRepository,
 } from '../IPointsRepository';
-import Acc from '../../models/Acc';
+import { ACC } from '../../entities/ACC';
 
 export class MySQLPointsRepository implements IPointsRepository {
-  private accRepository: Repository<Acc>;
+  private accRepository: Repository<ACC>;
 
   public async getPointsByStatus(data: IPointsByStatus): Promise<IACCPoints[]> {
     const { status_id, user_id } = data;
-    this.accRepository = getRepository(Acc);
+    this.accRepository = getRepository(ACC);
 
     const points = await this.accRepository
       .createQueryBuilder('acc')

@@ -6,7 +6,7 @@ import {
   ManyToOne,
   OneToOne,
 } from 'typeorm';
-import Acc from './Acc';
+import { ACC } from '../entities/ACC';
 import Usuario from './Usuario';
 
 @Entity('avaliacao_da_acc')
@@ -20,9 +20,9 @@ export default class AvaliacaoDaAcc {
   @Column({ type: 'timestamp' })
   public criado_em: Date;
 
-  @OneToOne(() => Acc, acc => acc.id)
+  @OneToOne(() => ACC, acc => acc.id)
   @JoinColumn({ name: 'id_acc' })
-  public acc: Acc;
+  public acc: ACC;
 
   @ManyToOne(() => Usuario, usuario => usuario.id)
   @JoinColumn({ name: 'id_usuario' })

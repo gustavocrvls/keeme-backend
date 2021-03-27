@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import fs from 'fs';
 import * as Yup from 'yup';
-import Acc from '../models/Acc';
+import {ACC} from '../entities/ACC';
 import accView from '../views/acc_view';
 import STATUS_DA_ACC from '../constants/StatusDaAcc';
 import Certificado from '../models/Certificado';
@@ -27,7 +27,7 @@ export default {
    * @deprecated
    */
   async index(req: Request, res: Response): Promise<any> {
-    const accRepository = getRepository(Acc);
+    const accRepository = getRepository(ACC);
 
     const accs = await accRepository.find({
       relations: [
@@ -46,7 +46,7 @@ export default {
   async show(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const accRepository = getRepository(Acc);
+    const accRepository = getRepository(ACC);
 
     const acc = await accRepository.findOneOrFail(id, {
       relations: [
@@ -68,7 +68,7 @@ export default {
   async showByUser(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const accRepository = getRepository(Acc);
+    const accRepository = getRepository(ACC);
 
     const accs = await accRepository
       .createQueryBuilder('acc')
@@ -105,7 +105,7 @@ export default {
   async showByStatus(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const accRepository = getRepository(Acc);
+    const accRepository = getRepository(ACC);
 
     const accs = await accRepository
       .createQueryBuilder('acc')
@@ -150,7 +150,7 @@ export default {
     };
 
     const getPontuacaoByStatus = async (user_id: string, status: number) => {
-      const accRepository = getRepository(Acc);
+      const accRepository = getRepository(ACC);
 
       const pontuacaoByStatus = await accRepository
         .createQueryBuilder('acc')
@@ -201,7 +201,7 @@ export default {
 
   async complete(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
-    const accRepository = getRepository(Acc);
+    const accRepository = getRepository(ACC);
 
     const contarPontos = (accs: IPontuacaoPorTipo[]) => {
       let acumulador = 0;
@@ -301,7 +301,7 @@ export default {
       }
     };
 
-    const accRepository = getRepository(Acc);
+    const accRepository = getRepository(ACC);
 
     const acc = accRepository.create(accData);
 
@@ -315,9 +315,9 @@ export default {
   async remover(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const accRepository = getRepository(Acc);
+    const accRepository = getRepository(ACC);
 
-    const accRemovida = (await accRepository.findOne(id)) || new Acc();
+    const accRemovida = (await accRepository.findOne(id)) || new ACC();
     await accRepository.remove(accRemovida);
 
     res.sendStatus(200);
@@ -327,7 +327,7 @@ export default {
     const { id } = req.params;
     const { status_da_acc } = req.body;
 
-    const accRepository = getRepository(Acc);
+    const accRepository = getRepository(ACC);
 
     const updated = await accRepository.update(id, { status_da_acc });
 

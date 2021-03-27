@@ -5,7 +5,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import Acc from './Acc';
+import { ACC } from '../entities/ACC';
 
 @Entity('status_da_acc')
 export default class StatusDaAcc {
@@ -15,7 +15,7 @@ export default class StatusDaAcc {
   @Column()
   nome: string;
 
-  @OneToMany(() => Acc, acc => acc.status_da_acc)
+  @OneToMany(() => ACC, acc => acc.status_da_acc)
   @JoinColumn({ name: 'id_status_da_acc' })
-  accs: Acc[];
+  accs: ACC[];
 }

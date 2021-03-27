@@ -1,10 +1,10 @@
-import Acc from '../models/Acc';
+import { ACC } from '../entities/ACC';
 import statusDaAccView from './status_da_acc_view';
 import usuarioView from './usuario_view';
 import tipoDeAccView from './tipo_de_acc_view';
 
 export default {
-  render(acc: Acc): any {
+  render(acc: ACC): any {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
@@ -15,7 +15,7 @@ export default {
     };
   },
 
-  renderMinimal(acc: Acc): any {
+  renderMinimal(acc: ACC): any {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
@@ -24,7 +24,7 @@ export default {
     };
   },
 
-  renderWithUser(acc: Acc): any {
+  renderWithUser(acc: ACC): any {
     return {
       id: acc.id,
       quantidade: acc.quantidade,
@@ -52,15 +52,15 @@ export default {
     };
   },
 
-  renderMany(accs: Acc[]): any {
+  renderMany(accs: ACC[]): any {
     return accs.map(acc => this.render(acc));
   },
 
-  renderManyMinimal(accs: Acc[]): any {
+  renderManyMinimal(accs: ACC[]): any {
     return accs.map(acc => this.renderMinimal(acc));
   },
 
-  renderManyWithUser(accs: Acc[]): any {
+  renderManyWithUser(accs: ACC[]): any {
     return accs.map(acc => this.renderWithUser(acc));
   },
 };

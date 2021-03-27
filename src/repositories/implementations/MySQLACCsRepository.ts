@@ -1,6 +1,10 @@
 import { getRepository, Like, Repository } from 'typeorm';
 import Acc from '../../models/Acc';
 import {
+  IShowACCWithUserRequestDTO,
+  IShowACCWithUserResponseDTO,
+} from '../../modules/accs/dtos/ShowACCWithUserDTO';
+import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
@@ -81,5 +85,28 @@ export class MySQLACCsRepository implements IACCsRepository {
     this.accRepository = getRepository(Acc);
 
     await this.accRepository.delete({ id });
+  }
+
+  getWithUser(data: IShowACCWithUserRequestDTO): Promise<any> {
+    this.accRepository = getRepository(Acc);
+
+    const { id } = data;
+
+    const accWithUserQuery = this.accRepository.createQueryBuilder('acc');
+
+    accWithUserQuery
+      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
+      .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
+      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
+      .leftJoinAndSelect('acc.usuario', 'usuario')
+      .leftJoinAndSelect('usuario.perfil', 'perfil')
+      .leftJoinAndSelect('usuario.curso', 'curso')
+      .leftJoin('acc.certificado', 'certificado')
+      .addSelect(['certificado.id'])
+      .where({ usuario: { id } });
+
+    const accWithUser = accWithUserQuery.getOneOrFail();
+
+    return accWithUser;
   }
 }

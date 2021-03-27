@@ -15,7 +15,7 @@ import PERFIL from '../constants/Perfil';
 export default {
   // essa função serve apenas para testes e deverá ser removida
   async index(req: Request, res: Response): Promise<any> {
-    const { nome, curso } = req.query;
+    const { search, curso } = req.query;
     let { profile_id } = req.query;
     const usuarioRepository = getRepository(Usuario);
 
@@ -24,9 +24,10 @@ export default {
       .leftJoinAndSelect('usuario.perfil', 'perfil')
       .leftJoinAndSelect('usuario.curso', 'curso');
 
-    if (nome) {
-      queryUsuarios = queryUsuarios.where({ nome: Like(`%${nome}%`) });
-    }
+    if (search)
+      if (Number(search))
+        queryUsuarios = queryUsuarios.where({ cpf: Like(`%${search}%`) });
+      else queryUsuarios = queryUsuarios.where({ nome: Like(`%${search}%`) });
 
     if (curso) {
       queryUsuarios = queryUsuarios.andWhere('curso.id = :curso', { curso });
@@ -40,7 +41,18 @@ export default {
 
     const usuarios = await queryUsuarios.getMany();
 
-    return res.json({ data: usuarios });
+    return res.json({
+      data: usuarios.map(user => ({
+        id: user.id,
+        name: user.nome,
+        cpf: user.cpf,
+        username: user.username,
+        course: {
+          id: user.curso.id,
+          name: user.curso.nome,
+        },
+      })),
+    });
   },
 
   /**

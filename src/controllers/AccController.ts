@@ -62,7 +62,7 @@ export default {
         'variante_de_acc',
       ],
     });
-    return res.json(accView.renderWithUser(acc));
+    return res.json();
   },
 
   async showByUser(req: Request, res: Response): Promise<any> {
@@ -81,7 +81,25 @@ export default {
       .where('usuario.id = :id', { id })
       .getMany();
 
-    return res.json(accs);
+      return res.json({data: accs.map(acc => ({
+        id: acc.id,
+        quantity: acc.quantidade,
+        certificate_id: acc.certificado.id,
+
+        user: {
+          id: acc.usuario.id,
+          name: acc.usuario.nome,
+          cpf: acc.usuario.cpf,
+        },
+        acc_type: {
+          id: acc.tipo_de_acc.id,
+          name: acc.tipo_de_acc.nome,
+          unity_of_measurement: {
+            id: acc.tipo_de_acc.unidade_de_medida.id,
+            name: acc.tipo_de_acc.unidade_de_medida.nome,
+          }
+        },
+      }))});
   },
 
   async showByStatus(req: Request, res: Response): Promise<any> {
@@ -100,7 +118,23 @@ export default {
       .where('status_da_acc.id = :id', { id })
       .getMany();
 
-    return res.json(accs);
+    return res.json({data: accs.map(acc => ({
+      id: acc.id,
+      quantity: acc.quantidade,
+      user: {
+        id: acc.usuario.id,
+        name: acc.usuario.nome,
+        cpf: acc.usuario.cpf,
+      },
+      acc_type: {
+        id: acc.tipo_de_acc.id,
+        name: acc.tipo_de_acc.nome,
+        unity_of_measurement: {
+          id: acc.tipo_de_acc.unidade_de_medida.id,
+          name: acc.tipo_de_acc.unidade_de_medida.nome,
+        }
+      }
+    }))});
   },
 
   async summary(req: Request, res: Response): Promise<any> {

@@ -14,6 +14,8 @@ export class MySQLCoursesRepository implements ICoursesRepository {
 
   constructor(arrayPaginator?: IArrayPaginatorProvider) {
     if (arrayPaginator) this.arrayPaginator = arrayPaginator;
+
+    // this.coursesRepository = getRepository(Curso, 'mysql');
   }
 
   async save(course: Curso): Promise<void> {
@@ -22,10 +24,11 @@ export class MySQLCoursesRepository implements ICoursesRepository {
   }
 
   async index(data: IIndexCourseRequestDTO): Promise<IPaginatedArray> {
+    this.coursesRepository = getRepository(Curso);
+
     const { nome, sortField, limit } = data;
     let { sortOrder, page } = data;
 
-    this.coursesRepository = getRepository(Curso);
     let coursesQuery = this.coursesRepository.createQueryBuilder('curso');
 
     if (nome) coursesQuery = coursesQuery.where({ nome: Like(`%${nome}%`) });

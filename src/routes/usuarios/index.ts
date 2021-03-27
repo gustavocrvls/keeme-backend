@@ -15,11 +15,6 @@ routes.get(
   verifyToken([PERFIL.COORDENADOR, PERFIL.DISCENTE]),
   UsuarioController.show,
 );
-routes.get(
-  '/perfil/:id/cursos',
-  verifyToken([PERFIL.ADMINISTRADOR]),
-  UsuarioController.findByPerfilGroupByCurso,
-);
 
 routes.post('/', verifyToken([PERFIL.ADMINISTRADOR]), UsuarioController.create);
 routes.post('/create-discente', UsuarioController.createDiscente);

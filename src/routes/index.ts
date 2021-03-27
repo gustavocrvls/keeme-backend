@@ -13,7 +13,7 @@ const routes = Router();
 
 routes.use('/accs', accRoutes);
 routes.use('/cursos', cursoRoutes);
-routes.use('/usuarios', usuarioRoutes);
+routes.use('/users', usuarioRoutes);
 routes.use('/tipos-de-acc', tiposDeAccRoutes);
 routes.use('/certificados', certificadosRoutes);
 routes.use('/avaliacoes-das-accs', avaliacaoDaAccRoutes);

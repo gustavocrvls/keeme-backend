@@ -33,11 +33,6 @@ routes.get(
   verifyToken([PERFIL.DISCENTE]),
   AccController.summary,
 );
-routes.get(
-  '/user/:id/completo',
-  verifyToken([PERFIL.DISCENTE, PERFIL.COORDENADOR]),
-  AccController.complete,
-);
 
 routes.post(
   '/create',

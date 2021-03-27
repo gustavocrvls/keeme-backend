@@ -1,4 +1,4 @@
-import TipoDeAcc from '../models/TipoDeAcc';
+import { ACCType } from '../entities/ACCType';
 import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
 import { IIndexACCTypeRequestDTO } from '../useCases/IndexACCType/IndexACCTypeDTO';
 import { IShowACCTypeDTO } from '../useCases/ShowACCType/ShowACCTypeDTO';
@@ -36,8 +36,8 @@ export interface IACCsLength {
 
 export interface IACCTypesRepository {
   index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray>;
-  show(data: IShowACCTypeDTO): Promise<TipoDeAcc>;
-  save(accType: TipoDeAcc): Promise<void>;
+  show(data: IShowACCTypeDTO): Promise<ACCType>;
+  save(accType: ACCType): Promise<void>;
   delete(data: IDeleteACCTypeRequestDTO): Promise<void>;
 
   getACCsLength(data: IACCsLength): Promise<number>;

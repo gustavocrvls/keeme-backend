@@ -5,23 +5,23 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import Usuario from './Usuario';
+import { User } from './User';
 
 @Entity('curso')
-export default class Curso {
+export class Course {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column()
-  public nome: string;
+  @Column('nome')
+  public name: string;
 
-  @OneToMany(() => Usuario, usuario => usuario.curso, {
+  @OneToMany(() => User, usuario => usuario.course, {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'id_curso' })
-  public usuarios: Usuario[];
+  public users: User[];
 
-  constructor(props: Omit<Curso, 'usuarios' | 'id'>, id?: number) {
+  constructor(props: Omit<Course, 'users' | 'id'>, id?: number) {
     Object.assign(this, props);
   }
 }

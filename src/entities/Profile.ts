@@ -5,19 +5,19 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import Usuario from './Usuario';
+import { User } from './User';
 
 @Entity('perfil')
-export default class Perfil {
+export class Profile {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  public id: number;
 
-  @Column()
-  nome: string;
+  @Column('nome')
+  public name: string;
 
-  @OneToMany(() => Usuario, usuario => usuario.curso, {
+  @OneToMany(() => User, user => user.profile, {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'id_perfil' })
-  usuarios: Usuario[];
+  public users: User[];
 }

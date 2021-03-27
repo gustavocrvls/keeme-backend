@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
-import TipoDeAcc from '../models/TipoDeAcc';
-import tipoDeAccView from '../views/tipo_de_acc_view';
+import { ACCType } from '../entities/ACCType';
 import STATUS_DA_ACC from '../constants/StatusDaAcc';
 
 /**
@@ -20,7 +19,7 @@ export default {
    */
   async index(req: Request, res: Response): Promise<any> {
     try {
-      const tipoDeAccRepository = getRepository(TipoDeAcc);
+      const tipoDeAccRepository = getRepository(ACCType);
 
       const tiposDeAcc = await tipoDeAccRepository.find({
         relations: ['unidade_de_medida', 'variantes_de_acc'],
@@ -42,7 +41,7 @@ export default {
    */
   async show(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
-    const tipoDeAccRepository = getRepository(TipoDeAcc);
+    const tipoDeAccRepository = getRepository(ACCType);
 
     const tipoDeACC = await tipoDeAccRepository.findOne({
       relations: ['unidade_de_medida'],
@@ -79,7 +78,7 @@ export default {
       variantes_de_acc,
     } = req.body;
 
-    const tipoDeAccRepository = getRepository(TipoDeAcc);
+    const tipoDeAccRepository = getRepository(ACCType);
 
     const data = {
       nome,
@@ -115,7 +114,7 @@ export default {
   async delete(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const tipoDeAccRepository = getRepository(TipoDeAcc);
+    const tipoDeAccRepository = getRepository(ACCType);
 
     const tipoDeACC = await tipoDeAccRepository.delete({ id: Number(id) });
 
@@ -125,11 +124,11 @@ export default {
   async update(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const tipoDeACCRepository = getRepository(TipoDeAcc);
+    const tipoDeACCRepository = getRepository(ACCType);
 
     const tipoDeACC = await tipoDeACCRepository
       .createQueryBuilder('tipo-de-acc')
-      .update(TipoDeAcc)
+      .update(ACCType)
       .set(req.body)
       .where({ id: Number(id) })
       .execute();
@@ -140,9 +139,9 @@ export default {
   async massCreate(req: Request, res: Response): Promise<any> {
     const { tiposDeAcc } = req.body;
 
-    const tipoDeAccRepository = getRepository(TipoDeAcc);
+    const tipoDeAccRepository = getRepository(ACCType);
 
-    tiposDeAcc.map(async (tipoDeAcc: TipoDeAcc) => {
+    tiposDeAcc.map(async (tipoDeAcc: ACCType) => {
       const data = {
         nome: tipoDeAcc.nome,
         limite_de_pontos: tipoDeAcc.limite_de_pontos,
@@ -168,44 +167,5 @@ export default {
     });
 
     return res.status(201).json(tiposDeAcc);
-  },
-
-  async getTiposDeAccByIdUsuario(req: Request, res: Response): Promise<any> {
-    const { id } = req.params;
-
-    const tipoDeAccRepository = getRepository(TipoDeAcc);
-
-    const tiposDeAcc = await tipoDeAccRepository
-      .createQueryBuilder('tipo_de_acc')
-      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-      .leftJoinAndSelect('tipo_de_acc.accs', 'acc')
-      .leftJoinAndSelect('tipo_de_acc.variantes_de_acc', 'variante_da_acc')
-      .leftJoinAndSelect('acc.usuario', 'usuario', 'usuario.id = :id_usuario', {
-        id_usuario: id,
-      })
-      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
-      .select([
-        'tipo_de_acc',
-        'status_da_acc',
-        'unidade_de_medida',
-        'acc',
-        'usuario',
-        'variante_da_acc',
-      ])
-      .getMany();
-
-    tiposDeAcc.map((tipoDeAcc, index) => {
-      let acumulador = 0;
-      tipoDeAcc.accs.map(acc => {
-        if (acc.status_da_acc.id === STATUS_DA_ACC.APPROVED)
-          acumulador +=
-            acc.quantidade * tipoDeAcc.variantes_de_acc[0].pontos_por_unidade;
-        return acumulador;
-      });
-      tiposDeAcc[index].pontuacao = acumulador;
-      return tiposDeAcc[index].pontuacao;
-    });
-
-    res.json(tiposDeAcc);
   },
 };

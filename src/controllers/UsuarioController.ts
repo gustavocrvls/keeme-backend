@@ -2,10 +2,9 @@ import { Request, Response } from 'express';
 import { getRepository, Like } from 'typeorm';
 import * as Yup from 'yup';
 import crypto from 'crypto';
-import Usuario from '../models/Usuario';
-import usuarioView from '../views/usuario_view';
+import { User } from '../entities/User';
 import { generateToken } from '../config/authentication';
-import Curso from '../models/Curso';
+import { Course } from '../entities/Course';
 import PERFIL from '../constants/Perfil';
 
 /**
@@ -17,7 +16,7 @@ export default {
   async index(req: Request, res: Response): Promise<any> {
     const { search, curso } = req.query;
     let { profile_id } = req.query;
-    const usuarioRepository = getRepository(Usuario);
+    const usuarioRepository = getRepository(User);
 
     let queryUsuarios = usuarioRepository
       .createQueryBuilder('usuario')
@@ -44,12 +43,12 @@ export default {
     return res.json({
       data: usuarios.map(user => ({
         id: user.id,
-        name: user.nome,
+        name: user.name,
         cpf: user.cpf,
         username: user.username,
         course: {
-          id: user.curso.id,
-          name: user.curso.nome,
+          id: user.course.id,
+          name: user.course.name,
         },
       })),
     });
@@ -64,13 +63,13 @@ export default {
   async show(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const usuarioRepository = getRepository(Usuario);
+    const usuarioRepository = getRepository(User);
 
     const usuario = await usuarioRepository.findOneOrFail(id, {
       relations: ['perfil', 'curso'],
     });
 
-    return res.json(usuarioView.render(usuario));
+    return res.json(usuario);
   },
 
   /**
@@ -89,7 +88,7 @@ export default {
   async create(req: Request, res: Response): Promise<any> {
     const { nome, cpf, email, username, senha, perfil, curso } = req.body;
 
-    const usuarioRepository = getRepository(Usuario);
+    const usuarioRepository = getRepository(User);
 
     const data = {
       nome,
@@ -149,7 +148,7 @@ export default {
   async createDiscente(req: Request, res: Response): Promise<any> {
     const { nome, cpf, email, username, senha, curso } = req.body;
 
-    const usuarioRepository = getRepository(Usuario);
+    const usuarioRepository = getRepository(User);
 
     const data = {
       nome,
@@ -196,7 +195,7 @@ export default {
   async login(req: Request, res: Response): Promise<any> {
     const { username, senha } = req.body;
 
-    const usuarioRepository = getRepository(Usuario);
+    const usuarioRepository = getRepository(User);
 
     const usuario = await usuarioRepository
       .createQueryBuilder('usuario')
@@ -208,11 +207,15 @@ export default {
       .getOne();
 
     if (usuario) {
-      const token = generateToken(usuario.id, usuario.perfil.id);
+      const token = generateToken(usuario.id, usuario.profile.id);
       res.json({
         auth: true,
         token,
-        usuario: { id: usuario.id, nome: usuario.nome, perfil: usuario.perfil },
+        usuario: {
+          id: usuario.id,
+          nome: usuario.name,
+          perfil: usuario.profile,
+        },
       });
     } else {
       res.json({ auth: false }).sendStatus(401);
@@ -222,7 +225,7 @@ export default {
   async findByPerfilGroupByCurso(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const cursoRepository = getRepository(Curso);
+    const cursoRepository = getRepository(Course);
 
     const cursos = await cursoRepository
       .createQueryBuilder('curso')
@@ -236,15 +239,15 @@ export default {
   async findByPerfilOld(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const usuarioRepository = getRepository(Usuario);
+    const usuarioRepository = getRepository(User);
 
     const usuarios = await usuarioRepository.find({
       relations: ['perfil', 'curso'],
       where: {
-        perfil: id,
+        profile: id,
       },
       order: {
-        curso: 1,
+        course: 1,
       },
     });
 
@@ -254,7 +257,7 @@ export default {
   async delete(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const usuarioRepository = getRepository(Usuario);
+    const usuarioRepository = getRepository(User);
 
     const usuario = await usuarioRepository.delete({ id: Number(id) });
 

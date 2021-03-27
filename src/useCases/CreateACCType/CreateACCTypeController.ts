@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import TipoDeAcc from '../../models/TipoDeAcc';
+import { ACCType } from '../../entities/ACCType';
 import { CreateACCTypeUseCase } from './CreateACCTypeUseCase';
 
 export class CreateACCTypeController {
@@ -18,7 +18,7 @@ export class CreateACCTypeController {
       variantes_de_acc,
     } = request.body;
 
-    const accType = new TipoDeAcc({
+    const accType = new ACCType({
       nome,
       limite_de_pontos,
       descricao,

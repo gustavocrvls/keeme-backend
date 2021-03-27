@@ -1,4 +1,4 @@
-import Course from '../models/Curso';
+import { Course } from '../entities/Course';
 import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
 import { IIndexCourseRequestDTO } from '../useCases/IndexCourse/IndexCourseDTO';
 

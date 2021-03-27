@@ -3,12 +3,8 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import fs from 'fs';
-import * as Yup from 'yup';
 import {ACC} from '../entities/ACC';
-import accView from '../views/acc_view';
 import STATUS_DA_ACC from '../constants/StatusDaAcc';
-import Certificado from '../models/Certificado';
-import { SUPORTED_TYPES } from '../constants/Certificado';
 
 interface IPontuacaoPorTipo {
   tipo: number;
@@ -40,7 +36,7 @@ export default {
       ],
     });
 
-    return res.json(accView.renderManyWithUser(accs));
+    return res.json({data: accs});
   },
 
   async show(req: Request, res: Response): Promise<any> {
@@ -83,20 +79,20 @@ export default {
 
       return res.json({data: accs.map(acc => ({
         id: acc.id,
-        quantity: acc.quantidade,
+        quantity: acc.quantity,
         certificate_id: acc.certificado.id,
 
         user: {
-          id: acc.usuario.id,
-          name: acc.usuario.nome,
-          cpf: acc.usuario.cpf,
+          id: acc.user.id,
+          name: acc.user.nome,
+          cpf: acc.user.cpf,
         },
         acc_type: {
-          id: acc.tipo_de_acc.id,
-          name: acc.tipo_de_acc.nome,
+          id: acc.acc_type.id,
+          name: acc.acc_type.nome,
           unity_of_measurement: {
-            id: acc.tipo_de_acc.unidade_de_medida.id,
-            name: acc.tipo_de_acc.unidade_de_medida.nome,
+            id: acc.acc_type.unidade_de_medida.id,
+            name: acc.acc_type.unidade_de_medida.nome,
           }
         },
       }))});
@@ -120,18 +116,18 @@ export default {
 
     return res.json({data: accs.map(acc => ({
       id: acc.id,
-      quantity: acc.quantidade,
+      quantity: acc.quantity,
       user: {
-        id: acc.usuario.id,
-        name: acc.usuario.nome,
-        cpf: acc.usuario.cpf,
+        id: acc.user.id,
+        name: acc.user.nome,
+        cpf: acc.user.cpf,
       },
       acc_type: {
-        id: acc.tipo_de_acc.id,
-        name: acc.tipo_de_acc.nome,
+        id: acc.acc_type.id,
+        name: acc.acc_type.nome,
         unity_of_measurement: {
-          id: acc.tipo_de_acc.unidade_de_medida.id,
-          name: acc.tipo_de_acc.unidade_de_medida.nome,
+          id: acc.acc_type.unidade_de_medida.id,
+          name: acc.acc_type.unidade_de_medida.nome,
         }
       }
     }))});
@@ -199,88 +195,6 @@ export default {
     });
   },
 
-  async complete(req: Request, res: Response): Promise<any> {
-    const { id } = req.params;
-    const accRepository = getRepository(ACC);
-
-    const contarPontos = (accs: IPontuacaoPorTipo[]) => {
-      let acumulador = 0;
-      accs.map(acc => {
-        acumulador += acc.pontos > acc.limite ? acc.limite : acc.pontos;
-        return acumulador;
-      });
-      return acumulador;
-    };
-
-    const getPontuacaoByStatus = async (user_id: string, status: number) => {
-      const pontuacaoByStatus = await accRepository
-        .createQueryBuilder('acc')
-        .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
-        .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
-        .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-        .leftJoinAndSelect('acc.usuario', 'usuario')
-        .leftJoinAndSelect('acc.variante_de_acc', 'variante_de_acc')
-        .leftJoinAndSelect('usuario.perfil', 'perfil')
-        .leftJoinAndSelect('usuario.curso', 'curso')
-        .select(
-          'SUM(acc.quantidade * variante_de_acc.pontos_por_unidade)',
-          'pontos',
-        )
-        .addSelect('status_da_acc.id', 'status')
-        .addSelect('tipo_de_acc.limite_de_pontos', 'limite')
-        .groupBy('tipo_de_acc.id')
-        .where('usuario.id = :id AND status_da_acc.id = :id_status', {
-          id: user_id,
-          id_status: status,
-        })
-        .getRawMany();
-
-      return pontuacaoByStatus;
-    };
-
-      const pontuacaoStatusEmAnalise = await getPontuacaoByStatus(
-        id,
-        STATUS_DA_ACC.UNDER_ANALYSIS,
-      );
-
-    const pontuacaoStatusAprovada = await getPontuacaoByStatus(
-      id,
-      STATUS_DA_ACC.APPROVED,
-    );
-    const pontuacaoStatusNegada = await getPontuacaoByStatus(
-      id,
-      STATUS_DA_ACC.FAILED,
-    );
-
-    const pontosEmAnalise = contarPontos(pontuacaoStatusEmAnalise);
-    const pontosAprovados = contarPontos(pontuacaoStatusAprovada);
-    const pontosNegados = contarPontos(pontuacaoStatusNegada);
-
-    const accs = await accRepository
-      .createQueryBuilder('acc')
-      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
-      .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
-      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-      .leftJoinAndSelect('acc.usuario', 'usuario')
-      .leftJoinAndSelect('acc.certificado', 'certificado')
-      .leftJoinAndSelect('usuario.perfil', 'perfil')
-      .leftJoinAndSelect('usuario.curso', 'curso')
-      .where('usuario.id = :id', { id })
-      .select([
-        'acc',
-        'status_da_acc',
-        'tipo_de_acc',
-        'unidade_de_medida',
-        'certificado.id',
-      ])
-      .getMany();
-
-    return res.json({
-      resumo: { pontosEmAnalise, pontosAprovados, pontosNegados },
-      accs: accView.renderMany(accs),
-    });
-  },
-
   async create(req: Request, res: Response): Promise<any> {
     const { quantidade, descricao, idUsuario, tipoDeAcc, variante_de_acc } = req.body;
 
@@ -325,11 +239,11 @@ export default {
 
   async updateStatus(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
-    const { status_da_acc } = req.body;
+    const { new_status } = req.body;
 
     const accRepository = getRepository(ACC);
 
-    const updated = await accRepository.update(id, { status_da_acc });
+    const updated = await accRepository.update(id, { acc_status: new_status });
 
     res.send(updated);
   },

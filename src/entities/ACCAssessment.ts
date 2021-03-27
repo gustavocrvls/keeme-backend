@@ -6,25 +6,25 @@ import {
   ManyToOne,
   OneToOne,
 } from 'typeorm';
-import { ACC } from '../entities/ACC';
-import Usuario from './Usuario';
+import { ACC } from './ACC';
+import { User } from './User';
 
 @Entity('avaliacao_da_acc')
-export default class AvaliacaoDaAcc {
+export class ACCAssessment {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column()
-  public descricao: string;
+  @Column('descricao')
+  public description: string;
 
-  @Column({ type: 'timestamp' })
-  public criado_em: Date;
+  @Column({ name: 'criado_em', type: 'timestamp' })
+  public criated_at: Date;
 
   @OneToOne(() => ACC, acc => acc.id)
   @JoinColumn({ name: 'id_acc' })
   public acc: ACC;
 
-  @ManyToOne(() => Usuario, usuario => usuario.id)
+  @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: 'id_usuario' })
-  public usuario: Usuario;
+  public user: User;
 }

@@ -1,4 +1,4 @@
-import Curso from '../../models/Curso';
+import { Course } from '../../entities/Course';
 import { ICoursesRepository } from '../../repositories/ICoursesRepository';
 import { ICreateCourseRequestDTO } from './CreateCourseDTO';
 
@@ -10,7 +10,7 @@ export class CreateCourseUseCase {
   }
 
   async execute(data: ICreateCourseRequestDTO): Promise<void> {
-    const course = new Curso(data);
+    const course = new Course(data);
 
     this.coursesRepository.save(course);
   }

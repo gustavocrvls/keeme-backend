@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 import { ACC } from '../entities/ACC';
-import AvaliacaoDaAcc from '../models/AvaliacaoDaAcc';
+import { ACCAssessment } from '../entities/ACCAssessment';
 
 /**
  * @author Gustavo Carvalho Silva
@@ -11,7 +11,7 @@ import AvaliacaoDaAcc from '../models/AvaliacaoDaAcc';
  */
 export default {
   async index(req: Request, res: Response): Promise<any> {
-    const avaliacaoDaAccRepository = getRepository(AvaliacaoDaAcc);
+    const avaliacaoDaAccRepository = getRepository(ACCAssessment);
 
     const avaliacoesDaAcc = await avaliacaoDaAccRepository.find({
       relations: ['acc', 'usuario'],
@@ -21,9 +21,9 @@ export default {
   },
 
   async create(req: Request, res: Response): Promise<any> {
-    const { descricao, acc, usuario, status_da_acc } = req.body;
+    const { descricao, acc, usuario, acc_status } = req.body;
 
-    const avaliacaoDaAccRepository = getRepository(AvaliacaoDaAcc);
+    const avaliacaoDaAccRepository = getRepository(ACCAssessment);
     const accRepository = getRepository(ACC);
 
     const data = {
@@ -52,7 +52,7 @@ export default {
     if (avaliacaoDaAcc)
       return res.status(400).json({ msg: 'Já existe avaliação para essa ACC' });
 
-    const updated = await accRepository.update(acc, { status_da_acc });
+    const updated = await accRepository.update(acc, { acc_status });
 
     const avaliacaoDaAccCreated = avaliacaoDaAccRepository.create(data);
     await avaliacaoDaAccRepository.save(avaliacaoDaAccCreated);

@@ -1,5 +1,5 @@
 import { getRepository, Like, Repository } from 'typeorm';
-import TipoDeAcc from '../../models/TipoDeAcc';
+import { ACCType } from '../../entities/ACCType';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
@@ -15,7 +15,7 @@ import {
 } from '../IACCTypesRepository';
 
 export class MySQLACCTypesRepository implements IACCTypesRepository {
-  private accTypeRepository: Repository<TipoDeAcc>;
+  private accTypeRepository: Repository<ACCType>;
 
   private arrayPaginator: IArrayPaginatorProvider;
 
@@ -27,7 +27,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     const { nome, sortField, limit, unidade_de_medida } = data;
     let { sortOrder, page } = data;
 
-    this.accTypeRepository = getRepository(TipoDeAcc);
+    this.accTypeRepository = getRepository(ACCType);
     let unitsOfMeasurementQuery = await this.accTypeRepository.createQueryBuilder(
       'tipo_de_acc',
     );
@@ -68,25 +68,25 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     );
   }
 
-  public async show(data: IShowACCTypeDTO): Promise<TipoDeAcc> {
+  public async show(data: IShowACCTypeDTO): Promise<ACCType> {
     const { id } = data;
 
-    this.accTypeRepository = getRepository(TipoDeAcc);
+    this.accTypeRepository = getRepository(ACCType);
 
     const accType = await this.accTypeRepository.findOneOrFail(id);
 
     return accType;
   }
 
-  public async save(accType: TipoDeAcc): Promise<void> {
-    this.accTypeRepository = getRepository(TipoDeAcc);
+  public async save(accType: ACCType): Promise<void> {
+    this.accTypeRepository = getRepository(ACCType);
     await this.accTypeRepository.save(accType);
   }
 
   public async delete(data: IDeleteACCTypeRequestDTO): Promise<void> {
     const { id } = data;
 
-    this.accTypeRepository = getRepository(TipoDeAcc);
+    this.accTypeRepository = getRepository(ACCType);
 
     await this.accTypeRepository.delete({ id });
   }
@@ -94,7 +94,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   public async getACCsLength(data: IACCsLength): Promise<number> {
     const { id } = data;
 
-    this.accTypeRepository = getRepository(TipoDeAcc);
+    this.accTypeRepository = getRepository(ACCType);
 
     const accTypes = await this.accTypeRepository
       .createQueryBuilder('tipo_de_acc')
@@ -112,7 +112,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     const { user_id, name, sortField, limit } = data;
     let { sortOrder, page } = data;
 
-    this.accTypeRepository = getRepository(TipoDeAcc);
+    this.accTypeRepository = getRepository(ACCType);
 
     let accTypeQuery = this.accTypeRepository
       .createQueryBuilder('tipo_de_acc')
@@ -161,7 +161,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   }
 
   public async getACCTypesLength(): Promise<number> {
-    this.accTypeRepository = getRepository(TipoDeAcc);
+    this.accTypeRepository = getRepository(ACCType);
 
     const accTypesLength = await this.accTypeRepository
       .createQueryBuilder('tipo_de_acc')

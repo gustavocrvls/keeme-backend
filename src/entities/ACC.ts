@@ -6,50 +6,49 @@ import {
   ManyToOne,
   OneToOne,
 } from 'typeorm';
-import TipoDeAcc from '../models/TipoDeAcc';
-import StatusDaAcc from '../models/StatusDaAcc';
-import Usuario from '../models/Usuario';
-import Certificado from '../models/Certificado';
-import VarianteDeAcc from '../models/VarianteDaACC';
-import AvaliacaoDaAcc from '../models/AvaliacaoDaAcc';
+import { ACCType } from './ACCType';
+import { ACCStatus } from './ACCStatus';
+import { User } from './User';
+import { Certificate } from './Certificate';
+import { ACCVariant } from './ACCVariant';
+import { ACCAssessment } from './ACCAssessment';
 
 @Entity('acc')
 export class ACC {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  public readonly id: number;
 
-  @Column()
-  quantidade: number;
+  @Column('quantidade')
+  public quantity: number;
 
-  @Column()
-  descricao: number;
+  @Column('descricao')
+  public description: number;
 
-  @Column({ type: 'timestamp' })
-  criado_em: Date;
+  @Column({ name: 'criado_em', type: 'timestamp' })
+  public created_at: Date;
 
-  @ManyToOne(() => Usuario, usuario => usuario.id)
+  @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: 'id_usuario' })
-  usuario: Usuario;
+  public user: User;
 
-  @ManyToOne(() => StatusDaAcc, statusDaAcc => statusDaAcc.id)
+  @ManyToOne(() => ACCStatus, accStatus => accStatus.id)
   @JoinColumn({ name: 'id_status_da_acc' })
-  status_da_acc: StatusDaAcc;
+  public acc_status: ACCStatus;
 
-  @ManyToOne(() => TipoDeAcc, tipoDeAcc => tipoDeAcc.id)
+  @ManyToOne(() => ACCType, accType => accType.id)
   @JoinColumn({ name: 'id_tipo_de_acc' })
-  tipo_de_acc: TipoDeAcc;
+  public acc_type: ACCType;
 
-  @ManyToOne(() => VarianteDeAcc, varianteDeAcc => varianteDeAcc.id)
+  @ManyToOne(() => ACCVariant, accVariant => accVariant.id)
   @JoinColumn({ name: 'id_variante_de_acc' })
-  variante_de_acc: VarianteDeAcc; /// ///// CORRIGIR NOME
+  public acc_variant: ACCVariant;
 
-  @OneToOne(() => Certificado, certificado => certificado.acc, {
+  @OneToOne(() => Certificate, certificate => certificate.acc, {
     cascade: true,
     eager: true,
   })
-  // @JoinColumn({ name: 'id_acc' })
-  certificado: Certificado;
+  public certificate: Certificate;
 
-  @OneToOne(() => AvaliacaoDaAcc, avaliacaoDaAcc => avaliacaoDaAcc.acc)
-  public avaliacao_da_acc: AvaliacaoDaAcc;
+  @OneToOne(() => ACCAssessment, acc_assessment => acc_assessment.acc)
+  public acc_assessment: ACCAssessment;
 }

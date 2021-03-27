@@ -5,17 +5,17 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { ACC } from '../entities/ACC';
+import { ACC } from './ACC';
 
 @Entity('status_da_acc')
-export default class StatusDaAcc {
+export class ACCStatus {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  public readonly id: number;
 
-  @Column()
-  nome: string;
+  @Column('nome')
+  public name: string;
 
-  @OneToMany(() => ACC, acc => acc.status_da_acc)
+  @OneToMany(() => ACC, acc => acc.acc_status)
   @JoinColumn({ name: 'id_status_da_acc' })
-  accs: ACC[];
+  public accs: ACC[];
 }

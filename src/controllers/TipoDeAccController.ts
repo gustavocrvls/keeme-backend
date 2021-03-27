@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 import { ACCType } from '../entities/ACCType';
-import { ACC_STATUS } from '../constants/ACCStatus';
 
 /**
  * @author Gustavo Carvalho Silva

@@ -7,18 +7,18 @@ import {
 } from 'typeorm';
 import { ACCType } from './ACCType';
 
-@Entity('variante_de_acc')
+@Entity('acc_variant')
 export class ACCVariant {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column('descricao')
+  @Column()
   public description: string;
 
-  @Column('pontos_por_unidade')
+  @Column()
   public points_per_unity: number;
 
   @ManyToOne(() => ACCType, accType => accType.id)
-  @JoinColumn({ name: 'id_tipo_de_acc' })
+  @JoinColumn({ name: 'acc_type_id' })
   public acc_type: ACCType;
 }

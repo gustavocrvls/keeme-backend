@@ -7,17 +7,17 @@ import {
 } from 'typeorm';
 import { User } from './User';
 
-@Entity('perfil')
+@Entity('profile')
 export class Profile {
   @PrimaryGeneratedColumn('increment')
   public id: number;
 
-  @Column('nome')
+  @Column()
   public name: string;
 
   @OneToMany(() => User, user => user.profile, {
     cascade: ['insert', 'update'],
   })
-  @JoinColumn({ name: 'id_perfil' })
+  @JoinColumn({ name: 'profile_id' })
   public users: User[];
 }

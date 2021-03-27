@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { ACCType } from './ACCType';
 
-@Entity('unidade_de_medida')
+@Entity('unity_of_measurement')
 export class UnityOfMeasurement {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
@@ -16,6 +16,6 @@ export class UnityOfMeasurement {
   public name: string;
 
   @OneToMany(() => ACCType, accType => accType.unity_of_measurement)
-  @JoinColumn({ name: 'id_unidade_de_medida' })
+  @JoinColumn({ name: 'unity_of_measurement_id' })
   public acc_types: ACCType[];
 }

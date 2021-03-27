@@ -7,15 +7,15 @@ import {
 } from 'typeorm';
 import { ACC } from './ACC';
 
-@Entity('status_da_acc')
+@Entity('acc_status')
 export class ACCStatus {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column('nome')
+  @Column()
   public name: string;
 
   @OneToMany(() => ACC, acc => acc.acc_status)
-  @JoinColumn({ name: 'id_status_da_acc' })
+  @JoinColumn({ name: 'acc_status_id' })
   public accs: ACC[];
 }

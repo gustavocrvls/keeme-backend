@@ -10,36 +10,36 @@ import { UnityOfMeasurement } from './UnityOfMeasurement';
 import { ACC } from './ACC';
 import { ACCVariant } from './ACCVariant';
 
-@Entity('tipo_de_acc')
+@Entity('acc_type')
 export class ACCType {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column('nome')
+  @Column()
   public name: string;
 
-  @Column('limite_de_pontos')
+  @Column()
   public point_limit: number;
 
-  @Column('descricao')
+  @Column()
   public description: string;
 
   @ManyToOne(
     () => UnityOfMeasurement,
     unityOfMeasurement => unityOfMeasurement.id,
   )
-  @JoinColumn({ name: 'id_unidade_de_medida' })
+  @JoinColumn({ name: 'unity_of_measurement_id' })
   public unity_of_measurement: UnityOfMeasurement;
 
   @OneToMany(() => ACC, acc => acc.acc_type)
-  @JoinColumn({ name: 'id_tipo_de_acc' })
+  @JoinColumn({ name: 'acc_id' })
   public accs: ACC[];
 
   @OneToMany(() => ACCVariant, accVariant => accVariant.acc_type, {
     eager: true,
     cascade: true,
   })
-  @JoinColumn({ name: 'id_tipo_de_acc' })
+  @JoinColumn({ name: 'acc_type_id' })
   public acc_variants: ACCVariant[];
 
   constructor(

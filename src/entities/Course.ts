@@ -7,18 +7,18 @@ import {
 } from 'typeorm';
 import { User } from './User';
 
-@Entity('curso')
+@Entity('course')
 export class Course {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column('nome')
+  @Column()
   public name: string;
 
   @OneToMany(() => User, usuario => usuario.course, {
     cascade: ['insert', 'update'],
   })
-  @JoinColumn({ name: 'id_curso' })
+  @JoinColumn({ name: 'course_id' })
   public users: User[];
 
   constructor(props: Omit<Course, 'users' | 'id'>, id?: number) {

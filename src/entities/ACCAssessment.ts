@@ -9,22 +9,22 @@ import {
 import { ACC } from './ACC';
 import { User } from './User';
 
-@Entity('avaliacao_da_acc')
+@Entity('acc_assessment')
 export class ACCAssessment {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column('descricao')
+  @Column()
   public description: string;
 
-  @Column({ name: 'criado_em', type: 'timestamp' })
+  @Column({ type: 'timestamp' })
   public criated_at: Date;
 
   @OneToOne(() => ACC, acc => acc.id)
-  @JoinColumn({ name: 'id_acc' })
+  @JoinColumn({ name: 'acc_id' })
   public acc: ACC;
 
   @ManyToOne(() => User, user => user.id)
-  @JoinColumn({ name: 'id_usuario' })
+  @JoinColumn({ name: 'user_id' })
   public user: User;
 }

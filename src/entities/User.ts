@@ -10,35 +10,35 @@ import { Course } from './Course';
 import { Profile } from './Profile';
 import { ACC } from './ACC';
 
-@Entity('usuario')
+@Entity('user')
 export class User {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column('nome')
+  @Column()
   public name: string;
 
-  @Column('username')
-  public username: string;
-
-  @Column('cpf')
+  @Column()
   public cpf: string;
 
-  @Column('email')
+  @Column()
   public email: string;
 
-  @Column('senha')
+  @Column()
+  public username: string;
+
+  @Column()
   public password: string;
 
   @ManyToOne(() => Course, course => course.id)
-  @JoinColumn({ name: 'id_curso' })
+  @JoinColumn({ name: 'course_id' })
   public course: Course;
 
   @ManyToOne(() => Profile, profile => profile.id)
-  @JoinColumn({ name: 'id_perfil' })
+  @JoinColumn({ name: 'profile_id' })
   public profile: Profile;
 
   @OneToMany(() => ACC, acc => acc.user)
-  @JoinColumn({ name: 'id_usuario' })
+  @JoinColumn({ name: 'user_id' })
   public accs: ACC[];
 }

@@ -18,29 +18,29 @@ export class ACC {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column('quantidade')
+  @Column()
   public quantity: number;
 
-  @Column('descricao')
+  @Column()
   public description: number;
 
-  @Column({ name: 'criado_em', type: 'timestamp' })
+  @Column({ type: 'timestamp' })
   public created_at: Date;
 
   @ManyToOne(() => User, user => user.id)
-  @JoinColumn({ name: 'id_usuario' })
+  @JoinColumn({ name: 'user_id' })
   public user: User;
 
   @ManyToOne(() => ACCStatus, accStatus => accStatus.id)
-  @JoinColumn({ name: 'id_status_da_acc' })
+  @JoinColumn({ name: 'acc_status_id' })
   public acc_status: ACCStatus;
 
   @ManyToOne(() => ACCType, accType => accType.id)
-  @JoinColumn({ name: 'id_tipo_de_acc' })
+  @JoinColumn({ name: 'acc_type_id' })
   public acc_type: ACCType;
 
   @ManyToOne(() => ACCVariant, accVariant => accVariant.id)
-  @JoinColumn({ name: 'id_variante_de_acc' })
+  @JoinColumn({ name: 'acc_variant_id' })
   public acc_variant: ACCVariant;
 
   @OneToOne(() => Certificate, certificate => certificate.acc, {

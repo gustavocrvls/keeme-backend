@@ -7,24 +7,24 @@ import {
 } from 'typeorm';
 import { ACC } from './ACC';
 
-@Entity('certificado')
+@Entity('certificate')
 export class Certificate {
   @PrimaryGeneratedColumn('increment')
   public readonly id: number;
 
-  @Column('nome')
+  @Column()
   public name: string;
 
-  @Column('tamanho')
+  @Column()
   public size: number;
 
-  @Column('tipo')
+  @Column()
   public type: string;
 
-  @Column('arquivo')
+  @Column()
   public file: Buffer;
 
   @OneToOne(() => ACC, acc => acc.id)
-  @JoinColumn({ name: 'id_acc' })
+  @JoinColumn({ name: 'acc_id' })
   public acc: ACC;
 }

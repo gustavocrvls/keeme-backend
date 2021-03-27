@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import PERFIL from '../../constants/Perfil';
+import { PROFILE } from '../../constants/Profile';
 import { verifyToken } from '../../middlewares/auth';
 import { indexUnityOfMeasurementController } from '../../useCases/IndexUnityOfMeasurement';
 

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import PERFIL from '../../constants/Perfil';
+import { PROFILE } from '../../constants/Profile';
 import AvaliacaoDaAccController from '../../controllers/AvaliacaoDaAccController';
 import { verifyToken } from '../../middlewares/auth';
 
@@ -7,13 +7,13 @@ const routes = Router();
 
 routes.get(
   '/',
-  // verifyToken([PERFIL.ADMINISTRADOR]),
+  verifyToken([PROFILE.ADMINISTRATOR]),
   AvaliacaoDaAccController.index,
 );
 
 routes.post(
   '/',
-  // verifyToken([PERFIL.ADMINISTRADOR]),
+  verifyToken([PROFILE.ADMINISTRATOR]),
   AvaliacaoDaAccController.create,
 );
 

@@ -1,4 +1,4 @@
-import STATUS_DA_ACC from '../../constants/StatusDaAcc';
+import { ACC_STATUS } from '../../constants/ACCStatus';
 import { IPointsCalculatorProvider } from '../../providers/IPointsCalculatorProvider';
 import { IPointsRepository } from '../../repositories/IPointsRepository';
 import {
@@ -26,18 +26,18 @@ export class GetUserPointsUseCase {
 
     const approvedACCPoints = await this.pointsRepository.getPointsByStatus({
       user_id: id,
-      status_id: STATUS_DA_ACC.APPROVED,
+      status_id: ACC_STATUS.APPROVED,
     });
     const underAnalysisACCPoints = await this.pointsRepository.getPointsByStatus(
       {
         user_id: id,
-        status_id: STATUS_DA_ACC.UNDER_ANALYSIS,
+        status_id: ACC_STATUS.UNDER_ANALYSIS,
       },
     );
     const failedPointsACCPoints = await this.pointsRepository.getPointsByStatus(
       {
         user_id: id,
-        status_id: STATUS_DA_ACC.FAILED,
+        status_id: ACC_STATUS.FAILED,
       },
     );
 
@@ -58,9 +58,3 @@ export class GetUserPointsUseCase {
     };
   }
 }
-
-/**
- *   approved_points: number;
-  under_analysis: number;
-  failed_points: number;
- */

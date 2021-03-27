@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import STATUS_DA_ACC from '../../constants/StatusDaAcc';
+import { ACC_STATUS } from '../../constants/ACCStatus';
 import { IACCTypeWithUserACCs } from '../../repositories/IACCTypesRepository';
 import { IACCPoints } from '../../repositories/IPointsRepository';
 import { IACCTypesWithUserPointsResponseDTO } from '../../useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
@@ -23,10 +23,10 @@ export class PointsCalculatorProvider implements IPointsCalculatorProvider {
       let approvedAcumulator = 0;
       let underAnalisysAcumulator = 0;
       accType.accs.forEach(acc => {
-        if (acc.status_da_acc.id === STATUS_DA_ACC.APPROVED)
+        if (acc.status_da_acc.id === ACC_STATUS.APPROVED)
           approvedAcumulator +=
             acc.quantidade * acc.variante_de_acc.pontos_por_unidade;
-        if (acc.status_da_acc.id === STATUS_DA_ACC.UNDER_ANALYSIS)
+        if (acc.status_da_acc.id === ACC_STATUS.UNDER_ANALYSIS)
           underAnalisysAcumulator +=
             acc.quantidade * acc.variante_de_acc.pontos_por_unidade;
       });

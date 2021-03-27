@@ -5,7 +5,7 @@ import crypto from 'crypto';
 import { User } from '../entities/User';
 import { generateToken } from '../config/authentication';
 import { Course } from '../entities/Course';
-import PERFIL from '../constants/Perfil';
+import { PROFILE } from '../constants/Profile';
 
 /**
  * @author Gustavo Carvalho Silva
@@ -32,7 +32,7 @@ export default {
       queryUsuarios = queryUsuarios.andWhere('curso.id = :curso', { curso });
     }
 
-    if (!profile_id) profile_id = String(PERFIL.DISCENTE);
+    if (!profile_id) profile_id = String(PROFILE.STUDENT);
 
     queryUsuarios = queryUsuarios.andWhere('perfil.id = :profile_id', {
       profile_id,
@@ -157,7 +157,7 @@ export default {
       username,
       senha,
       curso,
-      perfil: <any>PERFIL.DISCENTE,
+      perfil: <any>PROFILE.STUDENT,
     };
 
     const schema = Yup.object().shape({

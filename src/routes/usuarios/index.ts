@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import PERFIL from '../../constants/Perfil';
+import { PROFILE } from '../../constants/Profile';
 import UsuarioController from '../../controllers/UsuarioController';
 import { verifyToken } from '../../middlewares/auth';
 
@@ -7,16 +7,20 @@ const routes = Router();
 
 routes.get(
   '/',
-  // verifyToken([PERFIL.ADMINISTRADOR, PERFIL.COORDENADOR]),
+  // verifyToken([PROFILE.ADMINISTRADOR, PROFILE.COORDENADOR]),
   UsuarioController.index,
 );
 routes.get(
   '/:id',
-  verifyToken([PERFIL.COORDENADOR, PERFIL.DISCENTE]),
+  verifyToken([PROFILE.COORDINATOR, PROFILE.STUDENT]),
   UsuarioController.show,
 );
 
-routes.post('/', verifyToken([PERFIL.ADMINISTRADOR]), UsuarioController.create);
+routes.post(
+  '/',
+  verifyToken([PROFILE.ADMINISTRATOR]),
+  UsuarioController.create,
+);
 routes.post('/create-discente', UsuarioController.createDiscente);
 
 routes.post('/login', UsuarioController.login);

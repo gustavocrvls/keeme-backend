@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import PERFIL from '../../constants/Perfil';
+import { PROFILE } from '../../constants/Profile';
 import { verifyToken } from '../../middlewares/auth';
 import { createCourseController } from '../../useCases/CreateCourse';
 import { indexCourseController } from '../../useCases/IndexCourse';
@@ -12,7 +12,7 @@ routes.get('/', (request, response) => {
 
 routes.post(
   '/create',
-  verifyToken([PERFIL.ADMINISTRADOR]),
+  verifyToken([PROFILE.ADMINISTRATOR]),
   (request, response) => {
     return createCourseController.handle(request, response);
   },

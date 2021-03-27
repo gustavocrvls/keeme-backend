@@ -3,8 +3,8 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import fs from 'fs';
-import {ACC} from '../entities/ACC';
-import STATUS_DA_ACC from '../constants/StatusDaAcc';
+import { ACC } from '../entities/ACC';
+import { ACC_STATUS } from '../constants/ACCStatus';
 
 interface IPontuacaoPorTipo {
   tipo: number;
@@ -175,15 +175,15 @@ export default {
 
     const pontuacaoStatusEmAnalise = await getPontuacaoByStatus(
       id,
-      STATUS_DA_ACC.UNDER_ANALYSIS,
+      ACC_STATUS.UNDER_ANALYSIS,
     );
     const pontuacaoStatusAprovada = await getPontuacaoByStatus(
       id,
-      STATUS_DA_ACC.APPROVED,
+      ACC_STATUS.APPROVED,
     );
     const pontuacaoStatusNegada = await getPontuacaoByStatus(
       id,
-      STATUS_DA_ACC.FAILED,
+      ACC_STATUS.FAILED,
     );
 
     const pontosEmAnalise = contarPontos(pontuacaoStatusEmAnalise);

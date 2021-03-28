@@ -4,6 +4,7 @@ import {
   IShowACCWithUserRequestDTO,
   IShowACCWithUserResponseDTO,
 } from '../../modules/accs/dtos/ShowACCWithUserDTO';
+import { IShowACCDTO } from '../../modules/accs/useCases/ShowACC/ShowACCDTO';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
@@ -21,7 +22,7 @@ export class MySQLACCsRepository implements IACCsRepository {
     if (arrayPaginator) this.arrayPaginator = arrayPaginator;
   }
 
-  async index(data: IIndexACCRequestDTO): Promise<IPaginatedArray> {
+  public async index(data: IIndexACCRequestDTO): Promise<IPaginatedArray> {
     const {
       nome,
       sortField,
@@ -80,6 +81,20 @@ export class MySQLACCsRepository implements IACCsRepository {
     return this.arrayPaginator.paginate(accs, page + 1, limit, total_items);
   }
 
+  public async show(data: IShowACCDTO): Promise<ACC> {
+    this.accRepository = getRepository(ACC);
+    const { id } = data;
+
+    const acc = await this.accRepository.findOneOrFail(
+      { id },
+      {
+        relations: ['acc_status', 'acc_type', 'acc_variant'],
+      },
+    );
+
+    return acc;
+  }
+
   public async delete(data: IDeleteACCRequestDTO): Promise<void> {
     const { id } = data;
     this.accRepository = getRepository(ACC);
@@ -87,7 +102,7 @@ export class MySQLACCsRepository implements IACCsRepository {
     await this.accRepository.delete({ id });
   }
 
-  getWithUser(data: IShowACCWithUserRequestDTO): Promise<any> {
+  public async getWithUser(data: IShowACCWithUserRequestDTO): Promise<any> {
     this.accRepository = getRepository(ACC);
 
     const { id } = data;
@@ -105,8 +120,14 @@ export class MySQLACCsRepository implements IACCsRepository {
       .addSelect(['certificado.id'])
       .where({ usuario: { id } });
 
-    const accWithUser = accWithUserQuery.getOneOrFail();
+    const accWithUser = await accWithUserQuery.getOneOrFail();
 
     return accWithUser;
+  }
+
+  public async create(acc: ACC): Promise<void> {
+    this.accRepository = getRepository(ACC);
+
+    await this.accRepository.save(acc);
   }
 }

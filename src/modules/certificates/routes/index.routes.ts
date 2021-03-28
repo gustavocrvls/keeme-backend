@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-const certificateRoutes = Router();
+const certificatesRoutes = Router();
 
-// certificateRoutes.get('/:id', CertificadoController.download);
+// certificatesRoutes.get('/:id', CertificadoController.download);
 
-export { certificateRoutes };
+export { certificatesRoutes };

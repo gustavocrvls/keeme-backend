@@ -142,25 +142,16 @@ export default {
 
     tiposDeAcc.map(async (tipoDeAcc: ACCType) => {
       const data = {
-        nome: tipoDeAcc.nome,
-        limite_de_pontos: tipoDeAcc.limite_de_pontos,
-        descricao: tipoDeAcc.descricao,
-        unidade_de_medida: tipoDeAcc.unidade_de_medida,
-        variantes_de_acc: tipoDeAcc.variantes_de_acc,
+        name: tipoDeAcc.name,
+        point_limit: tipoDeAcc.point_limit,
+        description: tipoDeAcc.description,
+        acc_variants: tipoDeAcc.acc_variants,
+        unity_of_measurement: tipoDeAcc.unity_of_measurement,
       };
 
-      const schema = Yup.object().shape({
-        nome: Yup.string().required(),
-        limite_de_pontos: Yup.number().required(),
-        descricao: Yup.string().optional().max(300),
-        unidade_de_medida: Yup.number().required(),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-
       const newTipoDeAcc = tipoDeAccRepository.create(data);
+
+      console.log(newTipoDeAcc);
 
       await tipoDeAccRepository.save(newTipoDeAcc);
     });

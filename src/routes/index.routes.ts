@@ -1,22 +1,22 @@
 import { Router } from 'express';
-import pointsRoutesa from './points/index.routes';
-import { courseRoutes } from '../modules/courses/routes/index.routes';
+import { coursesRoutes } from '../modules/courses/routes/index.routes';
 import { accAssessmentsRoutes } from '../modules/accAssessments/routes/index.routes';
-import { accRoutes } from '../modules/accs/routes/index.routes';
-import { userRoutes } from '../modules/users/routes/index.routes';
+import { accsRoutes } from '../modules/accs/routes/index.routes';
+import { usersRoutes } from '../modules/users/routes/index.routes';
 import { accTypesRoutes } from '../modules/accTypes/routes/index.routes';
-import { certificateRoutes } from '../modules/certificates/routes/index.routes';
+import { certificatesRoutes } from '../modules/certificates/routes/index.routes';
 import { unitsOfMeasurementRoutes } from '../modules/unitsOfMeasurement/routes/index.routes';
+import { pointsRoutes } from '../modules/points/routes/index.routes';
 
 const routes = Router();
 
-routes.use('/courses', courseRoutes);
+routes.use('/courses', coursesRoutes);
 routes.use('/accs-assessments', accAssessmentsRoutes);
-routes.use('/accs', accRoutes);
-routes.use('/users', userRoutes);
+routes.use('/accs', accsRoutes);
+routes.use('/users', usersRoutes);
 routes.use('/acc-types', accTypesRoutes);
-routes.use('/certificates', certificateRoutes);
+routes.use('/certificates', certificatesRoutes);
 routes.use('/unity_of_measurement', unitsOfMeasurementRoutes);
-routes.use('/points', pointsRoutesa);
+routes.use('/points', pointsRoutes);
 
 export default routes;

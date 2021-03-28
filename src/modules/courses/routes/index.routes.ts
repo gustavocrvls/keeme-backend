@@ -4,13 +4,13 @@ import { verifyToken } from '../../../middlewares/auth';
 import { createCourseController } from '../../../useCases/CreateCourse';
 import { indexCourseController } from '../../../useCases/IndexCourse';
 
-const courseRoutes = Router();
+const coursesRoutes = Router();
 
-courseRoutes.get('/', (request, response) => {
+coursesRoutes.get('/', (request, response) => {
   return indexCourseController.handle(request, response);
 });
 
-courseRoutes.post(
+coursesRoutes.post(
   '/',
   verifyToken([PROFILE.ADMINISTRATOR]),
   (request, response) => {
@@ -18,4 +18,4 @@ courseRoutes.post(
   },
 );
 
-export { courseRoutes };
+export { coursesRoutes };

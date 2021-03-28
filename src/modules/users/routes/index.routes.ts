@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
-const userRoutes = Router();
+const usersRoutes = Router();
 
-userRoutes.get(
+usersRoutes.get(
   '/',
   // UsuarioController.index,
 );
 
-export { userRoutes };
+export { usersRoutes };

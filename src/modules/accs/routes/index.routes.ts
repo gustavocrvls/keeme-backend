@@ -5,18 +5,35 @@ import { PROFILE } from '../../../constants/Profile';
 import { verifyToken } from '../../../middlewares/auth';
 import { deleteACCController } from '../../../useCases/DeleteACC';
 import { indexACCController } from '../../../useCases/IndexACC';
+import { createACCController } from '../useCases/CreateACC';
+import { showACCController } from '../useCases/ShowACC';
 
-const accRoutes = Router();
-// const upload = multer(uploadConfig);
+const accsRoutes = Router();
+const upload = multer(uploadConfig);
 
 // get all accs
-accRoutes.get('/', verifyToken([PROFILE.STUDENT]), (req, res) =>
+accsRoutes.get('/', verifyToken([PROFILE.STUDENT]), (req, res) =>
   indexACCController.handle(req, res),
 );
 
+// get a acc by id
+accsRoutes.get(
+  '/:id',
+  verifyToken([PROFILE.STUDENT, PROFILE.COORDINATOR]),
+  (req, res) => showACCController.handle(req, res),
+);
+
+// creates a new acc
+accsRoutes.post(
+  '/',
+  verifyToken([PROFILE.STUDENT]),
+  upload.array('certificate'),
+  (req, res) => createACCController.handle(req, res),
+);
+
 // delete a acc by id
-accRoutes.delete('/:id', verifyToken([PROFILE.STUDENT]), (req, res) =>
+accsRoutes.delete('/:id', verifyToken([PROFILE.STUDENT]), (req, res) =>
   deleteACCController.handle(req, res),
 );
 
-export { accRoutes };
+export { accsRoutes };

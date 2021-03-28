@@ -22,7 +22,7 @@ export class ACC {
   public quantity: number;
 
   @Column()
-  public description: number;
+  public description: string;
 
   @Column({ type: 'timestamp' })
   public created_at: Date;
@@ -51,4 +51,21 @@ export class ACC {
 
   @OneToOne(() => ACCAssessment, acc_assessment => acc_assessment.acc)
   public acc_assessment: ACCAssessment;
+
+  constructor(
+    props: Omit<
+      ACC,
+      | 'id'
+      | 'certificate'
+      | 'acc_assessment'
+      | 'created_at'
+      | 'acc_status'
+      | 'acc_type'
+      | 'user'
+      | 'acc_variant'
+    >,
+    id?: number,
+  ) {
+    Object.assign(this, props);
+  }
 }

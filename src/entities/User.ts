@@ -41,4 +41,11 @@ export class User {
   @OneToMany(() => ACC, acc => acc.user)
   @JoinColumn({ name: 'user_id' })
   public accs: ACC[];
+
+  constructor(
+    props: Omit<ACC, 'id' | 'course' | 'profile' | 'created_at'>,
+    id?: number,
+  ) {
+    Object.assign(this, props);
+  }
 }

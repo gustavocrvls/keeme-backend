@@ -3,9 +3,9 @@ import { PROFILE } from '../../../constants/Profile';
 import { verifyToken } from '../../../middlewares/auth';
 import { getUserPointsController } from '../../../useCases/GetUserPoints';
 
-const routes = Router();
+const pointsRoutes = Router();
 
-routes.get(
+pointsRoutes.get(
   '/:id',
   verifyToken([PROFILE.COORDINATOR, PROFILE.STUDENT]),
   (request, response) => {
@@ -13,4 +13,4 @@ routes.get(
   },
 );
 
-export default routes;
+export { pointsRoutes };

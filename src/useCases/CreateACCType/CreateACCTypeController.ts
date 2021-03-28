@@ -11,19 +11,19 @@ export class CreateACCTypeController {
 
   async handle(request: Request, response: Response): Promise<void> {
     const {
-      nome,
-      limite_de_pontos,
-      descricao,
-      unidade_de_medida,
-      variantes_de_acc,
+      name,
+      point_limit,
+      description,
+      unity_of_measurement,
+      acc_variants,
     } = request.body;
 
     const accType = new ACCType({
-      nome,
-      limite_de_pontos,
-      descricao,
-      unidade_de_medida,
-      variantes_de_acc,
+      name,
+      point_limit,
+      description,
+      unity_of_measurement,
+      acc_variants,
     });
 
     try {

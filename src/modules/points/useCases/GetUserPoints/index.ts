@@ -1,5 +1,5 @@
-import { PointsCalculatorProvider } from '../../providers/implementations/PointsCalculatorProvider';
-import { MySQLPointsRepository } from '../../repositories/implementations/MySQLPointsRepository';
+import { PointsCalculatorProvider } from '../../../../providers/implementations/PointsCalculatorProvider';
+import { MySQLPointsRepository } from '../../../../repositories/implementations/MySQLPointsRepository';
 import { GetUserPointsController } from './GetUserPointsController';
 import { GetUserPointsUseCase } from './GetUserPointsUseCase';
 

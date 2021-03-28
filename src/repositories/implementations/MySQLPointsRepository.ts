@@ -15,21 +15,21 @@ export class MySQLPointsRepository implements IPointsRepository {
 
     const points = await this.accRepository
       .createQueryBuilder('acc')
-      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
-      .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
-      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-      .leftJoinAndSelect('acc.usuario', 'usuario')
-      .leftJoinAndSelect('acc.variante_de_acc', 'variante_de_acc')
-      .leftJoinAndSelect('usuario.perfil', 'perfil')
-      .leftJoinAndSelect('usuario.curso', 'curso')
-      .select(
-        'SUM(acc.quantidade * variante_de_acc.pontos_por_unidade)',
-        'points',
+      .leftJoinAndSelect('acc.acc_status', 'acc_status')
+      .leftJoinAndSelect('acc.acc_type', 'acc_type')
+      .leftJoinAndSelect(
+        'acc_type.unity_of_measurement',
+        'unity_of_measurement',
       )
-      .addSelect('status_da_acc.id', 'status_id')
-      .addSelect('tipo_de_acc.limite_de_pontos', 'limit')
-      .groupBy('tipo_de_acc.id')
-      .where('usuario.id = :id AND status_da_acc.id = :id_status', {
+      .leftJoinAndSelect('acc.user', 'user')
+      .leftJoinAndSelect('acc.acc_variant', 'acc_variant')
+      .leftJoinAndSelect('user.profile', 'profile')
+      .leftJoinAndSelect('user.course', 'course')
+      .select('SUM(acc.quantity * acc_variant.points_per_unity)', 'points')
+      .addSelect('acc_status.id', 'status_id')
+      .addSelect('acc_type.point_limit', 'limit')
+      .groupBy('acc_type.id')
+      .where('user.id = :id AND acc_status.id = :id_status', {
         id: user_id,
         id_status: status_id,
       })

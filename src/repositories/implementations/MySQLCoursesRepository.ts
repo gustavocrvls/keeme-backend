@@ -1,10 +1,10 @@
 import { getRepository, Like, Repository } from 'typeorm';
 import { Course } from '../../entities/Course';
+import { IIndexCourseRequestDTO } from '../../modules/courses/useCases/IndexCourse/IndexCourseDTO';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
-import { IIndexCourseRequestDTO } from '../../useCases/IndexCourse/IndexCourseDTO';
 import { ICoursesRepository } from '../ICoursesRepository';
 
 export class MySQLCoursesRepository implements ICoursesRepository {

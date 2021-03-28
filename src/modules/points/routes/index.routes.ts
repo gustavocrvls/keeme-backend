@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
 import { verifyToken } from '../../../middlewares/auth';
-import { getUserPointsController } from '../../../useCases/GetUserPoints';
+import { getUserPointsController } from '../useCases/GetUserPoints';
 
 const pointsRoutes = Router();
 

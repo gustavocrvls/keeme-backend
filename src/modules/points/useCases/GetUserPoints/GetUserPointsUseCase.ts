@@ -1,6 +1,6 @@
-import { ACC_STATUS } from '../../constants/ACCStatus';
-import { IPointsCalculatorProvider } from '../../providers/IPointsCalculatorProvider';
-import { IPointsRepository } from '../../repositories/IPointsRepository';
+import { ACC_STATUS } from '../../../../constants/ACCStatus';
+import { IPointsCalculatorProvider } from '../../../../providers/IPointsCalculatorProvider';
+import { IPointsRepository } from '../../../../repositories/IPointsRepository';
 import {
   IGetUserPointsRequestDTO,
   IGetUserPointsResponseDTO,

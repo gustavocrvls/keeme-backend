@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
 import { verifyToken } from '../../../middlewares/auth';
-import { createCourseController } from '../../../useCases/CreateCourse';
-import { indexCourseController } from '../../../useCases/IndexCourse';
+import { createCourseController } from '../useCases/CreateCourse';
+import { indexCourseController } from '../useCases/IndexCourse';
 
 const coursesRoutes = Router();
 

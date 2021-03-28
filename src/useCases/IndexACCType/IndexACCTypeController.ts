@@ -12,18 +12,18 @@ export class IndexACCTypeController {
     const {
       sortField,
       sortOrder,
-      nome,
+      name,
       limit,
       page,
-      unidade_de_medida,
+      unity_of_measurement,
     } = request.query;
 
     try {
       const accTypes = await this.indexACCTypeUseCase.execute({
         sortField: <string>sortField,
         sortOrder: <'ASC' | 'DESC'>sortOrder,
-        nome: <string>nome,
-        unidade_de_medida: Number(<string>unidade_de_medida),
+        name: <string>name,
+        unity_of_measurement: Number(<string>unity_of_measurement),
         limit: Number(<string>limit),
         page: Number(<string>page),
       });

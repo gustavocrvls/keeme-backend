@@ -24,27 +24,27 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   }
 
   public async index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray> {
-    const { nome, sortField, limit, unidade_de_medida } = data;
+    const { name, sortField, limit, unity_of_measurement } = data;
     let { sortOrder, page } = data;
 
     this.accTypeRepository = getRepository(ACCType);
     let unitsOfMeasurementQuery = await this.accTypeRepository.createQueryBuilder(
-      'tipo_de_acc',
+      'acc_type',
     );
 
-    if (nome)
+    if (name)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
-        nome: Like(`%${nome}%`),
+        name: Like(`%${name}%`),
       });
-    if (unidade_de_medida)
+    if (unity_of_measurement)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
-        unidade_de_medida,
+        unity_of_measurement,
       });
 
     if (!sortOrder) sortOrder = 'ASC';
     if (sortField)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.orderBy({
-        [`tipo_de_acc.${sortField}`]: sortOrder,
+        [`acc_type.${sortField}`]: sortOrder,
       });
 
     if (limit && limit !== undefined && page && page !== undefined) {
@@ -55,8 +55,11 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     }
 
     const unitsOfMeasurement = await unitsOfMeasurementQuery
-      .leftJoinAndSelect('tipo_de_acc.variantes_de_acc', 'variante_de_acc')
-      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
+      .leftJoinAndSelect('acc_type.acc_variants', 'acc_variant')
+      .leftJoinAndSelect(
+        'acc_type.unity_of_measurement',
+        'unity_of_measurement',
+      )
       .getMany();
     const total_items = await unitsOfMeasurementQuery.getCount();
 
@@ -97,8 +100,8 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     this.accTypeRepository = getRepository(ACCType);
 
     const accTypes = await this.accTypeRepository
-      .createQueryBuilder('tipo_de_acc')
-      .leftJoin('tipo_de_acc.accs', 'accs')
+      .createQueryBuilder('acc_type')
+      .leftJoin('acc_type.accs', 'accs')
       .select('COUNT(accs.id) as accs_length')
       .where({ id })
       .getRawOne();
@@ -115,39 +118,39 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     this.accTypeRepository = getRepository(ACCType);
 
     let accTypeQuery = this.accTypeRepository
-      .createQueryBuilder('tipo_de_acc')
-      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-      .leftJoinAndSelect('tipo_de_acc.accs', 'acc')
-      .leftJoinAndSelect('acc.variante_de_acc', 'acc.variante_da_acc')
+      .createQueryBuilder('acc_type')
       .leftJoinAndSelect(
-        'tipo_de_acc.variantes_de_acc',
-        'tipo_de_acc.variantes_de_acc',
+        'acc_type.unity_of_measurement',
+        'unity_of_measurement',
       )
-      .leftJoinAndSelect('acc.usuario', 'usuario', 'usuario.id = :id_usuario', {
-        id_usuario: user_id,
+      .leftJoinAndSelect('acc_type.accs', 'acc')
+      .leftJoinAndSelect('acc.acc_variant', 'acc.acc_variant')
+      .leftJoinAndSelect('acc_type.acc_variants', 'acc_type.acc_variants')
+      .leftJoinAndSelect('acc.user', 'user', 'user.id = :user_id', {
+        user_id,
       })
-      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
+      .leftJoinAndSelect('acc.acc_status', 'acc_status')
       .select([
-        'tipo_de_acc',
-        'status_da_acc',
-        'unidade_de_medida',
+        'acc_type',
+        'acc_status',
+        'unity_of_measurement',
         'acc.id',
-        'acc.usuario',
-        'acc.quantidade',
-        'acc.status_da_acc',
-        'acc.variante_da_acc.pontos_por_unidade',
-        'usuario.nome',
-        'tipo_de_acc.variantes_de_acc',
+        'acc.user',
+        'acc.quantity',
+        'acc.acc_status',
+        'acc.acc_variant.points_per_unity',
+        'user.name',
+        'acc_type.acc_variants',
       ]);
     if (name)
-      accTypeQuery = accTypeQuery.where('tipo_de_acc.nome LIKE :name', {
+      accTypeQuery = accTypeQuery.where('acc_type.name LIKE :name', {
         name: `%${name}%`,
       });
 
     if (!sortOrder) sortOrder = 'ASC';
     if (sortField)
       accTypeQuery = accTypeQuery.orderBy({
-        [`tipo_de_acc.${sortField}`]: sortOrder,
+        [`acc_type.${sortField}`]: sortOrder,
       });
 
     if (limit && limit !== undefined && page && page !== undefined) {
@@ -164,7 +167,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     this.accTypeRepository = getRepository(ACCType);
 
     const accTypesLength = await this.accTypeRepository
-      .createQueryBuilder('tipo_de_acc')
+      .createQueryBuilder('acc_type')
       .getCount();
 
     return accTypesLength;

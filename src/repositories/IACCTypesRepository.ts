@@ -7,24 +7,24 @@ import { IIndexACCTypesWithUserPointsRequestDTO } from '../useCases/IndexACCType
 
 export interface IACCTypeWithUserACCs {
   id: number;
-  nome: string;
-  limite_de_pontos: number;
-  descricao: string;
-  unidade_de_medida: {
+  name: string;
+  point_limit: number;
+  description: string;
+  unity_of_measurement: {
     id: number;
-    nome: string;
+    name: string;
   };
-  variantes_de_acc: {
+  acc_variants: {
     id: number;
-    pontos_por_unidade: number;
-    descricao: string;
+    points_per_unity: number;
+    description: string;
   }[];
   accs: {
-    quantidade: number;
-    variante_de_acc: {
-      pontos_por_unidade: number;
+    quantity: number;
+    acc_variant: {
+      points_per_unity: number;
     };
-    status_da_acc: {
+    acc_status: {
       id: number;
     };
   }[];

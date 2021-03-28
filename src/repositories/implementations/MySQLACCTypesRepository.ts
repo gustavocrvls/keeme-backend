@@ -137,7 +137,6 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
         'acc.id',
         'acc.user',
         'acc.quantity',
-        'acc.acc_status',
         'acc.acc_variant.points_per_unity',
         'user.name',
         'acc_type.acc_variants',

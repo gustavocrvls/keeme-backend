@@ -16,7 +16,7 @@ routes.use('/accs', accsRoutes);
 routes.use('/users', usersRoutes);
 routes.use('/acc-types', accTypesRoutes);
 routes.use('/certificates', certificatesRoutes);
-routes.use('/unity_of_measurement', unitsOfMeasurementRoutes);
+routes.use('/units-of-measurement', unitsOfMeasurementRoutes);
 routes.use('/points', pointsRoutes);
 
 export default routes;

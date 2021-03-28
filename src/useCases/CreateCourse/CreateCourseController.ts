@@ -9,11 +9,11 @@ export class CreateCourseController {
   }
 
   async handle(request: Request, response: Response): Promise<void> {
-    const { nome } = request.body;
+    const { name } = request.body;
 
     try {
       this.createCourseUseCase.execute({
-        nome,
+        name,
       });
       response.sendStatus(201);
     } catch (err) {

@@ -70,7 +70,7 @@ export default {
       relations: ['perfil', 'curso'],
     });
 
-    return res.json(usuarioView.render(usuario));
+    return res.json(usuario);
   },
 
   /**

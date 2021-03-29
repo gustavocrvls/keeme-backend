@@ -62,7 +62,7 @@ export default {
         'variante_de_acc',
       ],
     });
-    return res.json();
+    return res.json(acc);
   },
 
   async showByUser(req: Request, res: Response): Promise<any> {
@@ -325,11 +325,11 @@ export default {
 
   async updateStatus(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
-    const { status_da_acc } = req.body;
+    const { new_status } = req.body;
 
     const accRepository = getRepository(Acc);
 
-    const updated = await accRepository.update(id, { status_da_acc });
+    const updated = await accRepository.update(id, { status_da_acc: new_status });
 
     res.send(updated);
   },

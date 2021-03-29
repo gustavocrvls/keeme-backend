@@ -117,26 +117,31 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     let accTypeQuery = this.accTypeRepository
       .createQueryBuilder('tipo_de_acc')
       .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-      .leftJoinAndSelect('tipo_de_acc.accs', 'acc')
+      .leftJoinAndSelect(
+        'tipo_de_acc.accs',
+        'acc',
+        'acc.usuario.id = :user_id',
+        { user_id },
+      )
       .leftJoinAndSelect('acc.variante_de_acc', 'acc.variante_da_acc')
       .leftJoinAndSelect(
         'tipo_de_acc.variantes_de_acc',
         'tipo_de_acc.variantes_de_acc',
       )
-      .leftJoinAndSelect('acc.usuario', 'usuario', 'usuario.id = :id_usuario', {
-        id_usuario: user_id,
-      })
+      // .leftJoinAndSelect('acc.usuario', 'usuario', 'usuario.id = :id_usuario', {
+      //   id_usuario: user_id,
+      // })
       .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
       .select([
         'tipo_de_acc',
         'status_da_acc',
         'unidade_de_medida',
         'acc.id',
-        'acc.usuario',
+        // 'acc.usuario',
         'acc.quantidade',
         'acc.status_da_acc',
         'acc.variante_da_acc.pontos_por_unidade',
-        'usuario.nome',
+        // 'usuario.nome',
         'tipo_de_acc.variantes_de_acc',
       ]);
     if (name)
@@ -156,6 +161,8 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     }
 
     const accTypes = await accTypeQuery.getMany();
+
+    console.log(accTypes);
 
     return accTypes as IACCTypeWithUserACCs[];
   }

@@ -21,7 +21,7 @@ export default {
       const tipoDeAccRepository = getRepository(ACCType);
 
       const tiposDeAcc = await tipoDeAccRepository.find({
-        relations: ['unidade_de_medida', 'variantes_de_acc'],
+        relations: ['unidade_de_medida', 'acc_variants'],
       });
 
       return res.json(tiposDeAcc);
@@ -61,36 +61,36 @@ export default {
    * corpo da requisição (req):
    *  nome: string,
    *  pontosPorUnidade: number,
-   *  limiteDePontos: number,
-   *  descricao: string,
-   *  unidadeDeMedida: number,
+   *  point_limit: number,
+   *  description: string,
+   *  unity_of_measurement: number,
    *  curso: number
    *
    * @deprecated
    */
   async create(req: Request, res: Response): Promise<any> {
     const {
-      nome,
-      limiteDePontos,
-      descricao,
-      unidadeDeMedida,
-      variantes_de_acc,
+      name,
+      point_limit,
+      description,
+      unity_of_measurement,
+      acc_variants,
     } = req.body;
 
     const tipoDeAccRepository = getRepository(ACCType);
 
     const data = {
-      nome,
-      limite_de_pontos: limiteDePontos,
-      descricao,
-      unidade_de_medida: unidadeDeMedida,
-      variantes_de_acc,
+      name,
+      limite_de_pontos: point_limit,
+      description,
+      unidade_de_medida: unity_of_measurement,
+      acc_variants,
     };
 
     const schema = Yup.object().shape({
-      nome: Yup.string().required(),
+      name: Yup.string().required(),
       limite_de_pontos: Yup.number().required(),
-      descricao: Yup.string().optional().max(300),
+      description: Yup.string().optional().max(300),
       unidade_de_medida: Yup.number().required(),
     });
 
@@ -99,7 +99,6 @@ export default {
     });
 
     const tipoDeAcc = tipoDeAccRepository.create(data);
-    console.log(tipoDeAcc);
 
     await tipoDeAccRepository.save(tipoDeAcc);
 

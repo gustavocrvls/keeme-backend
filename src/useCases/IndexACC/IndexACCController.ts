@@ -14,10 +14,10 @@ export class IndexACCController {
       sortOrder,
       limit,
       page,
-      nome,
-      usuario,
-      tipo_de_acc,
-      status_da_acc,
+      name,
+      user,
+      acc_type,
+      acc_status,
     } = request.query;
 
     try {
@@ -26,10 +26,10 @@ export class IndexACCController {
         sortOrder: <'ASC' | 'DESC'>sortOrder,
         limit: Number(<string>limit),
         page: Number(<string>page),
-        nome: <string>nome,
-        usuario: Number(<string>usuario),
-        tipo_de_acc: Number(<string>tipo_de_acc),
-        status_da_acc: Number(<string>status_da_acc),
+        name: <string>name,
+        user: Number(<string>user),
+        acc_type: Number(<string>acc_type),
+        acc_status: Number(<string>acc_status),
       });
       response.status(200).json(accs);
     } catch (err) {

@@ -230,9 +230,7 @@ export default {
     const { id } = req.params;
 
     const accRepository = getRepository(ACC);
-
-    const accRemovida = (await accRepository.findOne(id)) || new ACC();
-    await accRepository.remove(accRemovida);
+    await accRepository.delete(id);
 
     res.sendStatus(200);
   },

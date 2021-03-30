@@ -1,6 +1,6 @@
-import Course from '../models/Curso';
+import { Course } from '../entities/Course';
+import { IIndexCourseRequestDTO } from '../modules/courses/useCases/IndexCourse/IndexCourseDTO';
 import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
-import { IIndexCourseRequestDTO } from '../useCases/IndexCourse/IndexCourseDTO';
 
 export interface ICoursesRepository {
   save(course: Course): Promise<void>;

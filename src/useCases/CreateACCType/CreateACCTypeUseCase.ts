@@ -1,4 +1,4 @@
-import TipoDeAcc from '../../models/TipoDeAcc';
+import { ACCType } from '../../entities/ACCType';
 import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
 import { ICreateACCTypeRequestDTO } from './CreateACCTypeDTO';
 
@@ -10,7 +10,7 @@ export class CreateACCTypeUseCase {
   }
 
   async execute(data: ICreateACCTypeRequestDTO): Promise<void> {
-    const accType = new TipoDeAcc(data);
+    const accType = new ACCType(data);
     this.accTypesRepository.save(accType);
   }
 }

@@ -1,5 +1,5 @@
 import { getRepository, Like, Repository } from 'typeorm';
-import UnidadeDeMedida from '../../models/UnidadeDeMedida';
+import { UnityOfMeasurement } from '../../entities/UnityOfMeasurement';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
@@ -9,7 +9,7 @@ import { IUnitsOfMeasurementRepository } from '../IUnitsOfMeasurementRepository'
 
 export class MySQLUnityOfMeasurementRepository
   implements IUnitsOfMeasurementRepository {
-  private coursesRepository: Repository<UnidadeDeMedida>;
+  private coursesRepository: Repository<UnityOfMeasurement>;
 
   private arrayPaginator: IArrayPaginatorProvider;
 
@@ -21,7 +21,7 @@ export class MySQLUnityOfMeasurementRepository
     const { nome, sortField, limit } = data;
     let { sortOrder, page } = data;
 
-    this.coursesRepository = getRepository(UnidadeDeMedida);
+    this.coursesRepository = getRepository(UnityOfMeasurement);
     let unitsOfMeasurementQuery = await this.coursesRepository.createQueryBuilder(
       'unidades_de_medida',
     );

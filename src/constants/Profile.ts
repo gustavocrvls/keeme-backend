@@ -1,0 +1,5 @@
+export const PROFILE = {
+  ADMINISTRATOR: 1,
+  COORDINATOR: 2,
+  STUDENT: 3,
+};

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import PERFIL from '../../constants/Perfil';
+import { PROFILE } from '../../constants/Profile';
 import TipoDeAccController from '../../controllers/TipoDeAccController';
 import { verifyToken } from '../../middlewares/auth';
 import { createACCTypeController } from '../../useCases/CreateACCType';
@@ -12,32 +12,32 @@ const routes = Router();
 
 routes.get(
   '/',
-  verifyToken([PERFIL.DISCENTE, PERFIL.ADMINISTRADOR]),
+  verifyToken([PROFILE.STUDENT, PROFILE.ADMINISTRATOR]),
   (req, res) => indexACCTypeController.handle(req, res),
 );
-routes.get('/:id', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+routes.get('/:id', verifyToken([PROFILE.ADMINISTRATOR]), (req, res) =>
   showACCTypeController.handle(req, res),
 );
-routes.get('/user/:user_id', verifyToken([PERFIL.DISCENTE]), (req, res) =>
+routes.get('/user/:user_id', verifyToken([PROFILE.STUDENT]), (req, res) =>
   indexACCTypesWithUserPointsController.handle(req, res),
 );
 
-routes.post('/', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+routes.post('/', verifyToken([PROFILE.ADMINISTRATOR]), (req, res) =>
   createACCTypeController.handle(req, res),
 );
 routes.post(
   '/mass',
-  verifyToken([PERFIL.ADMINISTRADOR]),
+  verifyToken([PROFILE.ADMINISTRATOR]),
   TipoDeAccController.massCreate,
 );
 
-routes.delete('/:id', verifyToken([PERFIL.ADMINISTRADOR]), (req, res) =>
+routes.delete('/:id', verifyToken([PROFILE.ADMINISTRATOR]), (req, res) =>
   deleteACCTypeController.handle(req, res),
 );
 
 routes.put(
   '/:id',
-  verifyToken([PERFIL.ADMINISTRADOR]),
+  verifyToken([PROFILE.ADMINISTRATOR]),
   TipoDeAccController.update,
 );
 

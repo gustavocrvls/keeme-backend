@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import STATUS_DA_ACC from '../../constants/StatusDaAcc';
+import { ACC_STATUS } from '../../constants/ACCStatus';
 import { IACCTypeWithUserACCs } from '../../repositories/IACCTypesRepository';
 import { IACCPoints } from '../../repositories/IPointsRepository';
 import { IACCTypesWithUserPointsResponseDTO } from '../../useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
@@ -23,30 +23,31 @@ export class PointsCalculatorProvider implements IPointsCalculatorProvider {
       let approvedAcumulator = 0;
       let underAnalisysAcumulator = 0;
       accType.accs.forEach(acc => {
-        if (acc.status_da_acc.id === STATUS_DA_ACC.APPROVED)
-          approvedAcumulator +=
-            acc.quantidade * acc.variante_de_acc.pontos_por_unidade;
-        if (acc.status_da_acc.id === STATUS_DA_ACC.UNDER_ANALYSIS)
+        if (acc.acc_status.id === ACC_STATUS.APPROVED)
+          approvedAcumulator += acc.quantity * acc.acc_variant.points_per_unity;
+        if (acc.acc_status.id === ACC_STATUS.UNDER_ANALYSIS)
           underAnalisysAcumulator +=
-            acc.quantidade * acc.variante_de_acc.pontos_por_unidade;
+            acc.quantity * acc.acc_variant.points_per_unity;
+
+        console.log(acc.acc_variant.id);
       });
       return {
         id: accType.id,
-        name: accType.nome,
-        description: accType.descricao,
-        point_limit: accType.limite_de_pontos,
+        name: accType.name,
+        description: accType.description,
+        point_limit: accType.point_limit,
         unit_of_measurement: {
-          id: accType.unidade_de_medida.id,
-          name: accType.unidade_de_medida.nome,
+          id: accType.unity_of_measurement.id,
+          name: accType.unity_of_measurement.name,
         },
-        acc_variants: accType.variantes_de_acc.map(variante => ({
-          id: variante.id,
-          description: variante.descricao,
-          points_per_unity: variante.pontos_por_unidade,
+        acc_variants: accType.acc_variants.map(variant => ({
+          id: variant.id,
+          description: variant.description,
+          points_per_unity: variant.points_per_unity,
         })),
         approved_points:
-          approvedAcumulator > accType.limite_de_pontos
-            ? accType.limite_de_pontos
+          approvedAcumulator > accType.point_limit
+            ? accType.point_limit
             : approvedAcumulator,
         points_under_analisys: underAnalisysAcumulator,
       };

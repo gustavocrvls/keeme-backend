@@ -1,9 +1,10 @@
 import { getRepository, Like, Repository } from 'typeorm';
-import Acc from '../../models/Acc';
+import { ACC } from '../../entities/ACC';
 import {
   IShowACCWithUserRequestDTO,
   IShowACCWithUserResponseDTO,
 } from '../../modules/accs/dtos/ShowACCWithUserDTO';
+import { IShowACCDTO } from '../../modules/accs/useCases/ShowACC/ShowACCDTO';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
@@ -13,7 +14,7 @@ import { IIndexACCRequestDTO } from '../../useCases/IndexACC/IndexACCDTO';
 import { IACCsRepository } from '../IACCsRepository';
 
 export class MySQLACCsRepository implements IACCsRepository {
-  private accRepository: Repository<Acc>;
+  private accRepository: Repository<ACC>;
 
   private arrayPaginator: IArrayPaginatorProvider;
 
@@ -21,35 +22,28 @@ export class MySQLACCsRepository implements IACCsRepository {
     if (arrayPaginator) this.arrayPaginator = arrayPaginator;
   }
 
-  async index(data: IIndexACCRequestDTO): Promise<IPaginatedArray> {
-    const {
-      nome,
-      sortField,
-      limit,
-      status_da_acc,
-      tipo_de_acc,
-      usuario,
-    } = data;
+  public async index(data: IIndexACCRequestDTO): Promise<IPaginatedArray> {
+    const { name, sortField, limit, acc_status, acc_type, user } = data;
     let { sortOrder, page } = data;
 
-    this.accRepository = getRepository(Acc);
+    this.accRepository = getRepository(ACC);
     let accsQuery = await this.accRepository.createQueryBuilder('acc');
 
-    if (nome)
+    if (name)
       accsQuery = accsQuery.where({
-        nome: Like(`%${nome}%`),
+        name: Like(`%${name}%`),
       });
-    if (usuario)
+    if (user)
       accsQuery = accsQuery.where({
-        usuario,
+        user,
       });
-    if (status_da_acc)
+    if (acc_status)
       accsQuery = accsQuery.where({
-        status_da_acc,
+        acc_status,
       });
-    if (tipo_de_acc)
+    if (acc_type)
       accsQuery = accsQuery.where({
-        tipo_de_acc,
+        acc_type,
       });
 
     if (!sortOrder) sortOrder = 'ASC';
@@ -64,40 +58,66 @@ export class MySQLACCsRepository implements IACCsRepository {
     }
 
     const accs = await accsQuery
-      .leftJoinAndSelect('acc.usuario', 'usuario')
-      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
-      .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
-      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-      .leftJoinAndSelect('acc.variante_de_acc', 'variante_de_acc')
-      .leftJoinAndSelect('acc.avaliacao_da_acc', 'avaliacao_da_acc')
+      .leftJoinAndSelect('acc.user', 'user')
+      .leftJoinAndSelect('acc.acc_status', 'acc_status')
+      .leftJoinAndSelect('acc.acc_type', 'acc_type')
       .leftJoinAndSelect(
-        'avaliacao_da_acc.usuario',
-        'avaliacao_da_acc__usuario',
+        'acc_type.unity_of_measurement',
+        'unity_of_measurement',
       )
+      .leftJoinAndSelect('acc.acc_variant', 'acc_variant')
+      .leftJoinAndSelect('acc.acc_assessment', 'acc_assessment')
+      .leftJoinAndSelect('acc_assessment.user', 'avaliacao_da_acc__usuario')
       .getMany();
     const total_items = await accsQuery.getCount();
 
     return this.arrayPaginator.paginate(accs, page + 1, limit, total_items);
   }
 
+  public async show(data: IShowACCDTO): Promise<ACC> {
+    this.accRepository = getRepository(ACC);
+    const { id } = data;
+
+    const acc = await this.accRepository.findOneOrFail(
+      { id },
+      {
+        relations: [
+          'acc_status',
+          'acc_type',
+          'acc_variant',
+          'acc_type.unity_of_measurement',
+          'certificate',
+          'user',
+          'acc_assessment',
+          'acc_assessment.user',
+        ],
+      },
+    );
+
+    return acc;
+  }
+
   public async delete(data: IDeleteACCRequestDTO): Promise<void> {
     const { id } = data;
-    this.accRepository = getRepository(Acc);
+    this.accRepository = getRepository(ACC);
 
     await this.accRepository.delete({ id });
   }
 
-  getWithUser(data: IShowACCWithUserRequestDTO): Promise<any> {
-    this.accRepository = getRepository(Acc);
+  public async getWithUser(data: IShowACCWithUserRequestDTO): Promise<any> {
+    this.accRepository = getRepository(ACC);
 
     const { id } = data;
 
     const accWithUserQuery = this.accRepository.createQueryBuilder('acc');
 
     accWithUserQuery
-      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
-      .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
-      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
+      .leftJoinAndSelect('acc.acc_status', 'acc_status')
+      .leftJoinAndSelect('acc.acc_type', 'acc_type')
+      .leftJoinAndSelect(
+        'acc_type.unity_of_measurement',
+        'unity_of_measurement',
+      )
       .leftJoinAndSelect('acc.usuario', 'usuario')
       .leftJoinAndSelect('usuario.perfil', 'perfil')
       .leftJoinAndSelect('usuario.curso', 'curso')
@@ -105,8 +125,14 @@ export class MySQLACCsRepository implements IACCsRepository {
       .addSelect(['certificado.id'])
       .where({ usuario: { id } });
 
-    const accWithUser = accWithUserQuery.getOneOrFail();
+    const accWithUser = await accWithUserQuery.getOneOrFail();
 
     return accWithUser;
+  }
+
+  public async create(acc: ACC): Promise<void> {
+    this.accRepository = getRepository(ACC);
+
+    await this.accRepository.save(acc);
   }
 }

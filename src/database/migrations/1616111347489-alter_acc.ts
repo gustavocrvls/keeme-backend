@@ -7,7 +7,7 @@ export class alterAcc1616111347489 implements MigrationInterface {
         'acc',
         new TableColumn(
           {
-            name: 'id_variante_de_acc',
+            name: 'acc_variant_id',
             type: 'integer',
             unsigned: true,
           }
@@ -17,9 +17,9 @@ export class alterAcc1616111347489 implements MigrationInterface {
       await queryRunner.createForeignKey(
         'acc',
         new TableForeignKey({
-          name: 'FK_acc__variante_de_acc',
-          columnNames: ['id_variante_de_acc'],
-          referencedTableName: 'variante_de_acc',
+          name: 'FK_acc__acc_variant',
+          columnNames: ['acc_variant_id'],
+          referencedTableName: 'acc_variant',
           referencedColumnNames: ['id'],
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',

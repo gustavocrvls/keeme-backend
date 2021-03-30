@@ -1,30 +1,30 @@
 import { getRepository, Like, Repository } from 'typeorm';
-import Curso from '../../models/Curso';
+import { Course } from '../../entities/Course';
+import { IIndexCourseRequestDTO } from '../../modules/courses/useCases/IndexCourse/IndexCourseDTO';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
-import { IIndexCourseRequestDTO } from '../../useCases/IndexCourse/IndexCourseDTO';
 import { ICoursesRepository } from '../ICoursesRepository';
 
 export class MySQLCoursesRepository implements ICoursesRepository {
-  private coursesRepository: Repository<Curso>;
+  private coursesRepository: Repository<Course>;
 
   private arrayPaginator: IArrayPaginatorProvider;
 
   constructor(arrayPaginator?: IArrayPaginatorProvider) {
     if (arrayPaginator) this.arrayPaginator = arrayPaginator;
 
-    // this.coursesRepository = getRepository(Curso, 'mysql');
+    // this.coursesRepository = getRepository(Course, 'mysql');
   }
 
-  async save(course: Curso): Promise<void> {
-    this.coursesRepository = getRepository(Curso);
+  async save(course: Course): Promise<void> {
+    this.coursesRepository = getRepository(Course);
     await this.coursesRepository.save(course);
   }
 
   async index(data: IIndexCourseRequestDTO): Promise<IPaginatedArray> {
-    this.coursesRepository = getRepository(Curso);
+    this.coursesRepository = getRepository(Course);
 
     const { nome, sortField, limit } = data;
     let { sortOrder, page } = data;

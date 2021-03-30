@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import TipoDeAcc from '../../models/TipoDeAcc';
+import { ACCType } from '../../entities/ACCType';
 import { CreateACCTypeUseCase } from './CreateACCTypeUseCase';
 
 export class CreateACCTypeController {
@@ -11,19 +11,19 @@ export class CreateACCTypeController {
 
   async handle(request: Request, response: Response): Promise<void> {
     const {
-      nome,
-      limite_de_pontos,
-      descricao,
-      unidade_de_medida,
-      variantes_de_acc,
+      name,
+      point_limit,
+      description,
+      unity_of_measurement,
+      acc_variants,
     } = request.body;
 
-    const accType = new TipoDeAcc({
-      nome,
-      limite_de_pontos,
-      descricao,
-      unidade_de_medida,
-      variantes_de_acc,
+    const accType = new ACCType({
+      name,
+      point_limit,
+      description,
+      unity_of_measurement,
+      acc_variants,
     });
 
     try {

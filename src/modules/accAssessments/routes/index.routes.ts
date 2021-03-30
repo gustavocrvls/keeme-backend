@@ -1,15 +1,20 @@
 import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
+import AvaliacaoDaAccController from '../../../controllers/AvaliacaoDaAccController';
 import { verifyToken } from '../../../middlewares/auth';
 
 const accAssessmentsRoutes = Router();
 
-accAssessmentsRoutes.get('/', (request, response) => {
-  // return indexCourseController.handle(request, response);
-});
+accAssessmentsRoutes.get(
+  '/',
+  verifyToken([PROFILE.ADMINISTRATOR]),
+  AvaliacaoDaAccController.index,
+);
 
-accAssessmentsRoutes.post('/', (request, response) => {
-  // return createCourseController.handle(request, response);
-});
+accAssessmentsRoutes.post(
+  '/',
+  verifyToken([PROFILE.ADMINISTRATOR]),
+  AvaliacaoDaAccController.create,
+);
 
 export { accAssessmentsRoutes };

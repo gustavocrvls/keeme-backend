@@ -23,6 +23,7 @@ export interface IACCTypeWithUserACCs {
     quantity: number;
     acc_variant: {
       points_per_unity: number;
+      id: number;
     };
     acc_status: {
       id: number;

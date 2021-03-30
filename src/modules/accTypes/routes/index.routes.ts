@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
+import TipoDeAccController from '../../../controllers/TipoDeAccController';
 import { verifyToken } from '../../../middlewares/auth';
 import { createACCTypeController } from '../../../useCases/CreateACCType';
 import { deleteACCTypeController } from '../../../useCases/DeleteACCType';
@@ -38,6 +39,12 @@ accTypesRoutes.delete(
   '/:id',
   verifyToken([PROFILE.ADMINISTRATOR]),
   (req, res) => deleteACCTypeController.handle(req, res),
+);
+
+accTypesRoutes.put(
+  '/:id',
+  verifyToken([PROFILE.ADMINISTRATOR]),
+  TipoDeAccController.update,
 );
 
 export { accTypesRoutes };

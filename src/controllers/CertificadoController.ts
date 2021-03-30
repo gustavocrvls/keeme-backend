@@ -35,6 +35,10 @@ export default {
     res.write(buf2);
     res.send();
 
+    fs.unlinkSync(
+      path.join(__dirname, '..', '..', 'uploads', certificate.name),
+    );
+
     // return res.json({url: `http://localhost:3333/uploads/${certificate.nome}`});
   },
 };

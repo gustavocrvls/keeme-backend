@@ -27,12 +27,12 @@ export default {
 
     const accs = await accRepository.find({
       relations: [
-        'status_da_acc',
-        'tipo_de_acc',
-        'tipo_de_acc.unidade_de_medida',
-        'usuario',
-        'usuario.perfil',
-        'usuario.curso',
+        'acc_status',
+        'acc_type',
+        'acc_type.unity_of_measurement',
+        'user',
+        'user.profile',
+        'user.course',
       ],
     });
 
@@ -46,15 +46,15 @@ export default {
 
     const acc = await accRepository.findOneOrFail(id, {
       relations: [
-        'status_da_acc',
-        'tipo_de_acc',
-        'tipo_de_acc.unidade_de_medida',
-        'usuario',
-        'usuario.perfil',
-        'usuario.curso',
-        'certificado',
+        'acc_status',
+        'acc_type',
+        'acc_type.unity_of_measurement',
+        'user',
+        'user.profile',
+        'user.course',
+        'certificate',
         'avaliacao_da_acc',
-        'avaliacao_da_acc.usuario',
+        'avaliacao_da_acc.user',
         'variante_de_acc',
       ],
     });
@@ -68,31 +68,31 @@ export default {
 
     const accs = await accRepository
       .createQueryBuilder('acc')
-      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
-      .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
-      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-      .leftJoinAndSelect('acc.usuario', 'usuario')
-      .leftJoinAndSelect('usuario.perfil', 'perfil')
-      .leftJoinAndSelect('usuario.curso', 'curso')
-      .where('usuario.id = :id', { id })
+      .leftJoinAndSelect('acc.acc_status', 'acc_status')
+      .leftJoinAndSelect('acc.acc_type', 'acc_type')
+      .leftJoinAndSelect('acc_type.unity_of_measurement', 'unity_of_measurement')
+      .leftJoinAndSelect('acc.user', 'user')
+      .leftJoinAndSelect('user.profile', 'profile')
+      .leftJoinAndSelect('user.course', 'course')
+      .where('user.id = :id', { id })
       .getMany();
 
       return res.json({data: accs.map(acc => ({
         id: acc.id,
         quantity: acc.quantity,
-        certificate_id: acc.certificado.id,
+        certificate_id: acc.certificate.id,
 
         user: {
           id: acc.user.id,
-          name: acc.user.nome,
+          name: acc.user.name,
           cpf: acc.user.cpf,
         },
         acc_type: {
           id: acc.acc_type.id,
-          name: acc.acc_type.nome,
+          name: acc.acc_type.name,
           unity_of_measurement: {
-            id: acc.acc_type.unidade_de_medida.id,
-            name: acc.acc_type.unidade_de_medida.nome,
+            id: acc.acc_type.unity_of_measurement.id,
+            name: acc.acc_type.unity_of_measurement.name,
           }
         },
       }))});
@@ -105,13 +105,13 @@ export default {
 
     const accs = await accRepository
       .createQueryBuilder('acc')
-      .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
-      .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
-      .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-      .leftJoinAndSelect('acc.usuario', 'usuario')
-      .leftJoinAndSelect('usuario.perfil', 'perfil')
-      .leftJoinAndSelect('usuario.curso', 'curso')
-      .where('status_da_acc.id = :id', { id })
+      .leftJoinAndSelect('acc.acc_status', 'acc_status')
+      .leftJoinAndSelect('acc.acc_type', 'acc_type')
+      .leftJoinAndSelect('acc_type.unity_of_measurement', 'unity_of_measurement')
+      .leftJoinAndSelect('acc.user', 'user')
+      .leftJoinAndSelect('user.profile', 'profile')
+      .leftJoinAndSelect('user.course', 'course')
+      .where('acc_status.id = :id', { id })
       .getMany();
 
     return res.json({data: accs.map(acc => ({
@@ -119,15 +119,15 @@ export default {
       quantity: acc.quantity,
       user: {
         id: acc.user.id,
-        name: acc.user.nome,
+        name: acc.user.name,
         cpf: acc.user.cpf,
       },
       acc_type: {
         id: acc.acc_type.id,
-        name: acc.acc_type.nome,
+        name: acc.acc_type.name,
         unity_of_measurement: {
-          id: acc.acc_type.unidade_de_medida.id,
-          name: acc.acc_type.unidade_de_medida.nome,
+          id: acc.acc_type.unity_of_measurement.id,
+          name: acc.acc_type.unity_of_measurement.name,
         }
       }
     }))});
@@ -150,21 +150,21 @@ export default {
 
       const pontuacaoByStatus = await accRepository
         .createQueryBuilder('acc')
-        .leftJoinAndSelect('acc.status_da_acc', 'status_da_acc')
-        .leftJoinAndSelect('acc.tipo_de_acc', 'tipo_de_acc')
-        .leftJoinAndSelect('tipo_de_acc.unidade_de_medida', 'unidade_de_medida')
-        .leftJoinAndSelect('acc.usuario', 'usuario')
+        .leftJoinAndSelect('acc.acc_status', 'acc_status')
+        .leftJoinAndSelect('acc.acc_type', 'acc_type')
+        .leftJoinAndSelect('acc_type.unity_of_measurement', 'unity_of_measurement')
+        .leftJoinAndSelect('acc.user', 'user')
         .leftJoinAndSelect('acc.variante_de_acc', 'variante_de_acc')
-        .leftJoinAndSelect('usuario.perfil', 'perfil')
-        .leftJoinAndSelect('usuario.curso', 'curso')
+        .leftJoinAndSelect('user.profile', 'profile')
+        .leftJoinAndSelect('user.course', 'course')
         .select(
-          'SUM(acc.quantidade * variante_de_acc.pontos_por_unidade)',
+          'SUM(acc.quantity * variante_de_acc.pontos_por_unidade)',
           'pontos',
         )
-        .addSelect('status_da_acc.id', 'status')
-        .addSelect('tipo_de_acc.limite_de_pontos', 'limite')
-        .groupBy('tipo_de_acc.id')
-        .where('usuario.id = :id AND status_da_acc.id = :id_status', {
+        .addSelect('acc_status.id', 'status')
+        .addSelect('acc_type.limite_de_pontos', 'limite')
+        .groupBy('acc_type.id')
+        .where('user.id = :id AND acc_status.id = :id_status', {
           id: user_id,
           id_status: status,
         })
@@ -196,22 +196,22 @@ export default {
   },
 
   async create(req: Request, res: Response): Promise<any> {
-    const { quantidade, descricao, idUsuario, tipoDeAcc, variante_de_acc } = req.body;
+    const { quantity, description, user, acc_type, acc_variant } = req.body;
 
     const requestCertificado = req.files as Express.Multer.File[];
     const certificadoReq = requestCertificado[0];
 
     const accData = {
-      quantidade,
-      descricao,
-      usuario: idUsuario,
-      tipo_de_acc: tipoDeAcc,
-      variante_de_acc,
-      certificado: {
-        nome: certificadoReq.filename,
-        tamanho: certificadoReq.size,
-        tipo: certificadoReq.mimetype,
-        arquivo: fs.readFileSync(certificadoReq.path),
+      quantity,
+      description,
+      user,
+      acc_type,
+      acc_variant,
+      certificate: {
+        name: certificadoReq.filename,
+        size: certificadoReq.size,
+        type: certificadoReq.mimetype,
+        file: fs.readFileSync(certificadoReq.path),
       }
     };
 

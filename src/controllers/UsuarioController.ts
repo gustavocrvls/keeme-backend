@@ -14,27 +14,27 @@ import { PROFILE } from '../constants/Profile';
 export default {
   // essa função serve apenas para testes e deverá ser removida
   async index(req: Request, res: Response): Promise<any> {
-    const { search, curso } = req.query;
+    const { search, course } = req.query;
     let { profile_id } = req.query;
-    const usuarioRepository = getRepository(User);
+    const userRepository = getRepository(User);
 
-    let queryUsuarios = usuarioRepository
-      .createQueryBuilder('usuario')
-      .leftJoinAndSelect('usuario.perfil', 'perfil')
-      .leftJoinAndSelect('usuario.curso', 'curso');
+    let queryUsuarios = userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profile', 'profile')
+      .leftJoinAndSelect('user.course', 'course');
 
     if (search)
       if (Number(search))
         queryUsuarios = queryUsuarios.where({ cpf: Like(`%${search}%`) });
-      else queryUsuarios = queryUsuarios.where({ nome: Like(`%${search}%`) });
+      else queryUsuarios = queryUsuarios.where({ name: Like(`%${search}%`) });
 
-    if (curso) {
-      queryUsuarios = queryUsuarios.andWhere('curso.id = :curso', { curso });
+    if (course) {
+      queryUsuarios = queryUsuarios.andWhere('course.id = :course', { course });
     }
 
     if (!profile_id) profile_id = String(PROFILE.STUDENT);
 
-    queryUsuarios = queryUsuarios.andWhere('perfil.id = :profile_id', {
+    queryUsuarios = queryUsuarios.andWhere('profile.id = :profile_id', {
       profile_id,
     });
 
@@ -63,13 +63,13 @@ export default {
   async show(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const usuarioRepository = getRepository(User);
+    const userRepository = getRepository(User);
 
-    const usuario = await usuarioRepository.findOneOrFail(id, {
-      relations: ['perfil', 'curso'],
+    const user = await userRepository.findOneOrFail(id, {
+      relations: ['profile', 'course'],
     });
 
-    return res.json(usuario);
+    return res.json(user);
   },
 
   /**
@@ -81,40 +81,26 @@ export default {
    * corpo da request:
    *  nome: string,
    *  username: string,
-   *  senha: string,
-   *  perfil: number,
-   *  curso: number
+   *  password: string,
+   *  profile: number,
+   *  course: number
    */
   async create(req: Request, res: Response): Promise<any> {
-    const { nome, cpf, email, username, senha, perfil, curso } = req.body;
+    const { name, cpf, email, username, password, profile, course } = req.body;
 
-    const usuarioRepository = getRepository(User);
+    const userRepository = getRepository(User);
 
     const data = {
-      nome,
+      name,
       cpf,
       email,
       username,
-      senha,
-      curso,
-      perfil,
+      password,
+      course,
+      profile,
     };
 
-    const schema = Yup.object().shape({
-      nome: Yup.string().required(),
-      cpf: Yup.string().required(),
-      email: Yup.string().required(),
-      username: Yup.string().required(),
-      senha: Yup.string().required(),
-      curso: Yup.number().required(),
-      perfil: Yup.number().required(),
-    });
-
-    await schema.validate(data, {
-      abortEarly: false,
-    });
-
-    const usuarioExistente = await usuarioRepository.findOne({
+    const usuarioExistente = await userRepository.findOne({
       where: {
         username,
       },
@@ -124,13 +110,16 @@ export default {
       return res.status(401).json({ msg: 'Usuário já existe!' });
     }
 
-    data.senha = crypto.createHash('md5').update(data.senha).digest('hex');
+    data.password = crypto
+      .createHash('md5')
+      .update(data.password)
+      .digest('hex');
 
-    const usuario = usuarioRepository.create(data);
+    const user = userRepository.create(data);
 
-    await usuarioRepository.save(usuario);
+    await userRepository.save(user);
 
-    return res.status(201).json(usuario);
+    return res.status(201).json(user);
   },
 
   /**
@@ -142,38 +131,25 @@ export default {
    * corpo da request:
    *  nome: string,
    *  username: string,
-   *  senha: string,
-   *  curso: number
+   *  password: string,
+   *  course: number
    */
   async createDiscente(req: Request, res: Response): Promise<any> {
-    const { nome, cpf, email, username, senha, curso } = req.body;
+    const { name, cpf, email, username, password, course } = req.body;
 
-    const usuarioRepository = getRepository(User);
+    const userRepository = getRepository(User);
 
     const data = {
-      nome,
+      name,
       cpf,
       email,
       username,
-      senha,
-      curso,
-      perfil: <any>PROFILE.STUDENT,
+      password,
+      course,
+      profile: <any>PROFILE.STUDENT,
     };
 
-    const schema = Yup.object().shape({
-      nome: Yup.string().required(),
-      cpf: Yup.string().required(),
-      email: Yup.string().required(),
-      username: Yup.string().required(),
-      senha: Yup.string().required(),
-      curso: Yup.number().required(),
-    });
-
-    await schema.validate(data, {
-      abortEarly: false,
-    });
-
-    const usuarioExistente = await usuarioRepository.findOne({
+    const usuarioExistente = await userRepository.findOne({
       where: {
         username,
       },
@@ -183,38 +159,41 @@ export default {
       return res.status(401).json({ msg: 'Usuário já existe!' });
     }
 
-    data.senha = crypto.createHash('md5').update(data.senha).digest('hex');
+    data.password = crypto
+      .createHash('md5')
+      .update(data.password)
+      .digest('hex');
 
-    const usuario = usuarioRepository.create(data);
+    const user = userRepository.create(data);
 
-    await usuarioRepository.save(usuario);
+    await userRepository.save(user);
 
-    return res.status(201).json(usuario);
+    return res.status(201).json(user);
   },
 
   async login(req: Request, res: Response): Promise<any> {
-    const { username, senha } = req.body;
+    const { username, password } = req.body;
 
-    const usuarioRepository = getRepository(User);
+    const userRepository = getRepository(User);
 
-    const usuario = await usuarioRepository
-      .createQueryBuilder('usuario')
-      .leftJoinAndSelect('usuario.perfil', 'perfil')
-      .where('username = :username AND senha = MD5(:senha)', {
+    const user = await userRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profile', 'profile')
+      .where('username = :username AND password = MD5(:password)', {
         username,
-        senha,
+        password,
       })
       .getOne();
 
-    if (usuario) {
-      const token = generateToken(usuario.id, usuario.profile.id);
+    if (user) {
+      const token = generateToken(user.id, user.profile.id);
       res.json({
         auth: true,
         token,
-        usuario: {
-          id: usuario.id,
-          nome: usuario.name,
-          perfil: usuario.profile,
+        user: {
+          id: user.id,
+          name: user.name,
+          profile: user.profile,
         },
       });
     } else {
@@ -228,9 +207,9 @@ export default {
     const cursoRepository = getRepository(Course);
 
     const cursos = await cursoRepository
-      .createQueryBuilder('curso')
-      .leftJoinAndSelect('curso.usuarios', 'usuarios')
-      .where('usuarios.perfil.id = :id', { id })
+      .createQueryBuilder('course')
+      .leftJoinAndSelect('course.users', 'users')
+      .where('users.profile.id = :id', { id })
       .getMany();
 
     res.json({ cursos });
@@ -239,10 +218,10 @@ export default {
   async findByPerfilOld(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const usuarioRepository = getRepository(User);
+    const userRepository = getRepository(User);
 
-    const usuarios = await usuarioRepository.find({
-      relations: ['perfil', 'curso'],
+    const usuarios = await userRepository.find({
+      relations: ['profile', 'course'],
       where: {
         profile: id,
       },
@@ -257,10 +236,10 @@ export default {
   async delete(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
 
-    const usuarioRepository = getRepository(User);
+    const userRepository = getRepository(User);
 
-    const usuario = await usuarioRepository.delete({ id: Number(id) });
+    const user = await userRepository.delete({ id: Number(id) });
 
-    res.json({ usuario });
+    res.json({ user });
   },
 };

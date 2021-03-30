@@ -14,28 +14,28 @@ export default {
     const avaliacaoDaAccRepository = getRepository(ACCAssessment);
 
     const avaliacoesDaAcc = await avaliacaoDaAccRepository.find({
-      relations: ['acc', 'usuario'],
+      relations: ['acc', 'user'],
     });
 
     return res.json(avaliacoesDaAcc);
   },
 
   async create(req: Request, res: Response): Promise<any> {
-    const { descricao, acc, usuario, acc_status } = req.body;
+    const { description, acc, user, acc_status } = req.body;
 
     const avaliacaoDaAccRepository = getRepository(ACCAssessment);
     const accRepository = getRepository(ACC);
 
     const data = {
-      descricao,
+      description,
       acc,
-      usuario,
+      user,
     };
 
     const schema = Yup.object().shape({
-      descricao: Yup.string(),
+      description: Yup.string(),
       acc: Yup.number(),
-      usuario: Yup.number(),
+      user: Yup.number(),
     });
 
     await schema.validate(data, {
@@ -43,7 +43,7 @@ export default {
     });
 
     const avaliacaoDaAcc = await avaliacaoDaAccRepository.findOne({
-      relations: ['acc', 'usuario'],
+      relations: ['acc', 'user'],
       where: {
         acc,
       },

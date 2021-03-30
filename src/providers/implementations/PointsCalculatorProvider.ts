@@ -28,6 +28,8 @@ export class PointsCalculatorProvider implements IPointsCalculatorProvider {
         if (acc.acc_status.id === ACC_STATUS.UNDER_ANALYSIS)
           underAnalisysAcumulator +=
             acc.quantity * acc.acc_variant.points_per_unity;
+
+        console.log(acc.acc_variant.id);
       });
       return {
         id: accType.id,

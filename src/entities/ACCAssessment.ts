@@ -18,7 +18,7 @@ export class ACCAssessment {
   public description: string;
 
   @Column({ type: 'timestamp' })
-  public criated_at: Date;
+  public created_at: Date;
 
   @OneToOne(() => ACC, acc => acc.id)
   @JoinColumn({ name: 'acc_id' })

@@ -19,7 +19,7 @@ export class createACCAssesment1613524206048 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'criated_at',
+            name: 'created_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',
           },

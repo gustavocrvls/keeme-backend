@@ -58,7 +58,7 @@ export default {
         'variante_de_acc',
       ],
     });
-    return res.json();
+    return res.json(acc);
   },
 
   async showByUser(req: Request, res: Response): Promise<any> {

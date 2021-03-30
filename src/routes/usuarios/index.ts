@@ -21,6 +21,12 @@ routes.post(
   verifyToken([PROFILE.ADMINISTRATOR]),
   UsuarioController.create,
 );
+routes.get(
+  '/perfil/:id/cursos',
+  verifyToken([PROFILE.ADMINISTRATOR]),
+  UsuarioController.findByPerfilGroupByCurso,
+);
+
 routes.post('/create-discente', UsuarioController.createDiscente);
 
 routes.post('/login', UsuarioController.login);

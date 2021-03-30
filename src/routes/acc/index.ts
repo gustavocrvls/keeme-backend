@@ -10,8 +10,10 @@ import { deleteACCController } from '../../useCases/DeleteACC';
 const routes = Router();
 const upload = multer(uploadConfig);
 
-routes.get('/', verifyToken([PROFILE.STUDENT]), (req, res) =>
-  indexACCController.handle(req, res),
+routes.get(
+  '/',
+  verifyToken([PROFILE.STUDENT, PROFILE.COORDINATOR]),
+  (req, res) => indexACCController.handle(req, res),
 );
 routes.get(
   '/:id',

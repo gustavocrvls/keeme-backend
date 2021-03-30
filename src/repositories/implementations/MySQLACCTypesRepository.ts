@@ -126,7 +126,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
       .leftJoinAndSelect('acc_type.accs', 'acc')
       .leftJoinAndSelect('acc.acc_variant', 'acc.acc_variant')
       .leftJoinAndSelect('acc_type.acc_variants', 'acc_type.acc_variants')
-      .leftJoinAndSelect('acc.user', 'user', 'user.id = :user_id', {
+      .leftJoinAndSelect('acc_type.accs', 'acc', 'acc.user.id = :user_id', {
         user_id,
       })
       .leftJoinAndSelect('acc.acc_status', 'acc_status')
@@ -135,11 +135,9 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
         'acc_status',
         'unity_of_measurement',
         'acc.id',
-        'acc.user',
         'acc.quantity',
         'acc.acc_variant.id',
         'acc.acc_variant.points_per_unity',
-        'user.name',
         'acc_type.acc_variants',
       ]);
     if (name)
@@ -159,6 +157,8 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     }
 
     const accTypes = await accTypeQuery.getMany();
+
+    console.log(accTypes);
 
     return accTypes as IACCTypeWithUserACCs[];
   }

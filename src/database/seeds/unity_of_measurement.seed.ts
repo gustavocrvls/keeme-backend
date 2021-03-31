@@ -27,4 +27,12 @@ export const UnityOfMeasurementSeed = [
     id: 7,
     name: 'Certificado',
   },
+  {
+    id: 8,
+    name: 'Artigo',
+  },
+  {
+    id: 9,
+    name: 'Curso',
+  },
 ];

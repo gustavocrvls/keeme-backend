@@ -7,13 +7,13 @@ const accAssessmentsRoutes = Router();
 
 accAssessmentsRoutes.get(
   '/',
-  verifyToken([PROFILE.ADMINISTRATOR]),
+  verifyToken([PROFILE.ADMINISTRATOR, PROFILE.COORDINATOR]),
   AvaliacaoDaAccController.index,
 );
 
 accAssessmentsRoutes.post(
   '/',
-  verifyToken([PROFILE.ADMINISTRATOR]),
+  verifyToken([PROFILE.ADMINISTRATOR, PROFILE.COORDINATOR]),
   AvaliacaoDaAccController.create,
 );
 

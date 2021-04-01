@@ -179,6 +179,7 @@ export default {
     const user = await userRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.profile', 'profile')
+      .leftJoinAndSelect('user.course', 'course')
       .where('username = :username AND password = MD5(:password)', {
         username,
         password,

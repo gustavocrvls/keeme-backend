@@ -194,6 +194,7 @@ export default {
           id: user.id,
           name: user.name,
           profile: user.profile,
+          course: user.course,
         },
       });
     } else {

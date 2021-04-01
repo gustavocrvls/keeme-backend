@@ -100,6 +100,7 @@ export default {
 
   async showByStatus(req: Request, res: Response): Promise<any> {
     const { id } = req.params;
+    const { course_id } = req.query;
 
     const accRepository = getRepository(ACC);
 
@@ -112,6 +113,7 @@ export default {
       .leftJoinAndSelect('user.profile', 'profile')
       .leftJoinAndSelect('user.course', 'course')
       .where('acc_status.id = :id', { id })
+      .andWhere('course.id = :course_id', { course_id })
       .getMany();
 
     return res.json({data: accs.map(acc => ({

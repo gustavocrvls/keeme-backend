@@ -13,8 +13,10 @@ const accsRoutes = Router();
 const upload = multer(uploadConfig);
 
 // get all accs
-accsRoutes.get('/', verifyToken([PROFILE.STUDENT]), (req, res) =>
-  indexACCController.handle(req, res),
+accsRoutes.get(
+  '/',
+  verifyToken([PROFILE.STUDENT, PROFILE.COORDINATOR]),
+  (req, res) => indexACCController.handle(req, res),
 );
 
 // get a acc by id

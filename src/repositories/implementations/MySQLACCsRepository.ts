@@ -6,7 +6,7 @@ import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
-import { IDeleteACCRequestDTO } from '../../useCases/DeleteACC/DeleteACCDTO';
+import { IDeleteACCRequestDTO } from '../../modules/accs/useCases/DeleteACC/DeleteACCDTO';
 import { IIndexACCRequestDTO } from '../../useCases/IndexACC/IndexACCDTO';
 import { IACCsRepository } from '../IACCsRepository';
 

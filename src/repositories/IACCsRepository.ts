@@ -5,7 +5,7 @@ import {
 } from '../modules/accs/dtos/ShowACCWithUserDTO';
 import { IShowACCDTO } from '../modules/accs/useCases/ShowACC/ShowACCDTO';
 import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
-import { IDeleteACCRequestDTO } from '../useCases/DeleteACC/DeleteACCDTO';
+import { IDeleteACCRequestDTO } from '../modules/accs/useCases/DeleteACC/DeleteACCDTO';
 import { IIndexACCRequestDTO } from '../useCases/IndexACC/IndexACCDTO';
 
 export interface IACCsRepository {

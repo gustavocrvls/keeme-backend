@@ -1,4 +1,4 @@
-import { IACCsRepository } from '../../repositories/IACCsRepository';
+import { IACCsRepository } from '../../../../repositories/IACCsRepository';
 import { IDeleteACCRequestDTO } from './DeleteACCDTO';
 
 export class DeleteACCUseCase {

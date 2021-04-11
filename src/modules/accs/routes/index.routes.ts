@@ -4,7 +4,7 @@ import uploadConfig from '../../../config/upload';
 import { PROFILE } from '../../../constants/Profile';
 import AccController from '../../../controllers/AccController';
 import { verifyToken } from '../../../middlewares/auth';
-import { deleteACCController } from '../../../useCases/DeleteACC';
+import { deleteACCController } from '../useCases/DeleteACC';
 import { indexACCController } from '../../../useCases/IndexACC';
 import { createACCController } from '../useCases/CreateACC';
 import { showACCController } from '../useCases/ShowACC';

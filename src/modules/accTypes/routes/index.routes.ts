@@ -7,6 +7,7 @@ import { deleteACCTypeController } from '../useCases/DeleteACCType';
 import { indexACCTypeController } from '../useCases/IndexACCType';
 import { indexACCTypesWithUserPointsController } from '../useCases/IndexACCTypesWithUserPoints';
 import { showACCTypeController } from '../useCases/ShowACCType';
+import { updateACCTypeController } from '../useCases/UpdateACCType';
 
 const accTypesRoutes = Router();
 
@@ -34,17 +35,16 @@ accTypesRoutes.post('/', verifyToken([PROFILE.ADMINISTRATOR]), (req, res) =>
   createACCTypeController.handle(req, res),
 );
 
-// delete a acc by id
+// delete a acc type by id
 accTypesRoutes.delete(
   '/:id',
   verifyToken([PROFILE.ADMINISTRATOR]),
   (req, res) => deleteACCTypeController.handle(req, res),
 );
 
-accTypesRoutes.put(
-  '/:id',
-  verifyToken([PROFILE.ADMINISTRATOR]),
-  TipoDeAccController.update,
+// updates a acc type by the provided id
+accTypesRoutes.put('/:id', verifyToken([PROFILE.ADMINISTRATOR]), (req, res) =>
+  updateACCTypeController.handle(req, res),
 );
 
 export { accTypesRoutes };

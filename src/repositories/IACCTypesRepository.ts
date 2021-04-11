@@ -4,6 +4,7 @@ import { IIndexACCTypeRequestDTO } from '../modules/accTypes/useCases/IndexACCTy
 import { IShowACCTypeDTO } from '../modules/accTypes/useCases/ShowACCType/ShowACCTypeDTO';
 import { IDeleteACCTypeRequestDTO } from '../modules/accTypes/useCases/DeleteACCType/DeleteACCTypeDTO';
 import { IIndexACCTypesWithUserPointsRequestDTO } from '../modules/accTypes/useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
+import { IUpdateACCTypeRequestDTO } from '../modules/accTypes/useCases/UpdateACCType/UpdateACCTypeDTO';
 
 export interface IACCTypeWithUserACCs {
   id: number;
@@ -39,6 +40,7 @@ export interface IACCTypesRepository {
   index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray>;
   show(data: IShowACCTypeDTO): Promise<ACCType>;
   save(accType: ACCType): Promise<void>;
+  update(accType: IUpdateACCTypeRequestDTO): Promise<void>;
   delete(data: IDeleteACCTypeRequestDTO): Promise<void>;
 
   getACCsLength(data: IACCsLength): Promise<number>;

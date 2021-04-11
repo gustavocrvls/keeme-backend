@@ -13,6 +13,7 @@ import {
   IACCTypesRepository,
   IACCTypeWithUserACCs,
 } from '../IACCTypesRepository';
+import { IUpdateACCTypeRequestDTO } from '../../modules/accTypes/useCases/UpdateACCType/UpdateACCTypeDTO';
 
 export class MySQLACCTypesRepository implements IACCTypesRepository {
   private accTypeRepository: Repository<ACCType>;
@@ -168,5 +169,10 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
       .getCount();
 
     return accTypesLength;
+  }
+
+  public async update(accType: IUpdateACCTypeRequestDTO): Promise<void> {
+    this.accTypeRepository = getRepository(ACCType);
+    await this.accTypeRepository.update({ id: accType.id }, accType);
   }
 }

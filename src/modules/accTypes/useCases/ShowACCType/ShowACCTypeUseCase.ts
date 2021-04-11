@@ -1,5 +1,5 @@
-import { ACCType } from '../../entities/ACCType';
-import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
+import { ACCType } from '../../../../entities/ACCType';
+import { IACCTypesRepository } from '../../../../repositories/IACCTypesRepository';
 import { IShowACCTypeDTO } from './ShowACCTypeDTO';
 
 export class ShowACCTypeUseCase {

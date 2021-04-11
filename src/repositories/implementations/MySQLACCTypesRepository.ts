@@ -7,7 +7,7 @@ import {
 import { IDeleteACCTypeRequestDTO } from '../../modules/accTypes/useCases/DeleteACCType/DeleteACCTypeDTO';
 import { IIndexACCTypeRequestDTO } from '../../modules/accTypes/useCases/IndexACCType/IndexACCTypeDTO';
 import { IIndexACCTypesWithUserPointsRequestDTO } from '../../modules/accTypes/useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
-import { IShowACCTypeDTO } from '../../useCases/ShowACCType/ShowACCTypeDTO';
+import { IShowACCTypeDTO } from '../../modules/accTypes/useCases/ShowACCType/ShowACCTypeDTO';
 import {
   IACCsLength,
   IACCTypesRepository,

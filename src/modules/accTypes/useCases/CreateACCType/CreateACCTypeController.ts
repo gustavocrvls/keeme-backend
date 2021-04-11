@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ACCType } from '../../entities/ACCType';
+import { ACCType } from '../../../../entities/ACCType';
 import { CreateACCTypeUseCase } from './CreateACCTypeUseCase';
 
 export class CreateACCTypeController {

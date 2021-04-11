@@ -5,7 +5,7 @@ import cors from 'cors';
 import 'express-async-errors';
 
 import './database/connection';
-import routes from './routes/index.routes';
+import routes from './index.routes';
 
 const app = express();
 

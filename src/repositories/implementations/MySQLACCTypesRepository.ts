@@ -4,7 +4,7 @@ import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
-import { IDeleteACCTypeRequestDTO } from '../../useCases/DeleteACCType/DeleteACCTypeDTO';
+import { IDeleteACCTypeRequestDTO } from '../../modules/accTypes/useCases/DeleteACCType/DeleteACCTypeDTO';
 import { IIndexACCTypeRequestDTO } from '../../modules/accTypes/useCases/IndexACCType/IndexACCTypeDTO';
 import { IIndexACCTypesWithUserPointsRequestDTO } from '../../modules/accTypes/useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
 import { IShowACCTypeDTO } from '../../useCases/ShowACCType/ShowACCTypeDTO';

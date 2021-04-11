@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { indexUnityOfMeasurementController } from '../../../useCases/IndexUnityOfMeasurement';
+import { indexUnityOfMeasurementController } from '../useCases/IndexUnityOfMeasurement';
 
 const unitsOfMeasurementRoutes = Router();
 

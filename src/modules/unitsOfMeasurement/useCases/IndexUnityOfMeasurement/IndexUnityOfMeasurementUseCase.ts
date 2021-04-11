@@ -1,5 +1,5 @@
-import { IPaginatedArray } from '../../providers/IArrayPaginatorProvider';
-import { IUnitsOfMeasurementRepository } from '../../repositories/IUnitsOfMeasurementRepository';
+import { IPaginatedArray } from '../../../../providers/IArrayPaginatorProvider';
+import { IUnitsOfMeasurementRepository } from '../../../../repositories/IUnitsOfMeasurementRepository';
 import { IIndexUnityOfMeasurementDTO } from './IndexUnityOfMeasurementDTO';
 
 export class IndexUnityOfMeasurementUseCase {

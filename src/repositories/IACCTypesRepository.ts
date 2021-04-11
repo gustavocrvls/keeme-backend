@@ -1,6 +1,6 @@
 import { ACCType } from '../entities/ACCType';
 import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
-import { IIndexACCTypeRequestDTO } from '../useCases/IndexACCType/IndexACCTypeDTO';
+import { IIndexACCTypeRequestDTO } from '../modules/accTypes/useCases/IndexACCType/IndexACCTypeDTO';
 import { IShowACCTypeDTO } from '../useCases/ShowACCType/ShowACCTypeDTO';
 import { IDeleteACCTypeRequestDTO } from '../useCases/DeleteACCType/DeleteACCTypeDTO';
 import { IIndexACCTypesWithUserPointsRequestDTO } from '../useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';

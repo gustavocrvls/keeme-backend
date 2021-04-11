@@ -1,5 +1,5 @@
-import { IPaginatedArray } from '../../providers/IArrayPaginatorProvider';
-import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
+import { IPaginatedArray } from '../../../../providers/IArrayPaginatorProvider';
+import { IACCTypesRepository } from '../../../../repositories/IACCTypesRepository';
 import { IIndexACCTypeRequestDTO } from './IndexACCTypeDTO';
 
 export class IndexACCTypeUseCase {

@@ -14,8 +14,6 @@ export class MySQLCoursesRepository implements ICoursesRepository {
 
   constructor(arrayPaginator?: IArrayPaginatorProvider) {
     if (arrayPaginator) this.arrayPaginator = arrayPaginator;
-
-    // this.coursesRepository = getRepository(Course, 'mysql');
   }
 
   async save(course: Course): Promise<void> {

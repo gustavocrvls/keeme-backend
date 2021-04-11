@@ -92,7 +92,7 @@ export default {
 
     const data = {
       name,
-      cpf,
+      cpf: String(cpf.replace(/\D/g, '')),
       email,
       username,
       password,

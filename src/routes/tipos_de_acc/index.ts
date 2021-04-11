@@ -3,7 +3,7 @@ import { PROFILE } from '../../constants/Profile';
 import TipoDeAccController from '../../controllers/TipoDeAccController';
 import { verifyToken } from '../../middlewares/auth';
 import { createACCTypeController } from '../../useCases/CreateACCType';
-import { indexACCTypeController } from '../../useCases/IndexACCType';
+import { indexACCTypeController } from '../../modules/accTypes/useCases/IndexACCType';
 import { showACCTypeController } from '../../useCases/ShowACCType';
 import { deleteACCTypeController } from '../../useCases/DeleteACCType';
 import { indexACCTypesWithUserPointsController } from '../../useCases/IndexACCTypesWithUserPoints';

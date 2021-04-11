@@ -1,5 +1,5 @@
-import { IPaginatedArray } from '../../providers/IArrayPaginatorProvider';
-import { IACCsRepository } from '../../repositories/IACCsRepository';
+import { IPaginatedArray } from '../../../../providers/IArrayPaginatorProvider';
+import { IACCsRepository } from '../../../../repositories/IACCsRepository';
 import { IIndexACCRequestDTO } from './IndexACCDTO';
 
 export class IndexACCUseCase {

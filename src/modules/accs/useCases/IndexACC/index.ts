@@ -1,5 +1,5 @@
-import { ArrayPaginatorProvider } from '../../providers/implementations/ArrayPaginatorProvider';
-import { MySQLACCsRepository } from '../../repositories/implementations/MySQLACCsRepository';
+import { ArrayPaginatorProvider } from '../../../../providers/implementations/ArrayPaginatorProvider';
+import { MySQLACCsRepository } from '../../../../repositories/implementations/MySQLACCsRepository';
 import { IndexACCController } from './IndexACCController';
 import { IndexACCUseCase } from './IndexACCUseCase';
 

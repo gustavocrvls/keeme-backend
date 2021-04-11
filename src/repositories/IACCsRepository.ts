@@ -6,7 +6,7 @@ import {
 import { IShowACCDTO } from '../modules/accs/useCases/ShowACC/ShowACCDTO';
 import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
 import { IDeleteACCRequestDTO } from '../modules/accs/useCases/DeleteACC/DeleteACCDTO';
-import { IIndexACCRequestDTO } from '../useCases/IndexACC/IndexACCDTO';
+import { IIndexACCRequestDTO } from '../modules/accs/useCases/IndexACC/IndexACCDTO';
 
 export interface IACCsRepository {
   index(data: IIndexACCRequestDTO): Promise<IPaginatedArray>;

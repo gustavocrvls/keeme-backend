@@ -7,7 +7,7 @@ import {
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
 import { IDeleteACCRequestDTO } from '../../modules/accs/useCases/DeleteACC/DeleteACCDTO';
-import { IIndexACCRequestDTO } from '../../useCases/IndexACC/IndexACCDTO';
+import { IIndexACCRequestDTO } from '../../modules/accs/useCases/IndexACC/IndexACCDTO';
 import { IACCsRepository } from '../IACCsRepository';
 
 export class MySQLACCsRepository implements IACCsRepository {

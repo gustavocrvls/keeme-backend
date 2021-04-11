@@ -1,9 +1,9 @@
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
-} from '../../providers/IArrayPaginatorProvider';
-import { IPointsCalculatorProvider } from '../../providers/IPointsCalculatorProvider';
-import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
+} from '../../../../providers/IArrayPaginatorProvider';
+import { IPointsCalculatorProvider } from '../../../../providers/IPointsCalculatorProvider';
+import { IACCTypesRepository } from '../../../../repositories/IACCTypesRepository';
 import {
   IACCTypesWithUserPointsResponseDTO,
   IIndexACCTypesWithUserPointsRequestDTO,

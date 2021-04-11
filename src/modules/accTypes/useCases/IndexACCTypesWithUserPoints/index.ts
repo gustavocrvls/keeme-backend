@@ -1,6 +1,6 @@
-import { ArrayPaginatorProvider } from '../../providers/implementations/ArrayPaginatorProvider';
-import { PointsCalculatorProvider } from '../../providers/implementations/PointsCalculatorProvider';
-import { MySQLACCTypesRepository } from '../../repositories/implementations/MySQLACCTypesRepository';
+import { ArrayPaginatorProvider } from '../../../../providers/implementations/ArrayPaginatorProvider';
+import { PointsCalculatorProvider } from '../../../../providers/implementations/PointsCalculatorProvider';
+import { MySQLACCTypesRepository } from '../../../../repositories/implementations/MySQLACCTypesRepository';
 import { IndexACCTypeWithUserPointsController } from './IndexACCTypeWithUserPointsController';
 import { IndexACCTypeWithUserPointsUseCase } from './IndexACCTypeWithUserPointsUseCase';
 

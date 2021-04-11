@@ -1,9 +1,6 @@
 import { getRepository, Like, Repository } from 'typeorm';
 import { ACC } from '../../entities/ACC';
-import {
-  IShowACCWithUserRequestDTO,
-  IShowACCWithUserResponseDTO,
-} from '../../modules/accs/dtos/ShowACCWithUserDTO';
+import { IShowACCWithUserRequestDTO } from '../../modules/accs/dtos/ShowACCWithUserDTO';
 import { IShowACCDTO } from '../../modules/accs/useCases/ShowACC/ShowACCDTO';
 import {
   IArrayPaginatorProvider,

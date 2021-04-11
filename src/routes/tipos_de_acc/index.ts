@@ -6,7 +6,7 @@ import { createACCTypeController } from '../../useCases/CreateACCType';
 import { indexACCTypeController } from '../../modules/accTypes/useCases/IndexACCType';
 import { showACCTypeController } from '../../useCases/ShowACCType';
 import { deleteACCTypeController } from '../../useCases/DeleteACCType';
-import { indexACCTypesWithUserPointsController } from '../../useCases/IndexACCTypesWithUserPoints';
+import { indexACCTypesWithUserPointsController } from '../../modules/accTypes/useCases/IndexACCTypesWithUserPoints';
 
 const routes = Router();
 

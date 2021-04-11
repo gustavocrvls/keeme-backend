@@ -2,7 +2,7 @@
 import { ACC_STATUS } from '../../constants/ACCStatus';
 import { IACCTypeWithUserACCs } from '../../repositories/IACCTypesRepository';
 import { IACCPoints } from '../../repositories/IPointsRepository';
-import { IACCTypesWithUserPointsResponseDTO } from '../../useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
+import { IACCTypesWithUserPointsResponseDTO } from '../../modules/accTypes/useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
 import { IPointsCalculatorProvider } from '../IPointsCalculatorProvider';
 
 export class PointsCalculatorProvider implements IPointsCalculatorProvider {

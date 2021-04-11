@@ -3,7 +3,7 @@ import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
 import { IIndexACCTypeRequestDTO } from '../modules/accTypes/useCases/IndexACCType/IndexACCTypeDTO';
 import { IShowACCTypeDTO } from '../useCases/ShowACCType/ShowACCTypeDTO';
 import { IDeleteACCTypeRequestDTO } from '../useCases/DeleteACCType/DeleteACCTypeDTO';
-import { IIndexACCTypesWithUserPointsRequestDTO } from '../useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
+import { IIndexACCTypesWithUserPointsRequestDTO } from '../modules/accTypes/useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
 
 export interface IACCTypeWithUserACCs {
   id: number;

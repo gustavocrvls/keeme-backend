@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { ACCType } from '../../../../entities/ACCType';
 import { IUpdateACCTypeRequestDTO } from './UpdateACCTypeDTO';
 import { UpdateACCTypeUseCase } from './UpdateACCTypeUseCase';
 

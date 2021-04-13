@@ -30,11 +30,10 @@ export class UpdateACCTypeController {
     if (acc_variants) data.acc_variants = acc_variants;
 
     try {
-      this.updateACCTypeUseCase.execute(data);
+      await this.updateACCTypeUseCase.execute(data);
       response.sendStatus(200);
     } catch (err) {
-      console.error(err);
-      response.sendStatus(500);
+      response.status(400).json({ msg: err.message });
     }
   }
 }

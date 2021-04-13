@@ -42,7 +42,19 @@ export class ACCType {
   @JoinColumn({ name: 'acc_type_id' })
   public acc_variants: ACCVariant[];
 
-  constructor(props: Omit<ACCType, 'accs' | 'id' | 'pontuacao'>, id?: number) {
+  constructor(
+    props: Omit<
+      ACCType,
+      | 'accs'
+      | 'id'
+      | 'description'
+      | 'name'
+      | 'point_limit'
+      | 'unity_of_measurement'
+      | 'acc_variants'
+    >,
+    id?: number,
+  ) {
     Object.assign(this, props);
   }
 }

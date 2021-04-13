@@ -21,4 +21,8 @@ export class ACCVariant {
   @ManyToOne(() => ACCType, accType => accType.id)
   @JoinColumn({ name: 'acc_type_id' })
   public acc_type: ACCType;
+
+  constructor(props: Omit<ACCVariant, 'id'>, id?: number) {
+    Object.assign(this, props);
+  }
 }

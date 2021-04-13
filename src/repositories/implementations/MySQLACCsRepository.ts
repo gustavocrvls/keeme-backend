@@ -1,6 +1,5 @@
 import { getRepository, Like, Repository } from 'typeorm';
 import { ACC } from '../../entities/ACC';
-import { IShowACCWithUserRequestDTO } from '../../modules/accs/dtos/ShowACCWithUserDTO';
 import { IShowACCDTO } from '../../modules/accs/useCases/ShowACC/ShowACCDTO';
 import {
   IArrayPaginatorProvider,
@@ -75,21 +74,33 @@ export class MySQLACCsRepository implements IACCsRepository {
     this.accRepository = getRepository(ACC);
     const { id } = data;
 
-    const acc = await this.accRepository.findOneOrFail(
-      { id },
-      {
-        relations: [
-          'acc_status',
-          'acc_type',
-          'acc_variant',
-          'acc_type.unity_of_measurement',
-          'certificate',
-          'user',
-          'acc_assessment',
-          'acc_assessment.user',
-        ],
-      },
-    );
+    const accsQuery = await this.accRepository.createQueryBuilder('acc');
+
+    const acc = await accsQuery
+      .leftJoinAndSelect('acc.acc_status', 'acc_status')
+      .leftJoinAndSelect('acc.acc_type', 'acc_type')
+      .leftJoinAndSelect('acc.acc_variant', 'acc_variant')
+      .leftJoinAndSelect(
+        'acc_type.unity_of_measurement',
+        'unity_of_measurement',
+      )
+      .leftJoinAndSelect('acc.certificate', 'certificate')
+      .leftJoinAndSelect('acc.user', 'user')
+      .leftJoinAndSelect('acc.acc_assessment', 'acc_assessment')
+      .leftJoinAndSelect('acc_assessment.user', 'acc_assessment.user')
+      .select([
+        'acc',
+        'certificate.id',
+        'acc_status',
+        'acc_type',
+        'acc_variant',
+        'unity_of_measurement',
+        'user.name',
+        'acc_assessment',
+        'acc_assessment.user',
+      ])
+      .where('acc.id = :id', { id })
+      .getOneOrFail();
 
     return acc;
   }
@@ -99,32 +110,6 @@ export class MySQLACCsRepository implements IACCsRepository {
     this.accRepository = getRepository(ACC);
 
     await this.accRepository.delete({ id });
-  }
-
-  public async getWithUser(data: IShowACCWithUserRequestDTO): Promise<any> {
-    this.accRepository = getRepository(ACC);
-
-    const { id } = data;
-
-    const accWithUserQuery = this.accRepository.createQueryBuilder('acc');
-
-    accWithUserQuery
-      .leftJoinAndSelect('acc.acc_status', 'acc_status')
-      .leftJoinAndSelect('acc.acc_type', 'acc_type')
-      .leftJoinAndSelect(
-        'acc_type.unity_of_measurement',
-        'unity_of_measurement',
-      )
-      .leftJoinAndSelect('acc.usuario', 'usuario')
-      .leftJoinAndSelect('usuario.perfil', 'perfil')
-      .leftJoinAndSelect('usuario.curso', 'curso')
-      .leftJoin('acc.certificado', 'certificado')
-      .addSelect(['certificado.id'])
-      .where({ usuario: { id } });
-
-    const accWithUser = await accWithUserQuery.getOneOrFail();
-
-    return accWithUser;
   }
 
   public async create(acc: ACC): Promise<void> {

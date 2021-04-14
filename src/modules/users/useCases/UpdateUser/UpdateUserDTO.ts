@@ -1,0 +1,13 @@
+import { Course } from '../../../../entities/Course';
+import { Profile } from '../../../../entities/Profile';
+
+export interface IUpdateUserRequestDTO {
+  id: number;
+  name?: string;
+  cpf?: string;
+  email?: string;
+  username?: string;
+  password?: string;
+  profile?: Profile;
+  course?: Course;
+}

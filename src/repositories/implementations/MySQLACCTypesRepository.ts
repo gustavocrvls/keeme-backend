@@ -77,7 +77,9 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
 
     this.accTypeRepository = getRepository(ACCType);
 
-    const accType = await this.accTypeRepository.findOneOrFail(id);
+    const accType = await this.accTypeRepository.findOneOrFail(id, {
+      relations: ['unity_of_measurement'],
+    });
 
     return accType;
   }

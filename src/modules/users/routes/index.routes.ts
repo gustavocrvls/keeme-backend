@@ -14,7 +14,7 @@ usersRoutes.get(
 
 usersRoutes.get(
   '/:id',
-  verifyToken([PROFILE.COORDINATOR, PROFILE.STUDENT]),
+  verifyToken([PROFILE.COORDINATOR, PROFILE.STUDENT, PROFILE.ADMINISTRATOR]),
   UsuarioController.show,
 );
 

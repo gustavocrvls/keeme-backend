@@ -42,7 +42,7 @@ export class MySQLUsersRepository implements IUsersRepository {
     if (!sortOrder) sortOrder = 'ASC';
     if (sortField)
       usersQuery = usersQuery.orderBy({
-        [`acc.${sortField}`]: sortOrder,
+        [`user.${sortField}`]: sortOrder,
       });
 
     if (limit && limit !== undefined && page && page !== undefined) {

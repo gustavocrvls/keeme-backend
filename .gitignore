@@ -1,13 +1,13 @@
 node_modules/
 dist/
+uploads/
 
 yarn.lock
 yarn-error.log
+package-lock.json
 
 .env
 .env.production
 .env.development
 .env.local
 
-
-uploads

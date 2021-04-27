@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { getRepository, Like } from 'typeorm';
-import * as Yup from 'yup';
 import crypto from 'crypto';
 import { User } from '../entities/User';
 import { generateToken } from '../config/authentication';

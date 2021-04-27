@@ -35,7 +35,7 @@ export class MySQLUsersRepository implements IUsersRepository {
       });
 
     if (course)
-      usersQuery = usersQuery.where('user.course = :course', {
+      usersQuery = usersQuery.andWhere('user.course = :course', {
         course,
       });
 

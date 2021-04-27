@@ -34,7 +34,18 @@ Depois disso instale as dependências:
 ```bash
 > yarn install
 ```
-Após isso crie um arquivo _.env_ na raiz do projeto, preenchendo os campos que estão em _.env.example_
+Após isso crie um arquivo _.env_ na raiz do projeto, preenchendo os campos que estão em _.env.example_:
+
+```env
+API_PORT=
+JWT_SECRET=
+
+DB_HOST=
+DB_PORT=
+DB_USERNAME=
+DB_PASSWORD=
+DB_DATABASE=
+```
 
 Você vai precisar iniciar o banco de dados, usando o TypeORM. 
 

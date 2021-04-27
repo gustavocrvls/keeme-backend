@@ -66,12 +66,12 @@ E então é só iniciar o projeto:
 
 O projeto vai iniciar em http://localhost na porta em que foi definida no _.env_.
 
-# Documentação da API
+## 📚 Documentação da API
 
 Você também pode acessar a documentação das rotas da API em:
 https://app.swaggerhub.com/apis-docs/gustavocrvls/KeeMe/1.0.0
 
-# Para codificar
+# ⚙ Para codificar
 
 O projeto foi criado usando as seguintes bibliotecas de padronização de código:
 - ESLint

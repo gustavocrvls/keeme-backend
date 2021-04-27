@@ -2,14 +2,15 @@ import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
 import UsuarioController from '../../../controllers/UsuarioController';
 import { verifyToken } from '../../../middlewares/auth';
+import { indexUserController } from '../useCases/IndexUser';
 import { updateUserController } from '../useCases/UpdateUser';
 
 const usersRoutes = Router();
 
 usersRoutes.get(
   '/',
-  // verifyToken([PROFILE.ADMINISTRADOR, PROFILE.COORDENADOR]),
-  UsuarioController.index,
+  // verifyToken([PROFILE.ADMINISTRATOR, PROFILE.COORDINATOR]),
+  (req, res) => indexUserController.handle(req, res),
 );
 
 usersRoutes.get(

@@ -19,7 +19,7 @@ export class MySQLACCsRepository implements IACCsRepository {
   }
 
   public async index(data: IIndexACCRequestDTO): Promise<IPaginatedArray> {
-    const { name, sortField, limit, acc_status, acc_type, user } = data;
+    const { name, sortField, limit, acc_status, acc_type, user, course } = data;
     let { sortOrder, page } = data;
 
     this.accRepository = getRepository(ACC);
@@ -30,16 +30,20 @@ export class MySQLACCsRepository implements IACCsRepository {
         name: Like(`%${name}%`),
       });
     if (user)
-      accsQuery = accsQuery.where({
+      accsQuery = accsQuery.andWhere('user.id = :user', {
         user,
       });
     if (acc_status)
-      accsQuery = accsQuery.where({
+      accsQuery = accsQuery.andWhere('acc_status.id = :acc_status', {
         acc_status,
       });
     if (acc_type)
-      accsQuery = accsQuery.where({
+      accsQuery = accsQuery.andWhere('acc_type.id = :acc_type', {
         acc_type,
+      });
+    if (course)
+      accsQuery = accsQuery.andWhere('course.id = :course', {
+        course,
       });
 
     if (!sortOrder) sortOrder = 'ASC';
@@ -55,6 +59,7 @@ export class MySQLACCsRepository implements IACCsRepository {
 
     const accs = await accsQuery
       .leftJoinAndSelect('acc.user', 'user')
+      .leftJoinAndSelect('user.course', 'course')
       .leftJoinAndSelect('acc.acc_status', 'acc_status')
       .leftJoinAndSelect('acc.acc_type', 'acc_type')
       .leftJoinAndSelect(
@@ -63,7 +68,23 @@ export class MySQLACCsRepository implements IACCsRepository {
       )
       .leftJoinAndSelect('acc.acc_variant', 'acc_variant')
       .leftJoinAndSelect('acc.acc_assessment', 'acc_assessment')
-      .leftJoinAndSelect('acc_assessment.user', 'avaliacao_da_acc__usuario')
+      .leftJoinAndSelect('acc_assessment.user', 'acc_assessment__user')
+      .select([
+        'acc',
+        'acc_status',
+        'acc_type',
+        'unity_of_measurement',
+        'acc_variant',
+        'acc_assessment',
+        'user.id',
+        'user.name',
+        'user.cpf',
+        'user.email',
+        'acc_assessment__user.id',
+        'acc_assessment__user.name',
+        'acc_assessment__user.cpf',
+        'acc_assessment__user.email',
+      ])
       .getMany();
     const total_items = await accsQuery.getCount();
 

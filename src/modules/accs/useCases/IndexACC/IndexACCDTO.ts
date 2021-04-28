@@ -7,4 +7,5 @@ export interface IIndexACCRequestDTO {
   user: number;
   acc_type: number;
   acc_status: number;
+  course: number;
 }

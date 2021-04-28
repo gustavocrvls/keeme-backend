@@ -18,6 +18,7 @@ export class IndexACCController {
       user,
       acc_type,
       acc_status,
+      course,
     } = request.query;
 
     try {
@@ -30,6 +31,7 @@ export class IndexACCController {
         user: Number(<string>user),
         acc_type: Number(<string>acc_type),
         acc_status: Number(<string>acc_status),
+        course: Number(<string>course),
       });
       response.status(200).json(accs);
     } catch (err) {

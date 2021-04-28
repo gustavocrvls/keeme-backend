@@ -25,8 +25,8 @@ const productionConfig = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  migrations: ['./src/database/migrations/*.js'],
-  entities: ['./src/entities/*.js'],
+  migrations: ['./dist/database/migrations/*.js'],
+  entities: ['./dist/entities/*.js'],
   cli: {
     migrationsDir: './src/database/migrations',
   },

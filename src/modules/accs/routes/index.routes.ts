@@ -39,12 +39,6 @@ accsRoutes.delete('/:id', verifyToken([PROFILE.STUDENT]), (req, res) =>
   deleteACCController.handle(req, res),
 );
 
-accsRoutes.get(
-  '/status/:id',
-  verifyToken([PROFILE.COORDINATOR]),
-  AccController.showByStatus,
-);
-
 accsRoutes.put('/update/:id/status', AccController.updateStatus);
 
 export { accsRoutes };

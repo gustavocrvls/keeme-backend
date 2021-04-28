@@ -1,11 +1,18 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-
 import 'express-async-errors';
-
-import './database/connection';
+import dotenv from 'dotenv';
 import routes from './index.routes';
+import { startDatabase } from './database/connection';
+
+dotenv.config({
+  path: process.env.NODE_ENV
+    ? path.join(__dirname, '..', `.env.${process.env.NODE_ENV}`)
+    : path.join(__dirname, '..', '.env'),
+});
+
+startDatabase();
 
 const app = express();
 

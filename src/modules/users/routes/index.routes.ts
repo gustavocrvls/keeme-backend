@@ -9,7 +9,7 @@ const usersRoutes = Router();
 
 usersRoutes.get(
   '/',
-  // verifyToken([PROFILE.ADMINISTRATOR, PROFILE.COORDINATOR]),
+  verifyToken([PROFILE.ADMINISTRATOR, PROFILE.COORDINATOR]),
   (req, res) => indexUserController.handle(req, res),
 );
 

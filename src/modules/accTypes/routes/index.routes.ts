@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
-import TipoDeAccController from '../../../controllers/TipoDeAccController';
 import { verifyToken } from '../../../middlewares/auth';
 import { createACCTypeController } from '../useCases/CreateACCType';
 import { deleteACCTypeController } from '../useCases/DeleteACCType';

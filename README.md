@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/gustavocrvls/icons/blob/f9f809ad6c69d21ca1c5149f2b910ea9e294d43a/keeme.png" width="50"/>
+</p>
+
 # KeeMe
 
 <p align="center">

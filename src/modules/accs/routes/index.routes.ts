@@ -45,25 +45,6 @@ accsRoutes.get(
   AccController.showByStatus,
 );
 
-accsRoutes.get(
-  '/user/:id',
-  verifyToken([PROFILE.STUDENT, PROFILE.COORDINATOR]),
-  AccController.showByUser,
-);
-
-accsRoutes.get(
-  '/user/:id/resumo',
-  verifyToken([PROFILE.STUDENT]),
-  AccController.summary,
-);
-
-accsRoutes.post(
-  '/create',
-  // verifyToken([PROFILE.STUDENT]),
-  upload.array('certificate'),
-  AccController.create,
-);
-
 accsRoutes.put('/update/:id/status', AccController.updateStatus);
 
 export { accsRoutes };

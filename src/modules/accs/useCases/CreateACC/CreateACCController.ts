@@ -19,7 +19,7 @@ export class CreateACCController {
         user: Number(<string>user),
         description: <string>description,
       });
-      response.status(200).json(acc);
+      response.status(201).json(acc);
     } catch (err) {
       console.error(err);
       response.status(404).json({ msg: 'Tipo de ACC não encontrado!' });

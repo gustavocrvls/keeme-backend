@@ -5,15 +5,19 @@ import { Request, Response } from 'express';
 
 interface IToken {
   id: string;
-  perfil: string;
+  profile: string;
   iat: string;
   exp: string;
 }
 
-const privateKey = process.env.JWT_SECRET || '';
+function verifyToken(profiles: Array<number>) {
+  return function (
+    req: Request,
+    res: Response,
+    next: () => void,
+  ): Response | void {
+    const privateKey = process.env.JWT_SECRET || '';
 
-function verifyToken(perfis: Array<number>) {
-  return function (req: Request, res: Response, next: () => void): any {
     if (!process.env.UNSAFE_MODE)
       try {
         if (
@@ -23,9 +27,9 @@ function verifyToken(perfis: Array<number>) {
         ) {
           const token = req.headers.authorization.split(' ')[1];
           const decoded = jwt.verify(token, privateKey);
-          const { perfil } = <IToken>decoded;
+          const { profile } = <IToken>decoded;
 
-          if (perfis.includes(Number(perfil))) next();
+          if (profiles.includes(Number(profile))) next();
           else
             return res
               .status(401)
@@ -42,5 +46,4 @@ function verifyToken(perfis: Array<number>) {
   };
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export { verifyToken };

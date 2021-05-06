@@ -187,6 +187,7 @@ export default {
 
     if (user) {
       const token = generateToken(user.id, user.profile.id);
+      res.set('Access-Token', token);
       res.json({
         auth: true,
         token,

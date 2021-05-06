@@ -5,4 +5,4 @@ export const SUPORTED_TYPES = [
   'application/pdf',
 ];
 
-export const MAX_SIZE = 20000;
+export const MAX_SIZE = 2 * 1024 * 1024;

@@ -2,7 +2,6 @@ import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '../../../config/upload';
 import { PROFILE } from '../../../constants/Profile';
-import AccController from '../../../controllers/AccController';
 import { verifyToken } from '../../../middlewares/auth';
 import { deleteACCController } from '../useCases/DeleteACC';
 import { indexACCController } from '../useCases/IndexACC';
@@ -39,6 +38,11 @@ accsRoutes.delete('/:id', verifyToken([PROFILE.STUDENT]), (req, res) =>
   deleteACCController.handle(req, res),
 );
 
-accsRoutes.put('/update/:id/status', AccController.updateStatus);
+// accsRoutes.post(
+//   '/create',
+//   // verifyToken([PROFILE.STUDENT]),
+//   upload.array('certificate'),
+//   AccController.create,
+// );
 
 export { accsRoutes };

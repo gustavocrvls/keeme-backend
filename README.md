@@ -51,16 +51,16 @@ DB_PASSWORD=
 DB_DATABASE=
 ```
 
-Você vai precisar iniciar o banco de dados, usando o TypeORM. 
+Você vai precisar iniciar o banco de dados, usando o TypeORM.
 
 ⚠ Por padrão na criação do banco é criado um usuário do tipo Administrador, com a senha padrão "password", para mudar isso execute:
 ```bash
-  ADMIN_PASSWORD="nova_senha" yarn typeorm migration:run
+  NODE_ENV=development ADMIN_PASSWORD="nova_senha" yarn typeorm migration:run
 ```
 
 Caso você não precise de uma senha forte (como em um ambiente de testes), ou caso você precise rodar outras migrations, basta executar:
 ```bash
-  yarn typeorm migration:run
+  NODE_ENV=development yarn typeorm migration:run
 ```
 
 E então é só iniciar o projeto:

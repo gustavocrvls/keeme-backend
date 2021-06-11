@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { getMinioClient } from '../../config/minio';
 import { IFileStorageProvider } from '../IFileStorageProvider';
 
@@ -16,9 +17,11 @@ export class MinioFileStorageProvider implements IFileStorageProvider {
       metaData,
       (error: Error | null): void => {
         if (error) console.error(error.message);
-        console.log('File uploaded successfully!');
+        else console.log('File uploaded successfully!');
       },
     );
+
+    fs.rmSync(file.path);
   }
 
   async getFileUrl(path: string, filename: string): Promise<string> {

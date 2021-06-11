@@ -26,9 +26,7 @@ export class CreateACCUseCase {
       certificate: acc.certificate.filename,
     };
 
-    this.fileStorageProvider.uploadFile('certificates', acc.certificate);
-
-    const newACC = new ACC(data);
-    await this.accsRepository.create(newACC);
+    await this.fileStorageProvider.uploadFile('certificates', acc.certificate);
+    await this.accsRepository.create(new ACC(data));
   }
 }

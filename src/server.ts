@@ -3,6 +3,7 @@ import path from 'path';
 import cors from 'cors';
 import 'express-async-errors';
 import dotenv from 'dotenv';
+import { errors } from 'celebrate';
 import { startDatabase } from './database/connection';
 import routes from './index.routes';
 
@@ -24,6 +25,9 @@ app.use(
 app.use(express.json());
 app.use(routes);
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+app.use(errors());
+
+// criar middleware para enviar token
 
 app.listen(process.env.API_PORT || process.env.PORT, () =>
   console.log(

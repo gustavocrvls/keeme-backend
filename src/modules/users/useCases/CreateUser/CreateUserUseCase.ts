@@ -11,7 +11,7 @@ export class CreateUserUseCase {
     this.usersRepository = usersRepository;
   }
 
-  async execute(data: ICreateUserDTO, token?: IToken): Promise<void> {
+  async execute(data: ICreateUserDTO, token?: IToken): Promise<User> {
     if (
       data.profile === PROFILE.ADMINISTRATOR ||
       data.profile === PROFILE.COORDINATOR
@@ -45,6 +45,8 @@ export class CreateUserUseCase {
     if (userByUsername)
       throw new Error('Already exists a user with this username');
 
-    this.usersRepository.create(new User(data));
+    const user = await this.usersRepository.create(new User(data));
+
+    return user;
   }
 }

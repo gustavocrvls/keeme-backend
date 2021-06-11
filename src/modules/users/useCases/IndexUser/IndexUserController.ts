@@ -9,15 +9,8 @@ export class IndexUserController {
   }
 
   public async handle(request: Request, response: Response): Promise<void> {
-    const {
-      sortField,
-      sortOrder,
-      limit,
-      page,
-      search,
-      course,
-      profile,
-    } = request.query;
+    const { sortField, sortOrder, limit, page, search, course, profile } =
+      request.query;
 
     try {
       const users = await this.indexUserUseCase.execute({

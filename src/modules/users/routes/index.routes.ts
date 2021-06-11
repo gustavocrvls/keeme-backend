@@ -1,8 +1,10 @@
+import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
 import UsuarioController from '../../../controllers/UsuarioController';
 import { verifyToken } from '../../../middlewares/auth';
 import { indexUserController } from '../useCases/IndexUser';
+import { loginUserController } from '../useCases/LoginUser';
 import { updateUserController } from '../useCases/UpdateUser';
 
 const usersRoutes = Router();
@@ -11,6 +13,21 @@ usersRoutes.get(
   '/',
   verifyToken([PROFILE.ADMINISTRATOR, PROFILE.COORDINATOR]),
   (req, res) => indexUserController.handle(req, res),
+);
+
+usersRoutes.put('/:id', verifyToken([PROFILE.ADMINISTRATOR]), (req, res) =>
+  updateUserController.handle(req, res),
+);
+
+usersRoutes.post(
+  '/login',
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      username: Joi.string().required(),
+      password: Joi.string().required(),
+    }),
+  }),
+  (req, res) => loginUserController.handle(req, res),
 );
 
 usersRoutes.get(
@@ -25,13 +42,7 @@ usersRoutes.post(
   UsuarioController.create,
 );
 
-usersRoutes.put('/:id', verifyToken([PROFILE.ADMINISTRATOR]), (req, res) =>
-  updateUserController.handle(req, res),
-);
-
 usersRoutes.post('/register-student', UsuarioController.createDiscente);
-
-usersRoutes.post('/login', UsuarioController.login);
 
 usersRoutes.delete('/:id', UsuarioController.delete);
 

@@ -1,6 +1,7 @@
-import { getRepository, Like, Repository } from 'typeorm';
+import { getRepository, Like } from 'typeorm';
 import { User } from '../../entities/User';
 import { IIndexUserRequestDTO } from '../../modules/users/useCases/IndexUser/IndexUserDTO';
+import { ILoginUserDTO } from '../../modules/users/useCases/LoginUser/LoginUserDTO';
 import { IUpdateUserRequestDTO } from '../../modules/users/useCases/UpdateUser/UpdateUserDTO';
 import {
   IArrayPaginatorProvider,
@@ -9,8 +10,6 @@ import {
 import { IUsersRepository } from '../IUsersRepository';
 
 export class MySQLUsersRepository implements IUsersRepository {
-  private usersRepository: Repository<User>;
-
   private arrayPaginator: IArrayPaginatorProvider;
 
   constructor(arrayPaginator?: IArrayPaginatorProvider) {
@@ -21,8 +20,8 @@ export class MySQLUsersRepository implements IUsersRepository {
     const { profile, course, search, sortField, limit } = data;
     let { sortOrder, page } = data;
 
-    this.usersRepository = getRepository(User);
-    let usersQuery = await this.usersRepository.createQueryBuilder('user');
+    const usersRepository = getRepository(User);
+    let usersQuery = await usersRepository.createQueryBuilder('user');
 
     if (search)
       if (Number(search))
@@ -70,8 +69,26 @@ export class MySQLUsersRepository implements IUsersRepository {
   }
 
   async update(user: IUpdateUserRequestDTO): Promise<void> {
-    this.usersRepository = getRepository(User);
+    const usersRepository = getRepository(User);
 
-    await this.usersRepository.update({ id: user.id }, user);
+    await usersRepository.update({ id: user.id }, user);
+  }
+
+  async login(data: ILoginUserDTO): Promise<User> {
+    const usersRepository = getRepository(User);
+
+    const { username, password } = data;
+
+    const user = await usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profile', 'profile')
+      .leftJoinAndSelect('user.course', 'course')
+      .where('username = :username AND password = MD5(:password)', {
+        username,
+        password,
+      })
+      .getOneOrFail();
+
+    return user;
   }
 }

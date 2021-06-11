@@ -29,9 +29,8 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     let { sortOrder, page } = data;
 
     this.accTypeRepository = getRepository(ACCType);
-    let unitsOfMeasurementQuery = await this.accTypeRepository.createQueryBuilder(
-      'acc_type',
-    );
+    let unitsOfMeasurementQuery =
+      await this.accTypeRepository.createQueryBuilder('acc_type');
 
     if (name)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
@@ -139,7 +138,6 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
         'acc.id',
         'acc.quantity',
         'acc.acc__variant',
-        // 'acc.acc_variant.points_per_unity',
         'acc_type.acc_variants',
       ]);
     if (name)

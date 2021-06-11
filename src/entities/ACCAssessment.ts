@@ -27,4 +27,11 @@ export class ACCAssessment {
   @ManyToOne(() => User, user => user.id)
   @JoinColumn({ name: 'user_id' })
   public user: User;
+
+  constructor(
+    props: Omit<ACCAssessment, 'id' | 'created_at' | 'acc' | 'user'>,
+    id?: number,
+  ) {
+    Object.assign(this, props);
+  }
 }

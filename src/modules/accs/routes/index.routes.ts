@@ -36,15 +36,18 @@ accsRoutes.post(
   '/',
   verifyToken([PROFILE.STUDENT]),
   upload.array('certificate'),
-  celebrate({
-    [Segments.BODY]: Joi.object().keys({
-      quantity: Joi.number().required(),
-      description: Joi.string().required(),
-      user: Joi.number().required(),
-      acc_type: Joi.number().required(),
-      acc_variant: Joi.number().required(),
-    }),
-  }),
+  celebrate(
+    {
+      [Segments.BODY]: Joi.object().keys({
+        quantity: Joi.number().required(),
+        description: Joi.string().required(),
+        user: Joi.number().required(),
+        acc_type: Joi.number().required(),
+        acc_variant: Joi.number().required(),
+      }),
+    },
+    { abortEarly: false },
+  ),
   (req, res) => createACCController.handle(req, res),
 );
 

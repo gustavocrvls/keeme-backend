@@ -10,15 +10,8 @@ export class UpdateUserController {
   }
 
   async handle(request: Request, response: Response): Promise<void> {
-    const {
-      name,
-      cpf,
-      email,
-      username,
-      password,
-      profile,
-      course,
-    } = request.body;
+    const { name, cpf, email, username, password, profile, course } =
+      request.body;
 
     const { id } = request.params;
 

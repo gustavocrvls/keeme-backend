@@ -9,16 +9,26 @@ import { updateUserController } from '../useCases/UpdateUser';
 
 const usersRoutes = Router();
 
+// list all users
 usersRoutes.get(
   '/',
   verifyToken([PROFILE.ADMINISTRATOR, PROFILE.COORDINATOR]),
   (req, res) => indexUserController.handle(req, res),
 );
 
-usersRoutes.put('/:id', verifyToken([PROFILE.ADMINISTRATOR]), (req, res) =>
-  updateUserController.handle(req, res),
+// updates a user
+usersRoutes.put(
+  '/:id',
+  verifyToken([PROFILE.ADMINISTRATOR]),
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
+  }),
+  (req, res) => updateUserController.handle(req, res),
 );
 
+// do login
 usersRoutes.post(
   '/login',
   celebrate({

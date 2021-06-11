@@ -21,17 +21,13 @@ export class MinioFileStorageProvider implements IFileStorageProvider {
     );
   }
 
-  async getFileUrl(path: string, file: Express.Multer.File): Promise<string> {
+  async getFileUrl(path: string, filename: string): Promise<string> {
     const minioClient = getMinioClient();
 
     const certificateUrl = await minioClient.presignedGetObject(
       process.env.MINIO_BUCKET_NAME || 'keeme',
-      `${path}/${file.filename}`,
+      `${path}/${filename}`,
       24 * 60 * 60,
-      (error: Error | null, presignedUrl: string): string => {
-        if (error) console.error(error.message);
-        return presignedUrl;
-      },
     );
 
     return certificateUrl;

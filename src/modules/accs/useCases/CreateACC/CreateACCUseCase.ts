@@ -29,6 +29,6 @@ export class CreateACCUseCase {
     this.fileStorageProvider.uploadFile('certificates', acc.certificate);
 
     const newACC = new ACC(data);
-    // await this.accsRepository.create(newACC); ///// necessário remover a model de certificate
+    await this.accsRepository.create(newACC);
   }
 }

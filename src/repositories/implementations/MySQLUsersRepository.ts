@@ -7,7 +7,7 @@ import {
   IArrayPaginatorProvider,
   IPaginatedArray,
 } from '../../providers/IArrayPaginatorProvider';
-import { IUsersRepository } from '../IUsersRepository';
+import { IGetByFieldData, IUsersRepository } from '../IUsersRepository';
 
 export class MySQLUsersRepository implements IUsersRepository {
   private arrayPaginator: IArrayPaginatorProvider;
@@ -79,10 +79,28 @@ export class MySQLUsersRepository implements IUsersRepository {
     return user;
   }
 
+  async create(user: User): Promise<User> {
+    const usersRepository = getRepository(User);
+
+    const newUser = await usersRepository.save(user);
+
+    return newUser;
+  }
+
   async update(user: IUpdateUserRequestDTO): Promise<void> {
     const usersRepository = getRepository(User);
 
     await usersRepository.update({ id: user.id }, user);
+  }
+
+  async getByField(data: IGetByFieldData): Promise<User | undefined> {
+    const usersRepository = getRepository(User);
+
+    const { field, param } = data;
+
+    const user = await usersRepository.findOne({ [field]: param });
+
+    return user;
   }
 
   async login(data: ILoginUserDTO): Promise<User> {

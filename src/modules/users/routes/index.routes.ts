@@ -3,6 +3,8 @@ import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
 import UsuarioController from '../../../controllers/UsuarioController';
 import { verifyToken } from '../../../middlewares/auth';
+import { isCPFValid } from '../../../utils/validations';
+import { createUserController } from '../useCases/CreateUser';
 import { indexUserController } from '../useCases/IndexUser';
 import { loginUserController } from '../useCases/LoginUser';
 import { showUserController } from '../useCases/ShowUser';
@@ -29,6 +31,32 @@ usersRoutes.get(
   (req, res) => showUserController.handle(req, res),
 );
 
+// creates a new user
+usersRoutes.post(
+  '/',
+  verifyToken([PROFILE.ADMINISTRATOR]),
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      name: Joi.string().required(),
+      cpf: Joi.string()
+        .required()
+        .custom((value, helpers) => {
+          const cleanedCPF = value.replace(/\D/g, '');
+
+          if (!isCPFValid(cleanedCPF)) return helpers.error('any.invalid');
+
+          return value;
+        }),
+      email: Joi.string().required(),
+      username: Joi.string().required(),
+      password: Joi.string().required(),
+      profile: Joi.number().required(),
+      course: Joi.number().required(),
+    }),
+  }),
+  (req, res) => createUserController.handle(req, res),
+);
+
 // updates a user
 usersRoutes.put(
   '/:id',
@@ -53,20 +81,14 @@ usersRoutes.post(
   (req, res) => loginUserController.handle(req, res),
 );
 
-usersRoutes.post(
-  '/',
-  verifyToken([PROFILE.ADMINISTRATOR]),
-  UsuarioController.create,
-);
-
 usersRoutes.post('/register-student', UsuarioController.createDiscente);
 
 usersRoutes.delete('/:id', UsuarioController.delete);
 
-usersRoutes.get(
-  '/perfil/:id/cursos',
-  verifyToken([PROFILE.ADMINISTRATOR]),
-  UsuarioController.findByPerfilGroupByCurso,
-);
+// usersRoutes.get(
+//   '/perfil/:id/cursos',
+//   verifyToken([PROFILE.ADMINISTRATOR]),
+//   UsuarioController.findByPerfilGroupByCurso,
+// );
 
 export { usersRoutes };

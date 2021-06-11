@@ -8,6 +8,7 @@ import {
 import { IDeleteACCRequestDTO } from '../../modules/accs/useCases/DeleteACC/DeleteACCDTO';
 import { IIndexACCRequestDTO } from '../../modules/accs/useCases/IndexACC/IndexACCDTO';
 import { IACCsRepository } from '../IACCsRepository';
+import { IUpdatedACC } from '../../modules/accs/useCases/UpdateACC/UpdateACCDTO';
 
 export class MySQLACCsRepository implements IACCsRepository {
   private accRepository: Repository<ACC>;
@@ -122,6 +123,11 @@ export class MySQLACCsRepository implements IACCsRepository {
       .getOneOrFail();
 
     return acc;
+  }
+
+  public async update(acc: IUpdatedACC): Promise<void> {
+    const accRepository = getRepository(ACC);
+    await accRepository.update({ id: acc.id }, acc);
   }
 
   public async delete(data: IDeleteACCRequestDTO): Promise<void> {

@@ -1,4 +1,4 @@
-import { getRepository, Like, Repository } from 'typeorm';
+import { getRepository, Like } from 'typeorm';
 import { ACC } from '../../entities/ACC';
 import { IShowACCDTO } from '../../modules/accs/useCases/ShowACC/ShowACCDTO';
 import {
@@ -11,8 +11,6 @@ import { IACCsRepository } from '../IACCsRepository';
 import { IUpdatedACC } from '../../modules/accs/useCases/UpdateACC/UpdateACCDTO';
 
 export class MySQLACCsRepository implements IACCsRepository {
-  private accRepository: Repository<ACC>;
-
   private arrayPaginator: IArrayPaginatorProvider;
 
   constructor(arrayPaginator?: IArrayPaginatorProvider) {
@@ -23,8 +21,8 @@ export class MySQLACCsRepository implements IACCsRepository {
     const { name, sortField, limit, acc_status, acc_type, user, course } = data;
     let { sortOrder, page } = data;
 
-    this.accRepository = getRepository(ACC);
-    let accsQuery = await this.accRepository.createQueryBuilder('acc');
+    const accRepository = getRepository(ACC);
+    let accsQuery = await accRepository.createQueryBuilder('acc');
 
     if (name)
       accsQuery = accsQuery.where({
@@ -93,10 +91,10 @@ export class MySQLACCsRepository implements IACCsRepository {
   }
 
   public async show(data: IShowACCDTO): Promise<ACC> {
-    this.accRepository = getRepository(ACC);
+    const accRepository = getRepository(ACC);
     const { id } = data;
 
-    const accsQuery = await this.accRepository.createQueryBuilder('acc');
+    const accsQuery = await accRepository.createQueryBuilder('acc');
 
     const acc = await accsQuery
       .leftJoinAndSelect('acc.acc_status', 'acc_status')
@@ -132,14 +130,14 @@ export class MySQLACCsRepository implements IACCsRepository {
 
   public async delete(data: IDeleteACCRequestDTO): Promise<void> {
     const { id } = data;
-    this.accRepository = getRepository(ACC);
+    const accRepository = getRepository(ACC);
 
-    await this.accRepository.delete({ id });
+    await accRepository.delete({ id });
   }
 
   public async create(acc: ACC): Promise<void> {
-    this.accRepository = getRepository(ACC);
+    const accRepository = getRepository(ACC);
 
-    await this.accRepository.save(acc);
+    await accRepository.save(acc);
   }
 }

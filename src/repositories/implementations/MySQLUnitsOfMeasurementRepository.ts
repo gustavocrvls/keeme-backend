@@ -10,8 +10,6 @@ import { IUnitsOfMeasurementRepository } from '../IUnitsOfMeasurementRepository'
 export class MySQLUnityOfMeasurementRepository
   implements IUnitsOfMeasurementRepository
 {
-  private coursesRepository: Repository<UnityOfMeasurement>;
-
   private arrayPaginator: IArrayPaginatorProvider;
 
   constructor(arrayPaginator?: IArrayPaginatorProvider) {
@@ -22,9 +20,11 @@ export class MySQLUnityOfMeasurementRepository
     const { name, sortField, limit } = data;
     let { sortOrder, page } = data;
 
-    this.coursesRepository = getRepository(UnityOfMeasurement);
+    const unitsOfMeasurementRepository = getRepository(UnityOfMeasurement);
     let unitsOfMeasurementQuery =
-      await this.coursesRepository.createQueryBuilder('unidades_de_medida');
+      await unitsOfMeasurementRepository.createQueryBuilder(
+        'unidades_de_medida',
+      );
 
     if (name)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({

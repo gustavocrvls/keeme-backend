@@ -1,4 +1,4 @@
-import { getRepository, Like, Repository } from 'typeorm';
+import { getRepository, Like } from 'typeorm';
 import { ACCType } from '../../entities/ACCType';
 import {
   IArrayPaginatorProvider,
@@ -16,8 +16,6 @@ import {
 import { IUpdateACCTypeRequestDTO } from '../../modules/accTypes/useCases/UpdateACCType/UpdateACCTypeDTO';
 
 export class MySQLACCTypesRepository implements IACCTypesRepository {
-  private accTypeRepository: Repository<ACCType>;
-
   private arrayPaginator: IArrayPaginatorProvider;
 
   constructor(arrayPaginator?: IArrayPaginatorProvider) {
@@ -28,9 +26,10 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     const { name, sortField, limit, unity_of_measurement } = data;
     let { sortOrder, page } = data;
 
-    this.accTypeRepository = getRepository(ACCType);
-    let unitsOfMeasurementQuery =
-      await this.accTypeRepository.createQueryBuilder('acc_type');
+    const accTypeRepository = getRepository(ACCType);
+    let unitsOfMeasurementQuery = await accTypeRepository.createQueryBuilder(
+      'acc_type',
+    );
 
     if (name)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
@@ -74,9 +73,9 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   public async show(data: IShowACCTypeDTO): Promise<ACCType> {
     const { id } = data;
 
-    this.accTypeRepository = getRepository(ACCType);
+    const accTypeRepository = getRepository(ACCType);
 
-    const accType = await this.accTypeRepository.findOneOrFail(id, {
+    const accType = await accTypeRepository.findOneOrFail(id, {
       relations: ['unity_of_measurement'],
     });
 
@@ -84,24 +83,24 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   }
 
   public async create(accType: ACCType): Promise<void> {
-    this.accTypeRepository = getRepository(ACCType);
-    await this.accTypeRepository.save(accType);
+    const accTypeRepository = getRepository(ACCType);
+    await accTypeRepository.save(accType);
   }
 
   public async delete(data: IDeleteACCTypeRequestDTO): Promise<void> {
     const { id } = data;
 
-    this.accTypeRepository = getRepository(ACCType);
+    const accTypeRepository = getRepository(ACCType);
 
-    await this.accTypeRepository.delete({ id });
+    await accTypeRepository.delete({ id });
   }
 
   public async getACCsLength(data: IACCsLength): Promise<number> {
     const { id } = data;
 
-    this.accTypeRepository = getRepository(ACCType);
+    const accTypeRepository = getRepository(ACCType);
 
-    const accTypes = await this.accTypeRepository
+    const accTypes = await accTypeRepository
       .createQueryBuilder('acc_type')
       .leftJoin('acc_type.accs', 'accs')
       .select('COUNT(accs.id) as accs_length')
@@ -117,9 +116,9 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     const { user_id, name, sortField, limit } = data;
     let { sortOrder, page } = data;
 
-    this.accTypeRepository = getRepository(ACCType);
+    const accTypeRepository = getRepository(ACCType);
 
-    let accTypeQuery = this.accTypeRepository
+    let accTypeQuery = accTypeRepository
       .createQueryBuilder('acc_type')
       .leftJoinAndSelect(
         'acc_type.unity_of_measurement',
@@ -162,9 +161,9 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   }
 
   public async getACCTypesLength(): Promise<number> {
-    this.accTypeRepository = getRepository(ACCType);
+    const accTypeRepository = getRepository(ACCType);
 
-    const accTypesLength = await this.accTypeRepository
+    const accTypesLength = await accTypeRepository
       .createQueryBuilder('acc_type')
       .getCount();
 
@@ -172,7 +171,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
   }
 
   public async update(accType: IUpdateACCTypeRequestDTO): Promise<void> {
-    this.accTypeRepository = getRepository(ACCType);
-    await this.accTypeRepository.update({ id: accType.id }, accType);
+    const accTypeRepository = getRepository(ACCType);
+    await accTypeRepository.update({ id: accType.id }, accType);
   }
 }

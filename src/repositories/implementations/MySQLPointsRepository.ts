@@ -7,13 +7,11 @@ import {
 import { ACC } from '../../entities/ACC';
 
 export class MySQLPointsRepository implements IPointsRepository {
-  private accRepository: Repository<ACC>;
-
   public async getPointsByStatus(data: IPointsByStatus): Promise<IACCPoints[]> {
     const { status_id, user_id } = data;
-    this.accRepository = getRepository(ACC);
+    const accRepository = getRepository(ACC);
 
-    const points = await this.accRepository
+    const points = await accRepository
       .createQueryBuilder('acc')
       .leftJoinAndSelect('acc.acc_status', 'acc_status')
       .leftJoinAndSelect('acc.acc_type', 'acc_type')

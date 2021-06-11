@@ -3,11 +3,11 @@ import { IFileStorageProvider } from '../IFileStorageProvider';
 
 export class MinioFileStorageProvider implements IFileStorageProvider {
   async uploadFile(path: string, file: Express.Multer.File): Promise<void> {
+    const minioClient = getMinioClient();
+
     const metaData = {
       'Content-Type': file.mimetype,
     };
-
-    const minioClient = getMinioClient();
 
     minioClient.fPutObject(
       process.env.MINIO_BUCKET_NAME || 'keeme',

@@ -1,6 +1,6 @@
 {
   "name": "keeme-backend",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "API REST da aplicação KeeMe ",
   "main": "index.js",
   "scripts": {

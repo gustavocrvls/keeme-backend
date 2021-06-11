@@ -1,7 +1,6 @@
 import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
-import UsuarioController from '../../../controllers/UsuarioController';
 import { verifyToken } from '../../../middlewares/auth';
 import { isCPFValid } from '../../../utils/validations';
 import { createUserController } from '../useCases/CreateUser';
@@ -81,14 +80,6 @@ usersRoutes.post(
   (req, res) => loginUserController.handle(req, res),
 );
 
-usersRoutes.post('/register-student', UsuarioController.createDiscente);
-
-usersRoutes.delete('/:id', UsuarioController.delete);
-
-// usersRoutes.get(
-//   '/perfil/:id/cursos',
-//   verifyToken([PROFILE.ADMINISTRATOR]),
-//   UsuarioController.findByPerfilGroupByCurso,
-// );
+// usersRoutes.delete('/:id', UsuarioController.delete);
 
 export { usersRoutes };

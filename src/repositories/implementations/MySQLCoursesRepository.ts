@@ -26,12 +26,12 @@ export class MySQLCoursesRepository implements ICoursesRepository {
   async index(data: IIndexCourseRequestDTO): Promise<IPaginatedArray> {
     const coursesRepository = getRepository(Course);
 
-    const { nome, sortField, limit } = data;
+    const { name, sortField, limit } = data;
     let { sortOrder, page } = data;
 
     let coursesQuery = coursesRepository.createQueryBuilder('curso');
 
-    if (nome) coursesQuery = coursesQuery.where({ nome: Like(`%${nome}%`) });
+    if (name) coursesQuery = coursesQuery.where({ name: Like(`%${name}%`) });
     if (!sortOrder) sortOrder = 'ASC';
     if (sortField)
       coursesQuery = coursesQuery.orderBy({ [sortField]: sortOrder });

@@ -3,8 +3,8 @@ import path from 'path';
 import cors from 'cors';
 import 'express-async-errors';
 import dotenv from 'dotenv';
-import routes from './index.routes';
 import { startDatabase } from './database/connection';
+import routes from './index.routes';
 
 dotenv.config({
   path: process.env.NODE_ENV
@@ -16,7 +16,11 @@ startDatabase();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    exposedHeaders: 'Access-Token',
+  }),
+);
 app.use(express.json());
 app.use(routes);
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));

@@ -4,4 +4,5 @@ export interface ICreateACCDTO {
   user: number;
   acc_type: number;
   acc_variant: number;
+  certificate: Express.Multer.File;
 }

@@ -4,7 +4,6 @@ import {
 } from '../IArrayPaginatorProvider';
 
 export class ArrayPaginatorProvider implements IArrayPaginatorProvider {
-  // eslint-disable-next-line class-methods-use-this
   public paginate(
     items: any[],
     current_page: number,

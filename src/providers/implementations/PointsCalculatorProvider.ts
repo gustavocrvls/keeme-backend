@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import { ACC_STATUS } from '../../constants/ACCStatus';
 import { IACCTypeWithUserACCs } from '../../repositories/IACCTypesRepository';
 import { IACCPoints } from '../../repositories/IPointsRepository';

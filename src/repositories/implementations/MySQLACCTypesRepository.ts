@@ -83,7 +83,7 @@ export class MySQLACCTypesRepository implements IACCTypesRepository {
     return accType;
   }
 
-  public async save(accType: ACCType): Promise<void> {
+  public async create(accType: ACCType): Promise<void> {
     this.accTypeRepository = getRepository(ACCType);
     await this.accTypeRepository.save(accType);
   }

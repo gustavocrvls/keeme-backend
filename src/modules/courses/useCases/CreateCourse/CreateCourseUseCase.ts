@@ -12,6 +12,6 @@ export class CreateCourseUseCase {
   async execute(data: ICreateCourseRequestDTO): Promise<void> {
     const course = new Course(data);
 
-    this.coursesRepository.save(course);
+    this.coursesRepository.create(course);
   }
 }

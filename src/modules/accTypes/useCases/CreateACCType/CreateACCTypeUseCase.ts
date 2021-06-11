@@ -11,6 +11,6 @@ export class CreateACCTypeUseCase {
 
   async execute(data: ICreateACCTypeRequestDTO): Promise<void> {
     const accType = new ACCType(data);
-    this.accTypesRepository.save(accType);
+    this.accTypesRepository.create(accType);
   }
 }

@@ -3,6 +3,6 @@ import { IIndexCourseRequestDTO } from '../modules/courses/useCases/IndexCourse/
 import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
 
 export interface ICoursesRepository {
-  save(course: Course): Promise<void>;
+  create(course: Course): Promise<void>;
   index(data: IIndexCourseRequestDTO): Promise<IPaginatedArray>;
 }

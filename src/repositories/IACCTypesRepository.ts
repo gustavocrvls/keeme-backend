@@ -39,7 +39,7 @@ export interface IACCsLength {
 export interface IACCTypesRepository {
   index(data: IIndexACCTypeRequestDTO): Promise<IPaginatedArray>;
   show(data: IShowACCTypeDTO): Promise<ACCType>;
-  save(accType: ACCType): Promise<void>;
+  create(accType: ACCType): Promise<void>;
   update(accType: IUpdateACCTypeRequestDTO): Promise<void>;
   delete(data: IDeleteACCTypeRequestDTO): Promise<void>;
 

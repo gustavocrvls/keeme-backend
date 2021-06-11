@@ -8,7 +8,8 @@ import { IIndexUnityOfMeasurementDTO } from '../../modules/unitsOfMeasurement/us
 import { IUnitsOfMeasurementRepository } from '../IUnitsOfMeasurementRepository';
 
 export class MySQLUnityOfMeasurementRepository
-  implements IUnitsOfMeasurementRepository {
+  implements IUnitsOfMeasurementRepository
+{
   private coursesRepository: Repository<UnityOfMeasurement>;
 
   private arrayPaginator: IArrayPaginatorProvider;
@@ -18,17 +19,16 @@ export class MySQLUnityOfMeasurementRepository
   }
 
   async index(data: IIndexUnityOfMeasurementDTO): Promise<IPaginatedArray> {
-    const { nome, sortField, limit } = data;
+    const { name, sortField, limit } = data;
     let { sortOrder, page } = data;
 
     this.coursesRepository = getRepository(UnityOfMeasurement);
-    let unitsOfMeasurementQuery = await this.coursesRepository.createQueryBuilder(
-      'unidades_de_medida',
-    );
+    let unitsOfMeasurementQuery =
+      await this.coursesRepository.createQueryBuilder('unidades_de_medida');
 
-    if (nome)
+    if (name)
       unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
-        nome: Like(`%${nome}%`),
+        name: Like(`%${name}%`),
       });
     if (!sortOrder) sortOrder = 'ASC';
     if (sortField)

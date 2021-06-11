@@ -9,13 +9,13 @@ export class IndexUnityOfMeasurementController {
   }
 
   async handle(request: Request, response: Response): Promise<void> {
-    const { sortField, sortOrder, nome, page, limit } = request.query;
+    const { sortField, sortOrder, name, page, limit } = request.query;
 
     try {
       const unitsOfMeasurement = await this.indexOfMeasurementUseCase.execute({
         sortField: <string>sortField,
         sortOrder: <'ASC' | 'DESC'>sortOrder,
-        nome: <string>nome,
+        name: <string>name,
         page: Number(<string>page),
         limit: Number(<string>limit),
       });

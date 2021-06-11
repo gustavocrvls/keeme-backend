@@ -19,6 +19,12 @@ export class CreateACCAssessmentUseCase {
   }
 
   async execute(accAssessment: ICreateACCAssessmentDTO): Promise<void> {
+    const assessment = await this.accsAssessmentsRepository.showByACC(
+      accAssessment.acc,
+    );
+
+    if (assessment) throw new Error('ACC Assessment already exists!');
+
     this.accsAssessmentsRepository.create(new ACCAssessment(accAssessment));
 
     this.accsRepository.update({

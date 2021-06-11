@@ -21,7 +21,7 @@ export class CreateACCAssessmentController {
       response.sendStatus(201);
     } catch (err) {
       console.error(err);
-      response.status(503).json({ msg: 'ACC Assessment not created' });
+      response.status(400).json({ msg: err.message });
     }
   }
 }

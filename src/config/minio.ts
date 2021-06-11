@@ -11,30 +11,3 @@ export const getMinioClient = () => {
     secretKey: process.env.MINIO_SECRET_ACCESS_KEY ?? '',
   });
 }
-
-
-/**
- *
-    const minioClient = new Minio.Client({
-      endPoint: 'localhost',
-      port: 9000,
-      useSSL: false,
-      accessKey: 'minioadmin',
-      secretKey: 'minioadmin',
-    });
-
-    const metaData = {
-      'Content-Type': acc.certificate.mimetype,
-    };
-
-    minioClient.fPutObject(
-      'keeme',
-      `certificates/${acc.certificate.filename}`,
-      acc.certificate.path,
-      metaData,
-      (error: Error): void => {
-        if (error) console.error(error.message);
-        console.log('File uploaded successfully!');
-      },
-    );
- */

@@ -27,7 +27,7 @@ export class MinioFileStorageProvider implements IFileStorageProvider {
     const certificateUrl = await minioClient.presignedGetObject(
       process.env.MINIO_BUCKET_NAME || 'keeme',
       `${path}/${filename}`,
-      24 * 60 * 60,
+      1 * 24 * 60 * 60, // 1 day
     );
 
     return certificateUrl;

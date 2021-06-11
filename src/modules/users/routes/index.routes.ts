@@ -5,6 +5,7 @@ import UsuarioController from '../../../controllers/UsuarioController';
 import { verifyToken } from '../../../middlewares/auth';
 import { indexUserController } from '../useCases/IndexUser';
 import { loginUserController } from '../useCases/LoginUser';
+import { showUserController } from '../useCases/ShowUser';
 import { updateUserController } from '../useCases/UpdateUser';
 
 const usersRoutes = Router();
@@ -14,6 +15,18 @@ usersRoutes.get(
   '/',
   verifyToken([PROFILE.ADMINISTRATOR, PROFILE.COORDINATOR]),
   (req, res) => indexUserController.handle(req, res),
+);
+
+// get a user by id
+usersRoutes.get(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.number().required(),
+    }),
+  }),
+  verifyToken([PROFILE.COORDINATOR, PROFILE.STUDENT, PROFILE.ADMINISTRATOR]),
+  (req, res) => showUserController.handle(req, res),
 );
 
 // updates a user
@@ -38,12 +51,6 @@ usersRoutes.post(
     }),
   }),
   (req, res) => loginUserController.handle(req, res),
-);
-
-usersRoutes.get(
-  '/:id',
-  verifyToken([PROFILE.COORDINATOR, PROFILE.STUDENT, PROFILE.ADMINISTRATOR]),
-  UsuarioController.show,
 );
 
 usersRoutes.post(

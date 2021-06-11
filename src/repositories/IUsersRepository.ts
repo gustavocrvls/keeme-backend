@@ -7,6 +7,7 @@ import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
 export interface IUsersRepository {
   index(data: IIndexUserRequestDTO): Promise<IPaginatedArray>;
   update(user: IUpdateUserRequestDTO): Promise<void>;
+  show(id: number): Promise<User>;
 
   login(data: ILoginUserDTO): Promise<User>;
 }

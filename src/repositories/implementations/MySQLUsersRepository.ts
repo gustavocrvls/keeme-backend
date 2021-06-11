@@ -68,6 +68,17 @@ export class MySQLUsersRepository implements IUsersRepository {
     return this.arrayPaginator.paginate(users, page + 1, limit, total_items);
   }
 
+  async show(id: number): Promise<User> {
+    const usersRepository = getRepository(User);
+
+    const user = usersRepository.findOneOrFail(id, {
+      relations: ['course', 'profile'],
+      select: ['id', 'name', 'cpf', 'username', 'email', 'course', 'profile'],
+    });
+
+    return user;
+  }
+
   async update(user: IUpdateUserRequestDTO): Promise<void> {
     const usersRepository = getRepository(User);
 

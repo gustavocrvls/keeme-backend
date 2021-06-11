@@ -105,13 +105,11 @@ export class MySQLACCsRepository implements IACCsRepository {
         'acc_type.unity_of_measurement',
         'unity_of_measurement',
       )
-      .leftJoinAndSelect('acc.certificate', 'certificate')
       .leftJoinAndSelect('acc.user', 'user')
       .leftJoinAndSelect('acc.acc_assessment', 'acc_assessment')
       .leftJoinAndSelect('acc_assessment.user', 'acc_assessment.user')
       .select([
         'acc',
-        'certificate.id',
         'acc_status',
         'acc_type',
         'acc_variant',

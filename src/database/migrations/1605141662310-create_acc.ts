@@ -27,6 +27,10 @@ export class createACC1605141662310 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'certificate',
+            type: 'varchar'
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',

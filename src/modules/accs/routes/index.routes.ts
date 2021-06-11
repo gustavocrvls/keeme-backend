@@ -38,11 +38,4 @@ accsRoutes.delete('/:id', verifyToken([PROFILE.STUDENT]), (req, res) =>
   deleteACCController.handle(req, res),
 );
 
-// accsRoutes.post(
-//   '/create',
-//   // verifyToken([PROFILE.STUDENT]),
-//   upload.array('certificate'),
-//   AccController.create,
-// );
-
 export { accsRoutes };

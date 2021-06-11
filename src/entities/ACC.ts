@@ -9,7 +9,6 @@ import {
 import { ACCType } from './ACCType';
 import { ACCStatus } from './ACCStatus';
 import { User } from './User';
-import { Certificate } from './Certificate';
 import { ACCVariant } from './ACCVariant';
 import { ACCAssessment } from './ACCAssessment';
 
@@ -23,6 +22,9 @@ export class ACC {
 
   @Column()
   public description: string;
+
+  @Column()
+  public certificate: string;
 
   @Column({ type: 'timestamp' })
   public created_at: Date;
@@ -42,12 +44,6 @@ export class ACC {
   @ManyToOne(() => ACCVariant, accVariant => accVariant.id)
   @JoinColumn({ name: 'acc_variant_id' })
   public acc_variant: ACCVariant;
-
-  @OneToOne(() => Certificate, certificate => certificate.acc, {
-    cascade: true,
-    eager: true,
-  })
-  public certificate: Certificate;
 
   @OneToOne(() => ACCAssessment, acc_assessment => acc_assessment.acc)
   public acc_assessment: ACCAssessment;

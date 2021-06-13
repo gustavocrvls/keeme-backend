@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { PROFILE } from '../../../../constants/Profile';
 import { User } from '../../../../entities/User';
 import { IUsersRepository } from '../../../../repositories/IUsersRepository';
@@ -11,7 +12,7 @@ export class CreateUserUseCase {
     this.usersRepository = usersRepository;
   }
 
-  async execute(data: ICreateUserDTO, token?: IToken): Promise<User> {
+  async execute(data: ICreateUserDTO, token?: IToken): Promise<void> {
     if (
       data.profile === PROFILE.ADMINISTRATOR ||
       data.profile === PROFILE.COORDINATOR
@@ -45,8 +46,16 @@ export class CreateUserUseCase {
     if (userByUsername)
       throw new Error('Already exists a user with this username');
 
-    const user = await this.usersRepository.create(new User(data));
+    const password = crypto
+      .createHash('md5')
+      .update(data.password)
+      .digest('hex');
 
-    return user;
+    const userData = {
+      ...data,
+      password,
+    };
+
+    await this.usersRepository.create(new User(userData));
   }
 }

@@ -18,7 +18,7 @@ export class CreateUserController {
 
       const formatedCPF = cpf.replace(/\D/g, '');
 
-      const user = await this.createUserUseCase.execute(
+      await this.createUserUseCase.execute(
         {
           course,
           cpf: formatedCPF,
@@ -31,7 +31,7 @@ export class CreateUserController {
         token,
       );
 
-      response.json(user);
+      response.sendStatus(201);
     } catch (error) {
       response.status(400).json({ msg: error.message });
     }

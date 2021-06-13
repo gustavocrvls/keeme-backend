@@ -79,12 +79,10 @@ export class MySQLUsersRepository implements IUsersRepository {
     return user;
   }
 
-  async create(user: User): Promise<User> {
+  async create(user: User): Promise<void> {
     const usersRepository = getRepository(User);
 
     const newUser = await usersRepository.save(user);
-
-    return newUser;
   }
 
   async update(user: IUpdateUserRequestDTO): Promise<void> {

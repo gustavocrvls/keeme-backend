@@ -11,7 +11,7 @@ export interface IGetByFieldData {
 
 export interface IUsersRepository {
   index(data: IIndexUserRequestDTO): Promise<IPaginatedArray>;
-  create(user: User): Promise<User>;
+  create(user: User): Promise<void>;
   update(user: IUpdateUserRequestDTO): Promise<void>;
   show(id: number): Promise<User>;
   // delete(id: number): Promise<void>;

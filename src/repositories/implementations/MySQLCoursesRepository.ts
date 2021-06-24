@@ -66,6 +66,13 @@ export class MySQLCoursesRepository implements ICoursesRepository {
         courseId,
       });
 
+    coursesQuery = coursesQuery.select([
+      'course',
+      'users.id',
+      'users.name',
+      'users.email',
+    ]);
+
     const courses = await coursesQuery.getMany();
 
     return courses;

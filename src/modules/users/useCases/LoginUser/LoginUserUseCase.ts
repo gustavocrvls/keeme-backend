@@ -1,23 +1,38 @@
 import { generateToken } from '../../../../config/authentication';
+import { IExternalAuthenticationProvider } from '../../../../providers/IExternalAuthenticationProvider';
 import { IUsersRepository } from '../../../../repositories/IUsersRepository';
 import { ILoginUserDTO, ILoginUserResponse } from './LoginUserDTO';
 
 export class LoginUserUseCase {
   private usersRepository: IUsersRepository;
 
-  constructor(usersRepository: IUsersRepository) {
+  private externalAuthenticationProvider: IExternalAuthenticationProvider;
+
+  constructor(
+    usersRepository: IUsersRepository,
+    externalAuthenticationProvider: IExternalAuthenticationProvider,
+  ) {
     this.usersRepository = usersRepository;
+    this.externalAuthenticationProvider = externalAuthenticationProvider;
   }
 
   async execute(data: ILoginUserDTO): Promise<ILoginUserResponse> {
-    const user = await this.usersRepository.login(data);
+    const authenticated = await this.externalAuthenticationProvider.login(data);
 
-    const token = generateToken(user.id, user.profile.id);
+    if (authenticated) {
+      const { username } = data;
 
-    return {
-      token,
-      auth: true,
-      data: user,
-    };
+      const user = await this.usersRepository.getUserByUsername(username);
+
+      const token = generateToken(user.id, user.profile.id);
+
+      return {
+        token,
+        auth: true,
+        data: user,
+      };
+    }
+
+    throw new Error('Usuário ou senha incorretos!');
   }
 }

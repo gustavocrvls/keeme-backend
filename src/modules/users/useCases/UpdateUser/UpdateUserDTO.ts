@@ -4,7 +4,7 @@ import { Profile } from '../../../../entities/Profile';
 export interface IUpdateUserRequestDTO {
   id: number;
   name?: string;
-  cpf?: string;
+  registration?: string;
   email?: string;
   username?: string;
   password?: string;

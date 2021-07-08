@@ -4,7 +4,7 @@ import { IUpdateUserRequestDTO } from '../modules/users/useCases/UpdateUser/Upda
 import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
 
 export interface IGetByFieldData {
-  field: 'email' | 'cpf' | 'username';
+  field: 'email' | 'registration' | 'username';
   param: string;
 }
 

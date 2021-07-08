@@ -25,7 +25,7 @@ export class MySQLUsersRepository implements IUsersRepository {
 
     if (search)
       if (Number(search))
-        usersQuery = usersQuery.where({ cpf: Like(`%${search}%`) });
+        usersQuery = usersQuery.where({ registration: Like(`%${search}%`) });
       else usersQuery = usersQuery.where({ name: Like(`%${search}%`) });
 
     if (profile)
@@ -55,7 +55,7 @@ export class MySQLUsersRepository implements IUsersRepository {
       .select([
         'user.id',
         'user.name',
-        'user.cpf',
+        'user.registration',
         'user.email',
         'user.username',
         'profile',
@@ -73,7 +73,15 @@ export class MySQLUsersRepository implements IUsersRepository {
 
     const user = usersRepository.findOneOrFail(id, {
       relations: ['course', 'profile'],
-      select: ['id', 'name', 'cpf', 'username', 'email', 'course', 'profile'],
+      select: [
+        'id',
+        'name',
+        'registration',
+        'username',
+        'email',
+        'course',
+        'profile',
+      ],
     });
 
     return user;

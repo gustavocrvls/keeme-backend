@@ -2,7 +2,6 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
 import { verifyToken } from '../../../middlewares/auth';
-import { isCPFValid } from '../../../utils/validations';
 import { createUserController } from '../useCases/CreateUser';
 import { indexUserController } from '../useCases/IndexUser';
 import { loginUserController } from '../useCases/LoginUser';
@@ -37,15 +36,7 @@ usersRoutes.post(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
-      cpf: Joi.string()
-        .required()
-        .custom((value, helpers) => {
-          const cleanedCPF = value.replace(/\D/g, '');
-
-          if (!isCPFValid(cleanedCPF)) return helpers.error('any.invalid');
-
-          return value;
-        }),
+      registration: Joi.string().required(),
       email: Joi.string().required(),
       username: Joi.string().required(),
       password: Joi.string().required(),

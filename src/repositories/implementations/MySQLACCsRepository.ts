@@ -77,11 +77,11 @@ export class MySQLACCsRepository implements IACCsRepository {
         'acc_assessment',
         'user.id',
         'user.name',
-        'user.cpf',
+        'user.registration',
         'user.email',
         'acc_assessment__user.id',
         'acc_assessment__user.name',
-        'acc_assessment__user.cpf',
+        'acc_assessment__user.registration',
         'acc_assessment__user.email',
       ])
       .getMany();

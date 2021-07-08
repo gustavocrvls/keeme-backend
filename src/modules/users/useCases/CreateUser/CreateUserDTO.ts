@@ -1,6 +1,6 @@
 export interface ICreateUserDTO {
   name: string;
-  cpf: string;
+  registration: string;
   email: string;
   username: string;
   password: string;

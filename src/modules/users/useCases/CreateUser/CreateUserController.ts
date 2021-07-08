@@ -10,18 +10,16 @@ export class CreateUserController {
   }
 
   async handle(request: Request, response: Response): Promise<void> {
-    const { course, cpf, email, name, password, profile, username } =
+    const { course, registration, email, name, password, profile, username } =
       request.body;
 
     try {
       const token = getTokenFieldsFromRequest(request) ?? ({} as IToken);
 
-      const formatedCPF = cpf.replace(/\D/g, '');
-
       await this.createUserUseCase.execute(
         {
           course,
-          cpf: formatedCPF,
+          registration,
           email,
           name,
           password,

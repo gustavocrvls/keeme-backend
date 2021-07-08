@@ -24,12 +24,13 @@ export class CreateUserUseCase {
       }
     }
 
-    const userByCPF = await this.usersRepository.getByField({
-      field: 'cpf',
-      param: data.cpf,
+    const userByRegistration = await this.usersRepository.getByField({
+      field: 'registration',
+      param: data.registration,
     });
 
-    if (userByCPF) throw new Error('Already exists a user with this CPF.');
+    if (userByRegistration)
+      throw new Error('Already exists a user with this registration.');
 
     const userByEmail = await this.usersRepository.getByField({
       field: 'email',

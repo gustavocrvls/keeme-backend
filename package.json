@@ -4,11 +4,12 @@
   "description": "API REST da aplicação KeeMe ",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/server.js",
     "build": "tsc",
-    "dev": "NODE_ENV=development ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "start": "node dist/server.js",
+    "start:dev": "NODE_ENV=development ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "mg:run": "NODE_ENV=development yarn typeorm migration:run"
+    "dc:up": "sudo docker-compose up --build -d",
+    "dc:down": "docker-compose down"
   },
   "author": "Gustavo Carvalho Silva <gustavocrvl42@gmail.com> (https://github.com/gustavocrvls)",
   "repository": {

@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  minio:
+    container_name: minio
+    image: minio/minio
+    ports:
+      - "9000:9000"
+    volumes:
+      - ../storage/minio:/data
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    command: server /data
+    networks:
+      - local-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "instinct"
+      MYSQL_DATABASE: "keeme"
+    ports:
+      - "3307:3306"
+    networks:
+      - local-network
+
+
+networks:
+  local-network:
+    driver: bridge

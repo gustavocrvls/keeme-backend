@@ -1,5 +1,3 @@
-require('dotenv/config');
-
 const developmentConfig = {
   type: 'mysql',
   logging: true,
@@ -33,4 +31,4 @@ const productionConfig = {
 };
 
 module.exports =
-  process.env.NODE_ENV === 'development' ? developmentConfig : productionConfig;
+  process.env.NODE_ENV === 'production' ? productionConfig : developmentConfig;

@@ -8,7 +8,6 @@ const password = crypto
 export const UserSeed = [
   {
     name: 'Administrador',
-    cpf: '00000000000',
     email: 'admin@admin.com',
     username: 'admin',
     profile: 1,

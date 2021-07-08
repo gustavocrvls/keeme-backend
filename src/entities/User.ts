@@ -19,7 +19,7 @@ export class User {
   public name: string;
 
   @Column()
-  public cpf: string;
+  public registration: string;
 
   @Column()
   public email: string;

@@ -1,11 +1,9 @@
 import { Request } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
-export interface IToken {
+export interface IToken extends JwtPayload {
   id: string;
   profile: string;
-  iat: string;
-  exp: string;
 }
 
 export function getTokenFieldsFromRequest(req: Request): IToken | null {
@@ -23,5 +21,5 @@ export function getTokenFieldsFromRequest(req: Request): IToken | null {
     return decoded;
   }
 
-  throw new Error('Token not provided!');
+  return null;
 }

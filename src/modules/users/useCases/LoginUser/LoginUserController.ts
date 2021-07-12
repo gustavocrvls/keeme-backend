@@ -21,10 +21,10 @@ export class LoginUserController {
       response.json({
         auth: true,
         data: {
-          id: userData.data.id,
-          name: userData.data.name,
-          profile: userData.data.profile,
-          course: userData.data.course,
+          id: userData.data?.id,
+          name: userData.data?.name,
+          profile: userData.data?.profile,
+          course: userData.data?.course,
         },
       });
     } catch (err) {

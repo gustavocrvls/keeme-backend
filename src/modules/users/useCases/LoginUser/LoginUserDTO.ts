@@ -7,6 +7,6 @@ export interface ILoginUserDTO {
 
 export interface ILoginUserResponse {
   auth: boolean;
-  token: string;
-  data: User;
+  token?: string;
+  data: User | undefined;
 }

@@ -24,10 +24,18 @@ export class LoginUserUseCase {
 
       const user = await this.usersRepository.getUserByUsername(username);
 
-      const token = generateToken(user.id, user.profile.id);
+      console.log('\n\n\n\n ', user);
+      if (user?.id) {
+        const token = generateToken(user.id, user.profile.id);
+
+        return {
+          token,
+          auth: true,
+          data: user,
+        };
+      }
 
       return {
-        token,
         auth: true,
         data: user,
       };

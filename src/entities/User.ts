@@ -43,7 +43,10 @@ export class User {
   public accs: ACC[];
 
   constructor(
-    props: Omit<User, 'id' | 'course' | 'profile' | 'created_at' | 'accs'>,
+    props: Omit<
+      User,
+      'id' | 'course' | 'profile' | 'created_at' | 'accs' | 'password'
+    >,
     id?: number,
   ) {
     Object.assign(this, props);

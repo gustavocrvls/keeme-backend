@@ -87,10 +87,12 @@ export class MySQLUsersRepository implements IUsersRepository {
     return user;
   }
 
-  async create(user: User): Promise<void> {
+  async create(user: User): Promise<User> {
     const usersRepository = getRepository(User);
 
     const newUser = await usersRepository.save(user);
+
+    return newUser;
   }
 
   async update(user: IUpdateUserRequestDTO): Promise<void> {
@@ -109,7 +111,7 @@ export class MySQLUsersRepository implements IUsersRepository {
     return user;
   }
 
-  async getUserByUsername(username: string): Promise<User> {
+  async getUserByUsername(username: string): Promise<User | undefined> {
     const usersRepository = getRepository(User);
 
     const user = await usersRepository
@@ -119,7 +121,7 @@ export class MySQLUsersRepository implements IUsersRepository {
       .where('username = :username', {
         username,
       })
-      .getOneOrFail();
+      .getOne();
 
     return user;
   }

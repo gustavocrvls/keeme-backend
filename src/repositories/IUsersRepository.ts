@@ -10,11 +10,11 @@ export interface IGetByFieldData {
 
 export interface IUsersRepository {
   index(data: IIndexUserRequestDTO): Promise<IPaginatedArray>;
-  create(user: User): Promise<void>;
+  create(user: User): Promise<User>;
   update(user: IUpdateUserRequestDTO): Promise<void>;
   show(id: number): Promise<User>;
   // delete(id: number): Promise<void>;
 
-  getUserByUsername(username: string): Promise<User>;
+  getUserByUsername(username: string): Promise<User | undefined>;
   getByField(data: IGetByFieldData): Promise<User | undefined>;
 }

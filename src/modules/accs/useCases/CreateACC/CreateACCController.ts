@@ -25,8 +25,7 @@ export class CreateACCController {
       });
       response.status(201).json(acc);
     } catch (err) {
-      console.error(err);
-      response.status(404).json({ msg: 'Tipo de ACC não encontrado!' });
+      response.status(404).json({ msg: err.message });
     }
   }
 }

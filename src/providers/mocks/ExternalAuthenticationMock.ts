@@ -4,25 +4,24 @@ import { IExternalAuthenticationProvider } from '../IExternalAuthenticationProvi
 const users = [
   {
     username: 'gustavo.carvalho',
-    password: 'teste123',
+    password: 'pass1234',
   },
   {
     username: 'maria',
-    password: 'teste123',
+    password: 'pass1234',
   },
   {
     username: 'admin',
-    password: 'teste123',
+    password: 'pass1234',
   },
   {
     username: 'joao',
-    password: 'teste123',
+    password: 'pass1234',
   },
 ];
 
 export class ExternalAuthenticationMock
-  implements IExternalAuthenticationProvider
-{
+  implements IExternalAuthenticationProvider {
   async login(data: ILoginUserDTO): Promise<boolean> {
     const { password, username } = data;
 

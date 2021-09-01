@@ -1,13 +1,11 @@
 /* eslint-disable consistent-return */
 /* eslint-disable func-names */
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
-interface IToken {
+interface IToken extends JwtPayload {
   id: string;
   profile: string;
-  iat: string;
-  exp: string;
 }
 
 function verifyToken(profiles: Array<number>) {

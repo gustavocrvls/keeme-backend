@@ -125,4 +125,22 @@ export class MySQLUsersRepository implements IUsersRepository {
 
     return user;
   }
+
+  async login(data: ILoginUserDTO): Promise<User> {
+    const usersRepository = getRepository(User);
+
+    const { username, password } = data;
+
+    const user = await usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.profile', 'profile')
+      .leftJoinAndSelect('user.course', 'course')
+      .where('username = :username AND password = MD5(:password)', {
+        username,
+        password,
+      })
+      .getOneOrFail();
+
+    return user;
+  }
 }

@@ -21,6 +21,7 @@ const users = [
 ];
 
 export class ExternalAuthenticationMock
+  // eslint-disable-next-line prettier/prettier
   implements IExternalAuthenticationProvider {
   async login(data: ILoginUserDTO): Promise<boolean> {
     const { password, username } = data;

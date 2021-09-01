@@ -24,7 +24,6 @@ export class LoginUserUseCase {
 
       const user = await this.usersRepository.getUserByUsername(username);
 
-      console.log('\n\n\n\n ', user);
       if (user?.id) {
         const token = generateToken(user.id, user.profile.id);
 
@@ -36,6 +35,20 @@ export class LoginUserUseCase {
       }
 
       return {
+        auth: true,
+        data: user,
+      };
+    }
+
+    const { username, password } = data;
+
+    const user = await this.usersRepository.login({ username, password });
+
+    if (user?.id) {
+      const token = generateToken(user.id, user.profile.id);
+
+      return {
+        token,
         auth: true,
         data: user,
       };

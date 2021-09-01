@@ -12,7 +12,7 @@ export class CreateUserUseCase {
     this.usersRepository = usersRepository;
   }
 
-  async execute(data: ICreateUserDTO, token?: IToken): Promise<void> {
+  async execute(data: ICreateUserDTO, token?: IToken): Promise<User> {
     if (
       data.profile === PROFILE.ADMINISTRATOR ||
       data.profile === PROFILE.COORDINATOR
@@ -47,16 +47,26 @@ export class CreateUserUseCase {
     if (userByUsername)
       throw new Error('Already exists a user with this username');
 
-    const password = crypto
-      .createHash('md5')
-      .update(data.password)
-      .digest('hex');
+    let userData = {} as ICreateUserDTO;
 
-    const userData = {
-      ...data,
-      password,
-    };
+    if (data.password) {
+      const password = crypto
+        .createHash('md5')
+        .update(data?.password)
+        .digest('hex');
 
-    await this.usersRepository.create(new User(userData));
+      userData = {
+        ...data,
+        password,
+      };
+    } else {
+      userData = {
+        ...data,
+      };
+    }
+
+    const newUser = await this.usersRepository.create(new User(userData));
+
+    return newUser;
   }
 }

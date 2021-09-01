@@ -16,7 +16,7 @@ export class CreateUserController {
     try {
       const token = getTokenFieldsFromRequest(request) ?? ({} as IToken);
 
-      await this.createUserUseCase.execute(
+      const newUser = await this.createUserUseCase.execute(
         {
           course,
           registration,
@@ -29,7 +29,7 @@ export class CreateUserController {
         token,
       );
 
-      response.sendStatus(201);
+      response.status(201).json(newUser);
     } catch (error) {
       response.status(400).json({ msg: error.message });
     }

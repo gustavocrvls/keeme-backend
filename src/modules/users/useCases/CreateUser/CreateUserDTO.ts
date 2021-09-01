@@ -3,7 +3,7 @@ export interface ICreateUserDTO {
   registration: string;
   email: string;
   username: string;
-  password: string;
+  password?: string;
   profile: number;
   course: number;
 }

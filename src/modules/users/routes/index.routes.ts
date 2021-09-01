@@ -32,14 +32,13 @@ usersRoutes.get(
 // creates a new user
 usersRoutes.post(
   '/',
-  verifyToken([PROFILE.ADMINISTRATOR]),
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
       registration: Joi.string().required(),
       email: Joi.string().required(),
       username: Joi.string().required(),
-      password: Joi.string().required(),
+      password: Joi.string().min(8),
       profile: Joi.number().required(),
       course: Joi.number().required(),
     }),

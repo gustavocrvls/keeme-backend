@@ -28,7 +28,7 @@ export class IndexACCTypeController {
         page: Number(<string>page),
       });
       response.status(200).json(accTypes);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.sendStatus(400);
     }

@@ -49,6 +49,8 @@ export class MySQLUsersRepository implements IUsersRepository {
       usersQuery = usersQuery.take(limit).skip(page * limit);
     }
 
+    usersQuery = usersQuery.andWhere('user.active = :active', { active: true });
+
     const users = await usersQuery
       .leftJoinAndSelect('user.profile', 'profile')
       .leftJoinAndSelect('user.course', 'course')
@@ -82,6 +84,9 @@ export class MySQLUsersRepository implements IUsersRepository {
         'course',
         'profile',
       ],
+      where: {
+        active: true,
+      },
     });
 
     return user;
@@ -106,7 +111,10 @@ export class MySQLUsersRepository implements IUsersRepository {
 
     const { field, param } = data;
 
-    const user = await usersRepository.findOne({ [field]: param });
+    const user = await usersRepository.findOne({
+      [field]: param,
+      active: true,
+    });
 
     return user;
   }
@@ -120,6 +128,9 @@ export class MySQLUsersRepository implements IUsersRepository {
       .leftJoinAndSelect('user.course', 'course')
       .where('username = :username', {
         username,
+      })
+      .andWhere('active = :active', {
+        active: true,
       })
       .getOne();
 
@@ -138,6 +149,9 @@ export class MySQLUsersRepository implements IUsersRepository {
       .where('username = :username AND password = MD5(:password)', {
         username,
         password,
+      })
+      .andWhere('active = :active', {
+        active: true,
       })
       .getOneOrFail();
 

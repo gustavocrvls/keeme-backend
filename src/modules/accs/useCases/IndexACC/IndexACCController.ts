@@ -34,7 +34,7 @@ export class IndexACCController {
         course: Number(<string>course),
       });
       response.status(200).json(accs);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.sendStatus(400);
     }

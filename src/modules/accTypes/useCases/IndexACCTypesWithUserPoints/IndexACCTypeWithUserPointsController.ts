@@ -24,7 +24,7 @@ export class IndexACCTypeWithUserPointsController {
         },
       );
       response.status(200).json(accTypesWithUserPoints);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.sendStatus(400);
     }

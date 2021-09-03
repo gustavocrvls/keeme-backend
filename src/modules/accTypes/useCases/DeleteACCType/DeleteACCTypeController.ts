@@ -16,7 +16,7 @@ export class DeleteACCTypeController {
         id: Number(<string>id),
       });
       response.sendStatus(200);
-    } catch (err) {
+    } catch (err: any) {
       response.status(400).json({ msg: err.message });
     }
   }

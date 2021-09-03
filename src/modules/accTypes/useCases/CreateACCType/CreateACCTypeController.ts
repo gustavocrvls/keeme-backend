@@ -29,7 +29,7 @@ export class CreateACCTypeController {
     try {
       this.createACCTypeUseCase.execute(accType);
       response.sendStatus(201);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.sendStatus(500);
     }

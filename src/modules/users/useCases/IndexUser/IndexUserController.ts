@@ -23,7 +23,7 @@ export class IndexUserController {
         profile: Number(<string>profile),
       });
       response.status(200).json(users);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.sendStatus(400);
     }

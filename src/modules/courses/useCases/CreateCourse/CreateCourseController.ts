@@ -16,7 +16,7 @@ export class CreateCourseController {
         name,
       });
       response.sendStatus(201);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.sendStatus(500);
     }

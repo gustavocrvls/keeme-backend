@@ -20,7 +20,7 @@ export class IndexUnityOfMeasurementController {
         limit: Number(<string>limit),
       });
       response.status(200).json(unitsOfMeasurement);
-    } catch (err) {
+    } catch (err: any) {
       response.sendStatus(400);
     }
   }

@@ -31,7 +31,7 @@ export class UpdateACCTypeController {
     try {
       await this.updateACCTypeUseCase.execute(data);
       response.sendStatus(200);
-    } catch (err) {
+    } catch (err: any) {
       response.status(400).json({ msg: err.message });
     }
   }

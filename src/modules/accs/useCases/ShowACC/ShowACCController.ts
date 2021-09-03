@@ -16,7 +16,7 @@ export class ShowACCController {
         id: Number(<string>id),
       });
       response.status(200).json(acc);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.status(404).json({ msg: 'ACC not found!' });
     }

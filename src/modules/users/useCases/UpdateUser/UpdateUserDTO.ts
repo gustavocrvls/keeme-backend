@@ -10,4 +10,5 @@ export interface IUpdateUserRequestDTO {
   password?: string;
   profile?: Profile;
   course?: Course;
+  active?: boolean;
 }

@@ -20,7 +20,7 @@ export class IndexCourseController {
         page: Number(<string>page),
       });
       response.status(200).json(courses);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.sendStatus(400);
     }

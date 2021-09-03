@@ -30,6 +30,9 @@ export class User {
   @Column()
   public password: string;
 
+  @Column()
+  public active: boolean;
+
   @ManyToOne(() => Course, course => course.id)
   @JoinColumn({ name: 'course_id' })
   public course: Course;
@@ -45,7 +48,13 @@ export class User {
   constructor(
     props: Omit<
       User,
-      'id' | 'course' | 'profile' | 'created_at' | 'accs' | 'password'
+      | 'id'
+      | 'course'
+      | 'profile'
+      | 'created_at'
+      | 'accs'
+      | 'password'
+      | 'active'
     >,
     id?: number,
   ) {

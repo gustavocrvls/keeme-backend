@@ -27,7 +27,7 @@ export class LoginUserController {
           course: userData.data?.course,
         },
       });
-    } catch (err) {
+    } catch (err: any) {
       response.status(401).json({ msg: err.message });
     }
   }

@@ -24,7 +24,7 @@ export class CreateACCController {
         certificate,
       });
       response.status(201).json(acc);
-    } catch (err) {
+    } catch (err: any) {
       response.status(404).json({ msg: err.message });
     }
   }

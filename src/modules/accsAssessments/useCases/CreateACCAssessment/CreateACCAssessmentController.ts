@@ -19,7 +19,7 @@ export class CreateACCAssessmentController {
         acc_status,
       });
       response.sendStatus(201);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.status(400).json({ msg: err.message });
     }

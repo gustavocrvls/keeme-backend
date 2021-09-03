@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { PROFILE } from '../../../constants/Profile';
 import { verifyToken } from '../../../middlewares/auth';
 import { createUserController } from '../useCases/CreateUser';
+import { deleteUserController } from '../useCases/DeleteUser';
 import { indexUserController } from '../useCases/IndexUser';
 import { loginUserController } from '../useCases/LoginUser';
 import { showUserController } from '../useCases/ShowUser';
@@ -35,7 +36,10 @@ usersRoutes.post(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
-      registration: Joi.string().required(),
+      registration: Joi.alternatives().conditional('profile', {
+        is: PROFILE.STUDENT,
+        then: Joi.string().required(),
+      }),
       email: Joi.string().required(),
       username: Joi.string().required(),
       password: Joi.string().min(8),
@@ -70,6 +74,6 @@ usersRoutes.post(
   (req, res) => loginUserController.handle(req, res),
 );
 
-// usersRoutes.delete('/:id', UsuarioController.delete);
+usersRoutes.delete('/:id', (req, res) => deleteUserController.handle(req, res));
 
 export { usersRoutes };

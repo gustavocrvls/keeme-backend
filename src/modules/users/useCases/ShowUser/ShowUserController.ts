@@ -14,7 +14,7 @@ export class ShowUserController {
     try {
       const user = await this.showUserUseCase.execute({ id: Number(id) });
       response.json(user);
-    } catch (err) {
+    } catch (err: any) {
       response.status(500).json({ msg: err.message });
     }
   }

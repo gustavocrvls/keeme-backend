@@ -16,7 +16,7 @@ export class ShowACCTypeController {
         id: Number(<string>id),
       });
       response.status(200).json(accTypes);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       response.status(404).json({ msg: 'Tipo de ACC não encontrado!' });
     }

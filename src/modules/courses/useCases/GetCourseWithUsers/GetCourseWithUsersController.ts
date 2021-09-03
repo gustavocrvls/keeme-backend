@@ -24,7 +24,7 @@ export class GetCourseWithUsersController {
       });
 
       response.json({ data: courses });
-    } catch (err) {
+    } catch (err: any) {
       response.status(500).json({ msg: err.message });
     }
   }

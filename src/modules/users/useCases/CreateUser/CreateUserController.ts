@@ -30,8 +30,8 @@ export class CreateUserController {
       );
 
       response.status(201).json(newUser);
-    } catch (error) {
-      response.status(400).json({ msg: error.message });
+    } catch (err: any) {
+      response.status(400).json({ msg: err.message });
     }
   }
 }

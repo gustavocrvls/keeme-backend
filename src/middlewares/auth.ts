@@ -37,7 +37,7 @@ function verifyToken(profiles: Array<number>) {
             .status(401)
             .json({ auth: false, message: 'No token provided.' });
         }
-      } catch (err) {
+      } catch (err: any) {
         return res.status(401).json({ auth: false, message: 'Invalid Token.' });
       }
     else next();

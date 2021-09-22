@@ -24,8 +24,7 @@ export class IndexUserController {
       });
       response.status(200).json(users);
     } catch (err: any) {
-      console.error(err);
-      response.sendStatus(400);
+      response.status(400).send({ msg: err });
     }
   }
 }

@@ -26,29 +26,36 @@ O projeto está dividido em duas partes:
 - Typescript
 - Express
 - TypeORM
+- Min.io
 
 ## 🧙‍♂️ Como Iniciar o Projeto
 
-Primeiro faça a clonagem do projeto em algum diretorio do seu computador:
+Primeiro faça a clonagem do projeto em algum diretório do seu computador:
 ```bash
 > cd "algum/diretorio/qualquer"
 > git clone https://github.com/gustavocrvls/keeme-backend.git
 ```
 Depois disso instale as dependências:
 ```bash
-> yarn install
+> yarn
 ```
 Após isso crie um arquivo _.env_ na raiz do projeto, preenchendo os campos que estão em _.env.example_:
 
 ```env
-API_PORT=
-JWT_SECRET=
+API_PORT= # Porta em que a API será executada, não precisa ser declarada em ambiente de produção
+JWT_SECRET= # Palavra chave para autenticação do JWT
 
-DB_HOST=
-DB_PORT=
-DB_USERNAME=
-DB_PASSWORD=
-DB_DATABASE=
+DB_HOST= # Endereço do servidor do banco de dados
+DB_PORT=  # Porta do servidor do banco de dados
+DB_USERNAME= # Usuário do servidor do banco de dados
+DB_PASSWORD= # Senha do servidor do banco de dados
+DB_DATABASE= # Nome do banco de dados
+
+MINIO_ENDPOINT= # Endereço do servidor de arquivos
+MINIO_PORT= # Porta do servidor de arquivos
+MINIO_ACCESS_KEY_ID= # Usuário do servidor de arquivos
+MINIO_SECRET_ACCESS_KEY= # Senha do servidor de arquivos
+MINIO_BUCKET_NAME # Bucket onde os arquivos do KeeMe serão salvos
 ```
 
 Você vai precisar iniciar o banco de dados, usando o TypeORM.
@@ -61,6 +68,11 @@ Você vai precisar iniciar o banco de dados, usando o TypeORM.
 Caso você não precise de uma senha forte (como em um ambiente de testes), ou caso você precise rodar outras migrations, basta executar:
 ```bash
   NODE_ENV=development yarn typeorm migration:run
+```
+
+A última configuração necessária é iniciar o _docker_ para o servidor local de arquivos:
+```bash
+  yarn dc:up
 ```
 
 E então é só iniciar o projeto:

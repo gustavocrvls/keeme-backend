@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Course } from './Course';
 import { Profile } from './Profile';
-import { ACC } from './ACC';
+import { ACC } from '../modules/accs/model/ACC';
 
 @Entity('user')
 export class User {

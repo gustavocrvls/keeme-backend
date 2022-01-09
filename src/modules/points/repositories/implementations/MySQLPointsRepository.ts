@@ -4,7 +4,7 @@ import {
   IPointsByStatus,
   IPointsRepository,
 } from '../IPointsRepository';
-import { ACC } from '../../../../entities/ACC';
+import { ACC } from '../../../accs/model/ACC';
 
 export class MySQLPointsRepository implements IPointsRepository {
   public async getPointsByStatus(data: IPointsByStatus): Promise<IACCPoints[]> {

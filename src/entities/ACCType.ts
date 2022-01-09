@@ -7,7 +7,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { UnityOfMeasurement } from './UnityOfMeasurement';
-import { ACC } from './ACC';
+import { ACC } from '../modules/accs/model/ACC';
 import { ACCVariant } from './ACCVariant';
 
 @Entity('acc_type')

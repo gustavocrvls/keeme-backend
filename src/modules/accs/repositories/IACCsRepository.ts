@@ -1,4 +1,4 @@
-import { ACC } from '../../../entities/ACC';
+import { ACC } from '../model/ACC';
 import { IShowACCDTO } from '../useCases/ShowACC/ShowACCDTO';
 import { IPaginatedArray } from '../../../providers/IArrayPaginatorProvider';
 import { IDeleteACCRequestDTO } from '../useCases/DeleteACC/DeleteACCDTO';

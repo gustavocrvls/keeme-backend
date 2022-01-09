@@ -6,7 +6,7 @@ import {
   ManyToOne,
   OneToOne,
 } from 'typeorm';
-import { ACC } from './ACC';
+import { ACC } from '../modules/accs/model/ACC';
 import { User } from './User';
 
 @Entity('acc_assessment')

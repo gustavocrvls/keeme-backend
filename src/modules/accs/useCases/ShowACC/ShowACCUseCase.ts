@@ -1,4 +1,4 @@
-import { ACC } from '../../../../entities/ACC';
+import { ACC } from '../../model/ACC';
 import { IFileStorageProvider } from '../../../../providers/IFileStorageProvider';
 import { IACCsRepository } from '../../repositories/IACCsRepository';
 import { IShowACCDTO, ShowACCResponse } from './ShowACCDTO';

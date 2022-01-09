@@ -1,5 +1,5 @@
 import { getRepository, Like } from 'typeorm';
-import { ACC } from '../../../../entities/ACC';
+import { ACC } from '../../model/ACC';
 import { IShowACCDTO } from '../../useCases/ShowACC/ShowACCDTO';
 import {
   IArrayPaginatorProvider,

@@ -6,11 +6,11 @@ import {
   ManyToOne,
   OneToOne,
 } from 'typeorm';
-import { ACCType } from './ACCType';
-import { ACCStatus } from './ACCStatus';
-import { User } from './User';
-import { ACCVariant } from './ACCVariant';
-import { ACCAssessment } from './ACCAssessment';
+import { ACCType } from '../../../entities/ACCType';
+import { ACCStatus } from '../../../entities/ACCStatus';
+import { User } from '../../../entities/User';
+import { ACCVariant } from '../../../entities/ACCVariant';
+import { ACCAssessment } from '../../../entities/ACCAssessment';
 
 @Entity('acc')
 export class ACC {

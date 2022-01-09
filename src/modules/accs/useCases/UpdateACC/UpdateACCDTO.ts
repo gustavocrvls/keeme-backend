@@ -1,5 +1,5 @@
 import { ACCStatus } from '../../../accStatus/model/ACCStatus';
-import { ACCType } from '../../../../entities/ACCType';
+import { ACCType } from '../../../accTypes/model/ACCType';
 import { ACCVariant } from '../../../../entities/ACCVariant';
 
 export interface IUpdateACCDTO {

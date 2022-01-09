@@ -6,7 +6,7 @@ import {
   ManyToOne,
   OneToOne,
 } from 'typeorm';
-import { ACCType } from '../../../entities/ACCType';
+import { ACCType } from '../../accTypes/model/ACCType';
 import { ACCStatus } from '../../accStatus/model/ACCStatus';
 import { User } from '../../../entities/User';
 import { ACCVariant } from '../../../entities/ACCVariant';

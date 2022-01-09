@@ -5,7 +5,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { ACCType } from './ACCType';
+import { ACCType } from '../modules/accTypes/model/ACCType';
 
 @Entity('unity_of_measurement')
 export class UnityOfMeasurement {

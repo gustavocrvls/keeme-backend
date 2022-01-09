@@ -6,9 +6,9 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
-import { UnityOfMeasurement } from './UnityOfMeasurement';
-import { ACC } from '../modules/accs/model/ACC';
-import { ACCVariant } from './ACCVariant';
+import { UnityOfMeasurement } from '../../../entities/UnityOfMeasurement';
+import { ACC } from '../../accs/model/ACC';
+import { ACCVariant } from '../../../entities/ACCVariant';
 
 @Entity('acc_type')
 export class ACCType {

@@ -1,5 +1,5 @@
 import { getRepository, Like } from 'typeorm';
-import { ACCType } from '../../../../entities/ACCType';
+import { ACCType } from '../../model/ACCType';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,

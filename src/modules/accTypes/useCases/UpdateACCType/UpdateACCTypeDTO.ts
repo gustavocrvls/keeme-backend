@@ -1,4 +1,4 @@
-import { ACCVariant } from '../../../../entities/ACCVariant';
+import { ACCVariant } from '../../../accVariants/model/ACCVariant';
 import { UnityOfMeasurement } from '../../../../entities/UnityOfMeasurement';
 
 export interface IUpdateACCTypeRequestDTO {

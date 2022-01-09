@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { UnityOfMeasurement } from '../../../entities/UnityOfMeasurement';
 import { ACC } from '../../accs/model/ACC';
-import { ACCVariant } from '../../../entities/ACCVariant';
+import { ACCVariant } from '../../accVariants/model/ACCVariant';
 
 @Entity('acc_type')
 export class ACCType {

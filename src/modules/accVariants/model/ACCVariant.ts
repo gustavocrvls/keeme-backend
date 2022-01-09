@@ -5,7 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
-import { ACCType } from '../modules/accTypes/model/ACCType';
+import { ACCType } from '../../accTypes/model/ACCType';
 
 @Entity('acc_variant')
 export class ACCVariant {

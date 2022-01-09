@@ -1,5 +1,5 @@
 import { IACCTypeWithUserACCs } from '../repositories/IACCTypesRepository';
-import { IACCPoints } from '../repositories/IPointsRepository';
+import { IACCPoints } from '../modules/points/repositories/IPointsRepository';
 import { IACCTypesWithUserPointsResponseDTO } from '../modules/accTypes/useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
 
 export interface IPointsCalculatorProvider {

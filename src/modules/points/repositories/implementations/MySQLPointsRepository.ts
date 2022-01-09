@@ -1,10 +1,10 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import {
   IACCPoints,
   IPointsByStatus,
   IPointsRepository,
 } from '../IPointsRepository';
-import { ACC } from '../../entities/ACC';
+import { ACC } from '../../../../entities/ACC';
 
 export class MySQLPointsRepository implements IPointsRepository {
   public async getPointsByStatus(data: IPointsByStatus): Promise<IACCPoints[]> {

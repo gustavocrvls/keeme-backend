@@ -10,7 +10,7 @@ import { ACCType } from '../../../entities/ACCType';
 import { ACCStatus } from '../../../entities/ACCStatus';
 import { User } from '../../../entities/User';
 import { ACCVariant } from '../../../entities/ACCVariant';
-import { ACCAssessment } from '../../../entities/ACCAssessment';
+import { ACCAssessment } from '../../accsAssessments/model/ACCAssessment';
 
 @Entity('acc')
 export class ACC {

@@ -1,4 +1,4 @@
-import { ACCAssessment } from '../../../../entities/ACCAssessment';
+import { ACCAssessment } from '../../model/ACCAssessment';
 import { ACCStatus } from '../../../../entities/ACCStatus';
 import { IACCsAssessmentsRepository } from '../../repositories/IACCsAssessmentsRepository';
 import { IACCsRepository } from '../../../accs/repositories/IACCsRepository';

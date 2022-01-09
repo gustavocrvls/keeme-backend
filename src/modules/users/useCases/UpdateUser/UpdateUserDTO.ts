@@ -1,4 +1,4 @@
-import { Course } from '../../../../entities/Course';
+import { Course } from '../../../courses/model/Course';
 import { Profile } from '../../../../entities/Profile';
 
 export interface IUpdateUserRequestDTO {

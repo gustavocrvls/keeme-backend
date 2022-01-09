@@ -6,7 +6,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Course } from './Course';
+import { Course } from '../modules/courses/model/Course';
 import { Profile } from './Profile';
 import { ACC } from '../modules/accs/model/ACC';
 

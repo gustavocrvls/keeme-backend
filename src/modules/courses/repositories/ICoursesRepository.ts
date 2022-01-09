@@ -1,4 +1,4 @@
-import { Course } from '../../../entities/Course';
+import { Course } from '../model/Course';
 import {
   ICourseWithUsers,
   IGetCourseWithUsersDTO,

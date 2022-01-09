@@ -5,7 +5,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { User } from '../../../entities/User';
+import { User } from '../../users/model/User';
 
 @Entity('course')
 export class Course {

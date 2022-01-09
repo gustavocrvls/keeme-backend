@@ -6,9 +6,9 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Course } from '../modules/courses/model/Course';
-import { Profile } from '../modules/profile/model/Profile';
-import { ACC } from '../modules/accs/model/ACC';
+import { Course } from '../../courses/model/Course';
+import { Profile } from '../../profile/model/Profile';
+import { ACC } from '../../accs/model/ACC';
 
 @Entity('user')
 export class User {

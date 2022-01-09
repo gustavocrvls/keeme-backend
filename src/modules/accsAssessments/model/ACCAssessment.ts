@@ -7,7 +7,7 @@ import {
   OneToOne,
 } from 'typeorm';
 import { ACC } from '../../accs/model/ACC';
-import { User } from '../../../entities/User';
+import { User } from '../../users/model/User';
 
 @Entity('acc_assessment')
 export class ACCAssessment {

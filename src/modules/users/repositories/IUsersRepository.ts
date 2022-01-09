@@ -1,4 +1,4 @@
-import { User } from '../../../entities/User';
+import { User } from '../model/User';
 import { IIndexUserRequestDTO } from '../useCases/IndexUser/IndexUserDTO';
 import { ILoginUserDTO } from '../useCases/LoginUser/LoginUserDTO';
 import { IUpdateUserRequestDTO } from '../useCases/UpdateUser/UpdateUserDTO';

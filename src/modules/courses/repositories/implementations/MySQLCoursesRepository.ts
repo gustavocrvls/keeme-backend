@@ -1,14 +1,14 @@
 import { getRepository, Like } from 'typeorm';
-import { Course } from '../../entities/Course';
+import { Course } from '../../../../entities/Course';
 import {
   ICourseWithUsers,
   IGetCourseWithUsersDTO,
-} from '../../modules/courses/useCases/GetCourseWithUsers/GetCourseWithUsersDTO';
-import { IIndexCourseRequestDTO } from '../../modules/courses/useCases/IndexCourse/IndexCourseDTO';
+} from '../../useCases/GetCourseWithUsers/GetCourseWithUsersDTO';
+import { IIndexCourseRequestDTO } from '../../useCases/IndexCourse/IndexCourseDTO';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
-} from '../../providers/IArrayPaginatorProvider';
+} from '../../../../providers/IArrayPaginatorProvider';
 import { ICoursesRepository } from '../ICoursesRepository';
 
 export class MySQLCoursesRepository implements ICoursesRepository {

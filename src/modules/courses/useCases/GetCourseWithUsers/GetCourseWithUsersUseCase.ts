@@ -1,4 +1,4 @@
-import { ICoursesRepository } from '../../../../repositories/ICoursesRepository';
+import { ICoursesRepository } from '../../repositories/ICoursesRepository';
 import {
   ICourseWithUsers,
   IGetCourseWithUsersDTO,

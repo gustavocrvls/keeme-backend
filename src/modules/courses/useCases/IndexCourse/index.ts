@@ -1,5 +1,5 @@
 import { ArrayPaginatorProvider } from '../../../../providers/implementations/ArrayPaginatorProvider';
-import { MySQLCoursesRepository } from '../../../../repositories/implementations/MySQLCoursesRepository';
+import { MySQLCoursesRepository } from '../../repositories/implementations/MySQLCoursesRepository';
 import { IndexCourseController } from './IndexCourseController';
 import { IndexCourseUseCase } from './IndexCourseUseCase';
 

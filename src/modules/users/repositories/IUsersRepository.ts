@@ -1,8 +1,8 @@
-import { User } from '../entities/User';
-import { IIndexUserRequestDTO } from '../modules/users/useCases/IndexUser/IndexUserDTO';
-import { ILoginUserDTO } from '../modules/users/useCases/LoginUser/LoginUserDTO';
-import { IUpdateUserRequestDTO } from '../modules/users/useCases/UpdateUser/UpdateUserDTO';
-import { IPaginatedArray } from '../providers/IArrayPaginatorProvider';
+import { User } from '../../../entities/User';
+import { IIndexUserRequestDTO } from '../useCases/IndexUser/IndexUserDTO';
+import { ILoginUserDTO } from '../useCases/LoginUser/LoginUserDTO';
+import { IUpdateUserRequestDTO } from '../useCases/UpdateUser/UpdateUserDTO';
+import { IPaginatedArray } from '../../../providers/IArrayPaginatorProvider';
 
 export interface IGetByFieldData {
   field: 'email' | 'registration' | 'username';

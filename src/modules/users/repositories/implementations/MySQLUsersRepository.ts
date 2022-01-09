@@ -1,12 +1,12 @@
 import { getRepository, Like } from 'typeorm';
-import { User } from '../../entities/User';
-import { IIndexUserRequestDTO } from '../../modules/users/useCases/IndexUser/IndexUserDTO';
-import { ILoginUserDTO } from '../../modules/users/useCases/LoginUser/LoginUserDTO';
-import { IUpdateUserRequestDTO } from '../../modules/users/useCases/UpdateUser/UpdateUserDTO';
+import { User } from '../../../../entities/User';
+import { IIndexUserRequestDTO } from '../../useCases/IndexUser/IndexUserDTO';
+import { ILoginUserDTO } from '../../useCases/LoginUser/LoginUserDTO';
+import { IUpdateUserRequestDTO } from '../../useCases/UpdateUser/UpdateUserDTO';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
-} from '../../providers/IArrayPaginatorProvider';
+} from '../../../../providers/IArrayPaginatorProvider';
 import { IGetByFieldData, IUsersRepository } from '../IUsersRepository';
 
 export class MySQLUsersRepository implements IUsersRepository {

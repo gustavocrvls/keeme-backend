@@ -1,5 +1,5 @@
 import { ArrayPaginatorProvider } from '../../../../providers/implementations/ArrayPaginatorProvider';
-import { MySQLUsersRepository } from '../../../../repositories/implementations/MySQLUsersRepository';
+import { MySQLUsersRepository } from '../../repositories/implementations/MySQLUsersRepository';
 import { IndexUserController } from './IndexUserController';
 import { IndexUserUseCase } from './IndexUserUseCase';
 

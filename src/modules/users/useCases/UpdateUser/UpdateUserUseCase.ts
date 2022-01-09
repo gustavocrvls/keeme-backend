@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { IUsersRepository } from '../../../../repositories/IUsersRepository';
+import { IUsersRepository } from '../../repositories/IUsersRepository';
 import { IUpdateUserRequestDTO } from './UpdateUserDTO';
 
 export class UpdateUserUseCase {

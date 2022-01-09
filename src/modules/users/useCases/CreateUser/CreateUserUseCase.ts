@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { PROFILE } from '../../../../constants/Profile';
 import { User } from '../../../../entities/User';
-import { IUsersRepository } from '../../../../repositories/IUsersRepository';
+import { IUsersRepository } from '../../repositories/IUsersRepository';
 import { IToken } from '../../../../utils/jwt';
 import { ICreateUserDTO } from './CreateUserDTO';
 

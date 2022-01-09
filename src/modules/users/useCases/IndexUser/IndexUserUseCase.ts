@@ -1,5 +1,5 @@
 import { IPaginatedArray } from '../../../../providers/IArrayPaginatorProvider';
-import { IUsersRepository } from '../../../../repositories/IUsersRepository';
+import { IUsersRepository } from '../../repositories/IUsersRepository';
 import { IIndexUserRequestDTO } from './IndexUserDTO';
 
 export class IndexUserUseCase {

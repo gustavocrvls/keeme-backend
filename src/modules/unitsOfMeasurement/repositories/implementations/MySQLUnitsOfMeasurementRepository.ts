@@ -1,10 +1,10 @@
 import { getRepository, Like, Repository } from 'typeorm';
-import { UnityOfMeasurement } from '../../entities/UnityOfMeasurement';
+import { UnityOfMeasurement } from '../../../../entities/UnityOfMeasurement';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
-} from '../../providers/IArrayPaginatorProvider';
-import { IIndexUnityOfMeasurementDTO } from '../../modules/unitsOfMeasurement/useCases/IndexUnityOfMeasurement/IndexUnityOfMeasurementDTO';
+} from '../../../../providers/IArrayPaginatorProvider';
+import { IIndexUnityOfMeasurementDTO } from '../../useCases/IndexUnityOfMeasurement/IndexUnityOfMeasurementDTO';
 import { IUnitsOfMeasurementRepository } from '../IUnitsOfMeasurementRepository';
 
 export class MySQLUnityOfMeasurementRepository

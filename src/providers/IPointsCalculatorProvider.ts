@@ -1,4 +1,4 @@
-import { IACCTypeWithUserACCs } from '../repositories/IACCTypesRepository';
+import { IACCTypeWithUserACCs } from '../modules/accTypes/repositories/IACCTypesRepository';
 import { IACCPoints } from '../modules/points/repositories/IPointsRepository';
 import { IACCTypesWithUserPointsResponseDTO } from '../modules/accTypes/useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
 

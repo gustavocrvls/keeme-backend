@@ -1,5 +1,5 @@
 import { ArrayPaginatorProvider } from '../../../../providers/implementations/ArrayPaginatorProvider';
-import { MySQLACCTypesRepository } from '../../../../repositories/implementations/MySQLACCTypesRepository';
+import { MySQLACCTypesRepository } from '../../repositories/implementations/MySQLACCTypesRepository';
 import { IndexACCTypeController } from './IndexACCTypeController';
 import { IndexACCTypeUseCase } from './IndexACCTypeUseCase';
 

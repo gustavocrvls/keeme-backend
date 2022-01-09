@@ -1,5 +1,5 @@
 import { ACCType } from '../../../../entities/ACCType';
-import { IACCTypesRepository } from '../../../../repositories/IACCTypesRepository';
+import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
 import { IACCVariantsRepository } from '../../../../repositories/IACCVariantsRepository';
 import { IUpdateACCTypeRequestDTO } from './UpdateACCTypeDTO';
 

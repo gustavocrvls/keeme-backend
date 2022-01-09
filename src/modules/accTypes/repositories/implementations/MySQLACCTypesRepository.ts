@@ -1,19 +1,19 @@
 import { getRepository, Like } from 'typeorm';
-import { ACCType } from '../../entities/ACCType';
+import { ACCType } from '../../../../entities/ACCType';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
-} from '../../providers/IArrayPaginatorProvider';
-import { IDeleteACCTypeRequestDTO } from '../../modules/accTypes/useCases/DeleteACCType/DeleteACCTypeDTO';
-import { IIndexACCTypeRequestDTO } from '../../modules/accTypes/useCases/IndexACCType/IndexACCTypeDTO';
-import { IIndexACCTypesWithUserPointsRequestDTO } from '../../modules/accTypes/useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
-import { IShowACCTypeDTO } from '../../modules/accTypes/useCases/ShowACCType/ShowACCTypeDTO';
+} from '../../../../providers/IArrayPaginatorProvider';
+import { IDeleteACCTypeRequestDTO } from '../../useCases/DeleteACCType/DeleteACCTypeDTO';
+import { IIndexACCTypeRequestDTO } from '../../useCases/IndexACCType/IndexACCTypeDTO';
+import { IIndexACCTypesWithUserPointsRequestDTO } from '../../useCases/IndexACCTypesWithUserPoints/IndexACCTypeWithUserPointsDTO';
+import { IShowACCTypeDTO } from '../../useCases/ShowACCType/ShowACCTypeDTO';
 import {
   IACCsLength,
   IACCTypesRepository,
   IACCTypeWithUserACCs,
 } from '../IACCTypesRepository';
-import { IUpdateACCTypeRequestDTO } from '../../modules/accTypes/useCases/UpdateACCType/UpdateACCTypeDTO';
+import { IUpdateACCTypeRequestDTO } from '../../useCases/UpdateACCType/UpdateACCTypeDTO';
 
 export class MySQLACCTypesRepository implements IACCTypesRepository {
   private arrayPaginator: IArrayPaginatorProvider;

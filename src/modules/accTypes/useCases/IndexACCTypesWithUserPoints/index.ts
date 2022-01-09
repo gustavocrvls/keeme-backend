@@ -1,6 +1,6 @@
 import { ArrayPaginatorProvider } from '../../../../providers/implementations/ArrayPaginatorProvider';
 import { PointsCalculatorProvider } from '../../../../providers/implementations/PointsCalculatorProvider';
-import { MySQLACCTypesRepository } from '../../../../repositories/implementations/MySQLACCTypesRepository';
+import { MySQLACCTypesRepository } from '../../repositories/implementations/MySQLACCTypesRepository';
 import { IndexACCTypeWithUserPointsController } from './IndexACCTypeWithUserPointsController';
 import { IndexACCTypeWithUserPointsUseCase } from './IndexACCTypeWithUserPointsUseCase';
 
@@ -16,9 +16,8 @@ const indexACCTypeWithUserPointsUseCase = new IndexACCTypeWithUserPointsUseCase(
   arrayPaginatorProvider,
 );
 
-const indexACCTypesWithUserPointsController = new IndexACCTypeWithUserPointsController(
-  indexACCTypeWithUserPointsUseCase,
-);
+const indexACCTypesWithUserPointsController =
+  new IndexACCTypeWithUserPointsController(indexACCTypeWithUserPointsUseCase);
 
 export {
   indexACCTypeWithUserPointsUseCase,

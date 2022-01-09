@@ -1,4 +1,4 @@
-import { MySQLACCTypesRepository } from '../../../../repositories/implementations/MySQLACCTypesRepository';
+import { MySQLACCTypesRepository } from '../../repositories/implementations/MySQLACCTypesRepository';
 import { CreateACCTypeController } from './CreateACCTypeController';
 import { CreateACCTypeUseCase } from './CreateACCTypeUseCase';
 

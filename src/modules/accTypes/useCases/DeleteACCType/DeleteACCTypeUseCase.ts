@@ -1,4 +1,4 @@
-import { IACCTypesRepository } from '../../../../repositories/IACCTypesRepository';
+import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
 import { IDeleteACCTypeRequestDTO } from './DeleteACCTypeDTO';
 
 export class DeleteACCTypeUseCase {

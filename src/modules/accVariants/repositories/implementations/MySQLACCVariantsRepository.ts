@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { ACCVariant } from '../../entities/ACCVariant';
+import { ACCVariant } from '../../../../entities/ACCVariant';
 import { IACCVariantsRepository } from '../IACCVariantsRepository';
 
 export class MySQLACCVariantsRepository implements IACCVariantsRepository {

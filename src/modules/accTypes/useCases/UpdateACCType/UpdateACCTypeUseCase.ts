@@ -1,6 +1,6 @@
 import { ACCType } from '../../../../entities/ACCType';
 import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
-import { IACCVariantsRepository } from '../../../../repositories/IACCVariantsRepository';
+import { IACCVariantsRepository } from '../../../accVariants/repositories/IACCVariantsRepository';
 import { IUpdateACCTypeRequestDTO } from './UpdateACCTypeDTO';
 
 export class UpdateACCTypeUseCase {

@@ -1,5 +1,5 @@
 import { MySQLACCTypesRepository } from '../../repositories/implementations/MySQLACCTypesRepository';
-import { MySQLACCVariantsRepository } from '../../../../repositories/implementations/MySQLACCVariantsRepository';
+import { MySQLACCVariantsRepository } from '../../../accVariants/repositories/implementations/MySQLACCVariantsRepository';
 import { UpdateACCTypeController } from './UpdateACCTypeController';
 import { UpdateACCTypeUseCase } from './UpdateACCTypeUseCase';
 

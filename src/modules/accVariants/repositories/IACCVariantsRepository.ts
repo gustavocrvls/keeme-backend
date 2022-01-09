@@ -1,4 +1,4 @@
-import { ACCVariant } from '../entities/ACCVariant';
+import { ACCVariant } from '../../../entities/ACCVariant';
 
 export interface IACCVariant {
   id?: number;

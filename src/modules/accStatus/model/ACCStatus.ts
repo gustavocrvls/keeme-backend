@@ -5,7 +5,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { ACC } from '../modules/accs/model/ACC';
+import { ACC } from '../../accs/model/ACC';
 
 @Entity('acc_status')
 export class ACCStatus {

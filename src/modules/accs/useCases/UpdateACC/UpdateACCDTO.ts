@@ -1,4 +1,4 @@
-import { ACCStatus } from '../../../../entities/ACCStatus';
+import { ACCStatus } from '../../../accStatus/model/ACCStatus';
 import { ACCType } from '../../../../entities/ACCType';
 import { ACCVariant } from '../../../../entities/ACCVariant';
 

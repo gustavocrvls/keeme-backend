@@ -1,5 +1,5 @@
 import { ACCAssessment } from '../../model/ACCAssessment';
-import { ACCStatus } from '../../../../entities/ACCStatus';
+import { ACCStatus } from '../../../accStatus/model/ACCStatus';
 import { IACCsAssessmentsRepository } from '../../repositories/IACCsAssessmentsRepository';
 import { IACCsRepository } from '../../../accs/repositories/IACCsRepository';
 import { ICreateACCAssessmentDTO } from './CreateACCAssessmentDTO';

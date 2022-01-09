@@ -7,7 +7,7 @@ import {
   OneToOne,
 } from 'typeorm';
 import { ACCType } from '../../../entities/ACCType';
-import { ACCStatus } from '../../../entities/ACCStatus';
+import { ACCStatus } from '../../accStatus/model/ACCStatus';
 import { User } from '../../../entities/User';
 import { ACCVariant } from '../../../entities/ACCVariant';
 import { ACCAssessment } from '../../accsAssessments/model/ACCAssessment';

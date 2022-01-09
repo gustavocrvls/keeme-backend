@@ -1,4 +1,4 @@
-import { ACCAssessment } from '../entities/ACCAssessment';
+import { ACCAssessment } from '../../../entities/ACCAssessment';
 
 export interface IACCsAssessmentsRepository {
   showByACC(accId: number): Promise<ACCAssessment>;

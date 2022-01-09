@@ -1,5 +1,5 @@
-import { MySQLACCsAssessmentsRepository } from '../../../../repositories/implementations/MySQLACCsAssessments';
-import { MySQLACCsRepository } from '../../../../repositories/implementations/MySQLACCsRepository';
+import { MySQLACCsAssessmentsRepository } from '../../repositories/implementations/MySQLACCsAssessments';
+import { MySQLACCsRepository } from '../../../accs/repositories/implementations/MySQLACCsRepository';
 import { CreateACCAssessmentController } from './CreateACCAssessmentController';
 import { CreateACCAssessmentUseCase } from './CreateACCAssessmentUseCase';
 

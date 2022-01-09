@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { ACCAssessment } from '../../entities/ACCAssessment';
+import { ACCAssessment } from '../../../../entities/ACCAssessment';
 import { IACCsAssessmentsRepository } from '../IACCsAssessmentsRepository';
 
 export class MySQLACCsAssessmentsRepository

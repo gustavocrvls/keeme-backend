@@ -51,11 +51,11 @@ DB_USERNAME= # Usuário do servidor do banco de dados
 DB_PASSWORD= # Senha do servidor do banco de dados
 DB_DATABASE= # Nome do banco de dados
 
-MINIO_ENDPOINT= # Endereço do servidor de arquivos
-MINIO_PORT= # Porta do servidor de arquivos
-MINIO_ACCESS_KEY_ID= # Usuário do servidor de arquivos
-MINIO_SECRET_ACCESS_KEY= # Senha do servidor de arquivos
-MINIO_BUCKET_NAME # Bucket onde os arquivos do KeeMe serão salvos
+STORAGE_ENDPOINT= # Endereço do servidor de arquivos
+STORAGE_PORT= # Porta do servidor de arquivos
+STORAGE_ACCESS_KEY_ID= # Usuário do servidor de arquivos
+STORAGE_SECRET_ACCESS_KEY= # Senha do servidor de arquivos
+STORAGE_BUCKET_NAME # Bucket onde os arquivos do KeeMe serão salvos
 ```
 
 Você vai precisar iniciar o banco de dados, usando o TypeORM.

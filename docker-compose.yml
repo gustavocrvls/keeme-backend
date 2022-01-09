@@ -8,8 +8,8 @@ services:
     volumes:
       - ../storage/minio:/data
     environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
+      STORAGE_ACCESS_KEY: minioadmin
+      STORAGE_SECRET_KEY: minioadmin
     command: server /data
     networks:
       - local-network

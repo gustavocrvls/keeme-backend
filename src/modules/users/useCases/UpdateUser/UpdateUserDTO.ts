@@ -1,5 +1,5 @@
 import { Course } from '../../../courses/model/Course';
-import { Profile } from '../../../../entities/Profile';
+import { Profile } from '../../../profile/model/Profile';
 
 export interface IUpdateUserRequestDTO {
   id: number;

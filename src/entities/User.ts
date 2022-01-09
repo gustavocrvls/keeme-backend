@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Course } from '../modules/courses/model/Course';
-import { Profile } from './Profile';
+import { Profile } from '../modules/profile/model/Profile';
 import { ACC } from '../modules/accs/model/ACC';
 
 @Entity('user')

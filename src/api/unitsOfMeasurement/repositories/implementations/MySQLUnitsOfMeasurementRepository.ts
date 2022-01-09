@@ -1,4 +1,4 @@
-import { getRepository, Like, Repository } from 'typeorm';
+import { getRepository, Like } from 'typeorm';
 import { UnityOfMeasurement } from '../../../../entities/UnityOfMeasurement';
 import {
   IArrayPaginatorProvider,

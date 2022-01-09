@@ -4,10 +4,7 @@ import {
 } from '../../../../providers/IArrayPaginatorProvider';
 import { IPointsCalculatorProvider } from '../../../../providers/IPointsCalculatorProvider';
 import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
-import {
-  IACCTypesWithUserPointsResponseDTO,
-  IIndexACCTypesWithUserPointsRequestDTO,
-} from './IndexACCTypeWithUserPointsDTO';
+import { IIndexACCTypesWithUserPointsRequestDTO } from './IndexACCTypeWithUserPointsDTO';
 
 export class IndexACCTypeWithUserPointsUseCase {
   private accTypesRepository: IACCTypesRepository;

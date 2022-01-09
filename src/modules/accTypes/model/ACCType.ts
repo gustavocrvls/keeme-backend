@@ -6,7 +6,7 @@ import {
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
-import { UnityOfMeasurement } from '../../../entities/UnityOfMeasurement';
+import { UnityOfMeasurement } from '../../unitsOfMeasurement/model/UnityOfMeasurement';
 import { ACC } from '../../accs/model/ACC';
 import { ACCVariant } from '../../accVariants/model/ACCVariant';
 

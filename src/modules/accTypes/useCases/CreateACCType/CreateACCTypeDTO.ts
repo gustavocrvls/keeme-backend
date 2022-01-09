@@ -1,5 +1,5 @@
 import { ACCVariant } from '../../../accVariants/model/ACCVariant';
-import { UnityOfMeasurement } from '../../../../entities/UnityOfMeasurement';
+import { UnityOfMeasurement } from '../../../unitsOfMeasurement/model/UnityOfMeasurement';
 
 export interface ICreateACCTypeRequestDTO {
   name: string;

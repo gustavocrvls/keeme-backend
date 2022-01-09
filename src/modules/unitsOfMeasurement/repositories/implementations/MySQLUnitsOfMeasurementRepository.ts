@@ -1,5 +1,5 @@
 import { getRepository, Like } from 'typeorm';
-import { UnityOfMeasurement } from '../../../../entities/UnityOfMeasurement';
+import { UnityOfMeasurement } from '../../model/UnityOfMeasurement';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,

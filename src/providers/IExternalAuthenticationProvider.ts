@@ -1,4 +1,4 @@
-import { ILoginUserDTO } from '../modules/users/useCases/LoginUser/LoginUserDTO';
+import { ILoginUserDTO } from '../api/users/useCases/LoginUser/LoginUserDTO';
 
 export interface IExternalAuthenticationProvider {
   login(data: ILoginUserDTO): Promise<boolean>;

@@ -1,4 +1,4 @@
-import { ILoginUserDTO } from '../../modules/users/useCases/LoginUser/LoginUserDTO';
+import { ILoginUserDTO } from '../../api/users/useCases/LoginUser/LoginUserDTO';
 import { IExternalAuthenticationProvider } from '../IExternalAuthenticationProvider';
 
 const users = [

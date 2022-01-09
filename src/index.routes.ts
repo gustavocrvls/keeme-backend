@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { coursesRoutes } from './modules/courses/routes/index.routes';
-import { accsAssessmentsRoutes } from './modules/accsAssessments/routes/index.routes';
-import { accsRoutes } from './modules/accs/routes/index.routes';
-import { usersRoutes } from './modules/users/routes/index.routes';
-import { accTypesRoutes } from './modules/accTypes/routes/index.routes';
-import { unitsOfMeasurementRoutes } from './modules/unitsOfMeasurement/routes/index.routes';
-import { pointsRoutes } from './modules/points/routes/index.routes';
+import { coursesRoutes } from './api/courses/routes/index.routes';
+import { accsAssessmentsRoutes } from './api/accsAssessments/routes/index.routes';
+import { accsRoutes } from './api/accs/routes/index.routes';
+import { usersRoutes } from './api/users/routes/index.routes';
+import { accTypesRoutes } from './api/accTypes/routes/index.routes';
+import { unitsOfMeasurementRoutes } from './api/unitsOfMeasurement/routes/index.routes';
+import { pointsRoutes } from './api/points/routes/index.routes';
 
 const routes = Router();
 

@@ -1,14 +1,14 @@
 import { getRepository, Like } from 'typeorm';
-import { ACC } from '../../entities/ACC';
-import { IShowACCDTO } from '../../modules/accs/useCases/ShowACC/ShowACCDTO';
+import { ACC } from '../../../../entities/ACC';
+import { IShowACCDTO } from '../../useCases/ShowACC/ShowACCDTO';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
-} from '../../providers/IArrayPaginatorProvider';
-import { IDeleteACCRequestDTO } from '../../modules/accs/useCases/DeleteACC/DeleteACCDTO';
-import { IIndexACCRequestDTO } from '../../modules/accs/useCases/IndexACC/IndexACCDTO';
+} from '../../../../providers/IArrayPaginatorProvider';
+import { IDeleteACCRequestDTO } from '../../useCases/DeleteACC/DeleteACCDTO';
+import { IIndexACCRequestDTO } from '../../useCases/IndexACC/IndexACCDTO';
 import { IACCsRepository } from '../IACCsRepository';
-import { IUpdatedACC } from '../../modules/accs/useCases/UpdateACC/UpdateACCDTO';
+import { IUpdatedACC } from '../../useCases/UpdateACC/UpdateACCDTO';
 
 export class MySQLACCsRepository implements IACCsRepository {
   private arrayPaginator: IArrayPaginatorProvider;

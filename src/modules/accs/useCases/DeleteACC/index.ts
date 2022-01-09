@@ -1,4 +1,4 @@
-import { MySQLACCsRepository } from '../../../../repositories/implementations/MySQLACCsRepository';
+import { MySQLACCsRepository } from '../../repositories/implementations/MySQLACCsRepository';
 import { DeleteACCController } from './DeleteACCController';
 import { DeleteACCUseCase } from './DeleteACCUseCase';
 

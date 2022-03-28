@@ -2,9 +2,7 @@ node_modules/
 dist/
 uploads/
 
-yarn.lock
 yarn-error.log
-package-lock.json
 
 .env
 .env.production

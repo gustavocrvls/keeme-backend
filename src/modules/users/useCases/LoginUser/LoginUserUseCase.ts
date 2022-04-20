@@ -1,6 +1,6 @@
 import { generateToken } from '../../../../config/authentication';
 import { IExternalAuthenticationProvider } from '../../../../providers/IExternalAuthenticationProvider';
-import { IUsersRepository } from '../../../../repositories/IUsersRepository';
+import { IUsersRepository } from '../../repositories/IUsersRepository';
 import { ILoginUserDTO, ILoginUserResponse } from './LoginUserDTO';
 
 export class LoginUserUseCase {

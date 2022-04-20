@@ -1,4 +1,4 @@
-import { MySQLUsersRepository } from '../../../../repositories/implementations/MySQLUsersRepository';
+import { MySQLUsersRepository } from '../../repositories/implementations/MySQLUsersRepository';
 import { DeleteUserControler } from './DeleteUserControler';
 import { DeleteUserUseCase } from './DeleteUserUseCase';
 

@@ -8,7 +8,7 @@ const developmentConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   migrations: ['./src/database/migrations/*.ts'],
-  entities: ['./src/entities/*.ts'],
+  entities: ['./src/modules/*/model/*.ts'],
   cli: {
     migrationsDir: './src/database/migrations',
   },
@@ -24,7 +24,7 @@ const productionConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   migrations: ['./dist/database/migrations/*.js'],
-  entities: ['./dist/entities/*.js'],
+  entities: ['./dist/modules/*/model/*.js'],
   cli: {
     migrationsDir: './src/database/migrations',
   },

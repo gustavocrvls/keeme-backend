@@ -3,11 +3,8 @@ import {
   IPaginatedArray,
 } from '../../../../providers/IArrayPaginatorProvider';
 import { IPointsCalculatorProvider } from '../../../../providers/IPointsCalculatorProvider';
-import { IACCTypesRepository } from '../../../../repositories/IACCTypesRepository';
-import {
-  IACCTypesWithUserPointsResponseDTO,
-  IIndexACCTypesWithUserPointsRequestDTO,
-} from './IndexACCTypeWithUserPointsDTO';
+import { IACCTypesRepository } from '../../repositories/IACCTypesRepository';
+import { IIndexACCTypesWithUserPointsRequestDTO } from './IndexACCTypeWithUserPointsDTO';
 
 export class IndexACCTypeWithUserPointsUseCase {
   private accTypesRepository: IACCTypesRepository;
@@ -33,18 +30,18 @@ export class IndexACCTypeWithUserPointsUseCase {
 
     const accTypesByUser = await this.accTypesRepository.getACCTypeByUser(data);
 
-    const accTypesWithUserPoints = this.pointsCalculatorProvider.getPointsByACCType(
-      accTypesByUser,
-    );
+    const accTypesWithUserPoints =
+      this.pointsCalculatorProvider.getPointsByACCType(accTypesByUser);
 
     const accTypesLength = await this.accTypesRepository.getACCTypesLength();
 
-    const paginatedACCTypesWithUserPoints = this.arrayPaginatorProvider.paginate(
-      accTypesWithUserPoints,
-      page,
-      limit,
-      accTypesLength,
-    );
+    const paginatedACCTypesWithUserPoints =
+      this.arrayPaginatorProvider.paginate(
+        accTypesWithUserPoints,
+        page,
+        limit,
+        accTypesLength,
+      );
 
     return paginatedACCTypesWithUserPoints;
   }

@@ -1,4 +1,4 @@
-import { User } from '../../../../entities/User';
+import { User } from '../../model/User';
 
 export interface ILoginUserDTO {
   username: string;

@@ -1,4 +1,4 @@
-import { MySQLUsersRepository } from '../../../../repositories/implementations/MySQLUsersRepository';
+import { MySQLUsersRepository } from '../../repositories/implementations/MySQLUsersRepository';
 import { ShowUserController } from './ShowUserController';
 import { ShowUserUseCase } from './ShowUserUseCase';
 

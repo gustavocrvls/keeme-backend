@@ -1,8 +1,7 @@
-import { ACC_STATUS } from '../../../../constants/ACCStatus';
-import { ACCAssessment } from '../../../../entities/ACCAssessment';
-import { ACCStatus } from '../../../../entities/ACCStatus';
-import { IACCsAssessmentsRepository } from '../../../../repositories/IACCsAssessmentsRepository';
-import { IACCsRepository } from '../../../../repositories/IACCsRepository';
+import { ACCAssessment } from '../../model/ACCAssessment';
+import { ACCStatus } from '../../../accStatus/model/ACCStatus';
+import { IACCsAssessmentsRepository } from '../../repositories/IACCsAssessmentsRepository';
+import { IACCsRepository } from '../../../accs/repositories/IACCsRepository';
 import { ICreateACCAssessmentDTO } from './CreateACCAssessmentDTO';
 
 export class CreateACCAssessmentUseCase {

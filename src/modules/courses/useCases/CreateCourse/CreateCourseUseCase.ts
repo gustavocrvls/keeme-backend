@@ -1,5 +1,5 @@
-import { Course } from '../../../../entities/Course';
-import { ICoursesRepository } from '../../../../repositories/ICoursesRepository';
+import { Course } from '../../model/Course';
+import { ICoursesRepository } from '../../repositories/ICoursesRepository';
 import { ICreateCourseRequestDTO } from './CreateCourseDTO';
 
 export class CreateCourseUseCase {

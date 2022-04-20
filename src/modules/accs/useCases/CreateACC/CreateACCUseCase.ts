@@ -1,6 +1,6 @@
-import { ACC } from '../../../../entities/ACC';
+import { ACC } from '../../model/ACC';
 import { IFileStorageProvider } from '../../../../providers/IFileStorageProvider';
-import { IACCsRepository } from '../../../../repositories/IACCsRepository';
+import { IACCsRepository } from '../../repositories/IACCsRepository';
 import { ICreateACCDTO } from './CreateACCDTO';
 
 export class CreateACCUseCase {

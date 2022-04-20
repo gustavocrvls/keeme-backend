@@ -1,4 +1,4 @@
-import { MySQLUsersRepository } from '../../../../repositories/implementations/MySQLUsersRepository';
+import { MySQLUsersRepository } from '../../repositories/implementations/MySQLUsersRepository';
 import { UpdateUserController } from './UpdateUserController';
 import { UpdateUserUseCase } from './UpdateUserUseCase';
 

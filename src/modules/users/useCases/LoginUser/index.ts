@@ -1,6 +1,6 @@
 import { SIGAuthenticationProvider } from '../../../../providers/implementations/SIGAuthenticationProvider';
 import { ExternalAuthenticationMock } from '../../../../providers/mocks/ExternalAuthenticationMock';
-import { MySQLUsersRepository } from '../../../../repositories/implementations/MySQLUsersRepository';
+import { MySQLUsersRepository } from '../../repositories/implementations/MySQLUsersRepository';
 import { LoginUserController } from './LoginUserController';
 import { LoginUserUseCase } from './LoginUserUseCase';
 

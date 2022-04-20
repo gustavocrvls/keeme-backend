@@ -1,5 +1,5 @@
 import { IPaginatedArray } from '../../../../providers/IArrayPaginatorProvider';
-import { ICoursesRepository } from '../../../../repositories/ICoursesRepository';
+import { ICoursesRepository } from '../../repositories/ICoursesRepository';
 import { IIndexCourseRequestDTO } from './IndexCourseDTO';
 
 export class IndexCourseUseCase {

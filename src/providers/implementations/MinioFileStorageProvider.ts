@@ -12,7 +12,7 @@ export class MinioFileStorageProvider implements IFileStorageProvider {
     };
 
     await minioClient.fPutObject(
-      process.env.MINIO_BUCKET_NAME || 'keeme',
+      process.env.STORAGE_BUCKET_NAME || 'keeme',
       `${filePath}/${file.filename}`,
       file.path,
       metaData,
@@ -29,7 +29,7 @@ export class MinioFileStorageProvider implements IFileStorageProvider {
     const minioClient = getMinioClient();
 
     const certificateUrl = await minioClient.presignedGetObject(
-      process.env.MINIO_BUCKET_NAME || 'keeme',
+      process.env.STORAGE_BUCKET_NAME || 'keeme',
       `${filePath}/${filename}`,
       1 * 24 * 60 * 60, // 1 day
     );

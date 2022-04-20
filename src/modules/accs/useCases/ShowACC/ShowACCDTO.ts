@@ -1,4 +1,4 @@
-import { ACC } from '../../../../entities/ACC';
+import { ACC } from '../../model/ACC';
 
 export interface IShowACCDTO {
   id: number;

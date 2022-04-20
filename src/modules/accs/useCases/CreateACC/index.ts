@@ -1,5 +1,5 @@
 import { MinioFileStorageProvider } from '../../../../providers/implementations/MinioFileStorageProvider';
-import { MySQLACCsRepository } from '../../../../repositories/implementations/MySQLACCsRepository';
+import { MySQLACCsRepository } from '../../repositories/implementations/MySQLACCsRepository';
 import { CreateACCController } from './CreateACCController';
 import { CreateACCUseCase } from './CreateACCUseCase';
 

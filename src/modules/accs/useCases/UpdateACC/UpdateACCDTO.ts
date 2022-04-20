@@ -1,6 +1,6 @@
-import { ACCStatus } from '../../../../entities/ACCStatus';
-import { ACCType } from '../../../../entities/ACCType';
-import { ACCVariant } from '../../../../entities/ACCVariant';
+import { ACCStatus } from '../../../accStatus/model/ACCStatus';
+import { ACCType } from '../../../accTypes/model/ACCType';
+import { ACCVariant } from '../../../accVariants/model/ACCVariant';
 
 export interface IUpdateACCDTO {
   id: number;

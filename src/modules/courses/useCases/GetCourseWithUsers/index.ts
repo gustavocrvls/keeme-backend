@@ -1,4 +1,4 @@
-import { MySQLCoursesRepository } from '../../../../repositories/implementations/MySQLCoursesRepository';
+import { MySQLCoursesRepository } from '../../repositories/implementations/MySQLCoursesRepository';
 import { GetCourseWithUsersController } from './GetCourseWithUsersController';
 import { GetCourseWithUsersUseCase } from './GetCourseWithUsersUseCase';
 

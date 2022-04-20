@@ -1,5 +1,4 @@
 /* eslint-disable consistent-return */
-/* eslint-disable func-names */
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response } from 'express';
 
@@ -9,38 +8,34 @@ interface IToken extends JwtPayload {
 }
 
 function verifyToken(profiles: Array<number>) {
-  return function (
-    req: Request,
-    res: Response,
-    next: () => void,
-  ): Response | void {
+  return (req: Request, res: Response, next: () => void): Response | void => {
     const privateKey = process.env.JWT_SECRET || '';
 
-    if (!process.env.UNSAFE_MODE)
-      try {
-        if (
-          req.headers.authorization &&
-          (req.headers.authorization.split(' ')[0] === 'Token' ||
-            req.headers.authorization.split(' ')[0] === 'Bearer')
-        ) {
-          const token = req.headers.authorization.split(' ')[1];
-          const decoded = jwt.verify(token, privateKey);
-          const { profile } = <IToken>decoded;
+    if (process.env.UNSAFE_MODE) next();
 
-          if (profiles.includes(Number(profile))) next();
-          else
-            return res
-              .status(401)
-              .json({ auth: false, message: 'Invalid Token.' });
-        } else {
+    try {
+      if (
+        req.headers.authorization &&
+        (req.headers.authorization.split(' ')[0] === 'Token' ||
+          req.headers.authorization.split(' ')[0] === 'Bearer')
+      ) {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, privateKey);
+        const { profile } = <IToken>decoded;
+
+        if (profiles.includes(Number(profile))) next();
+        else
           return res
             .status(401)
-            .json({ auth: false, message: 'No token provided.' });
-        }
-      } catch (err: any) {
-        return res.status(401).json({ auth: false, message: 'Invalid Token.' });
+            .json({ auth: false, message: 'Invalid Token.' });
+      } else {
+        return res
+          .status(401)
+          .json({ auth: false, message: 'No token provided.' });
       }
-    else next();
+    } catch (err: any) {
+      return res.status(401).json({ auth: false, message: 'Invalid Token.' });
+    }
   };
 }
 

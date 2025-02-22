@@ -1,5 +1,4 @@
-import { getRepository, Like } from 'typeorm';
-import { UnityOfMeasurement } from '../../model/UnityOfMeasurement';
+import { PrismaClient } from '@prisma/client';
 import {
   IArrayPaginatorProvider,
   IPaginatedArray,
@@ -11,8 +10,10 @@ export class MySQLUnityOfMeasurementRepository
   implements IUnitsOfMeasurementRepository
 {
   private arrayPaginator: IArrayPaginatorProvider;
+  private prismaClient: PrismaClient;
 
   constructor(arrayPaginator?: IArrayPaginatorProvider) {
+    this.prismaClient = new PrismaClient();
     if (arrayPaginator) this.arrayPaginator = arrayPaginator;
   }
 
@@ -20,31 +21,39 @@ export class MySQLUnityOfMeasurementRepository
     const { name, sortField, limit } = data;
     let { sortOrder, page } = data;
 
-    const unitsOfMeasurementRepository = getRepository(UnityOfMeasurement);
-    let unitsOfMeasurementQuery =
-      await unitsOfMeasurementRepository.createQueryBuilder(
-        'unidades_de_medida',
-      );
-
-    if (name)
-      unitsOfMeasurementQuery = unitsOfMeasurementQuery.where({
-        name: Like(`%${name}%`),
-      });
-    if (!sortOrder) sortOrder = 'ASC';
-    if (sortField)
-      unitsOfMeasurementQuery = unitsOfMeasurementQuery.orderBy({
-        [sortField]: sortOrder,
-      });
-
-    if (limit && limit !== undefined && page && page !== undefined) {
-      if (page > 0) page -= 1;
-      unitsOfMeasurementQuery = unitsOfMeasurementQuery
-        .take(limit)
-        .skip(page * limit);
+    if (!sortOrder) {
+      sortOrder = 'ASC';
+    }
+    if (page !== undefined && page > 0) {
+      page -= 1;
     }
 
-    const unitsOfMeasurement = await unitsOfMeasurementQuery.getMany();
-    const total_items = await unitsOfMeasurementQuery.getCount();
+    const filters = {
+      where: {
+        ...(name
+          ? {
+              name: {
+                contains: `%${name}%`,
+              },
+            }
+          : {}),
+      },
+      orderBy: {
+        ...(sortField
+          ? {
+              [sortField]: sortOrder,
+            }
+          : {}),
+      },
+      ...(!Number.isNaN(limit) && !Number.isNaN(page)
+        ? { take: limit, skip: page * limit }
+        : {}),
+    };
+
+    const unitsOfMeasurement =
+      await this.prismaClient.unity_of_measurement.findMany(filters);
+    const total_items =
+      await this.prismaClient.unity_of_measurement.count(filters);
 
     return this.arrayPaginator.paginate(
       unitsOfMeasurement,

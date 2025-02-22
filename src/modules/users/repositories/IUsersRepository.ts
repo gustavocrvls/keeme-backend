@@ -15,7 +15,7 @@ export interface IUsersRepository {
   update(user: IUpdateUserRequestDTO): Promise<void>;
   show(id: number): Promise<User>;
 
-  login(data: ILoginUserDTO): Promise<User>;
+  login(data: ILoginUserDTO): Promise<User | null>;
   getUserByUsername(username: string): Promise<User | undefined>;
   getByField(data: IGetByFieldData): Promise<User | undefined>;
 }

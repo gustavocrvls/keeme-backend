@@ -18,8 +18,8 @@ export class User {
   @Column()
   public name: string;
 
-  @Column()
-  public registration: string;
+  @Column({ type: 'varchar' })
+  public registration: string | undefined;
 
   @Column()
   public email: string;
@@ -27,15 +27,15 @@ export class User {
   @Column()
   public username: string;
 
-  @Column()
-  public password: string;
+  @Column({ type: 'varchar' })
+  public password: string | null;
 
   @Column()
   public active: boolean;
 
   @ManyToOne(() => Course, course => course.id)
   @JoinColumn({ name: 'course_id' })
-  public course: Course;
+  public course: Course | null;
 
   @ManyToOne(() => Profile, profile => profile.id)
   @JoinColumn({ name: 'profile_id' })
@@ -43,7 +43,7 @@ export class User {
 
   @OneToMany(() => ACC, acc => acc.user)
   @JoinColumn({ name: 'user_id' })
-  public accs: ACC[];
+  public accs?: ACC[];
 
   constructor(
     props: Omit<

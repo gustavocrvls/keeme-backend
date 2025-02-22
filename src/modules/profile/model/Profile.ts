@@ -19,5 +19,5 @@ export class Profile {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'profile_id' })
-  public users: User[];
+  public users?: User[];
 }

@@ -19,7 +19,7 @@ export class Course {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'course_id' })
-  public users: User[];
+  public users?: User[];
 
   constructor(props: Omit<Course, 'users' | 'id'>, id?: number) {
     Object.assign(this, props);

@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { getRepository, Like } from 'typeorm';
 import { User } from '../../model/User';
 import { IIndexUserRequestDTO } from '../../useCases/IndexUser/IndexUserDTO';
@@ -8,11 +9,14 @@ import {
   IPaginatedArray,
 } from '../../../../providers/IArrayPaginatorProvider';
 import { IGetByFieldData, IUsersRepository } from '../IUsersRepository';
+import { PrismaClient } from '@prisma/client';
 
 export class MySQLUsersRepository implements IUsersRepository {
   private arrayPaginator: IArrayPaginatorProvider;
+  private prismaClient: PrismaClient;
 
   constructor(arrayPaginator?: IArrayPaginatorProvider) {
+    this.prismaClient = new PrismaClient();
     if (arrayPaginator) this.arrayPaginator = arrayPaginator;
   }
 
@@ -137,23 +141,20 @@ export class MySQLUsersRepository implements IUsersRepository {
     return user;
   }
 
-  async login(data: ILoginUserDTO): Promise<User> {
-    const usersRepository = getRepository(User);
-
+  async login(data: ILoginUserDTO): Promise<User | null> {
     const { username, password } = data;
 
-    const user = await usersRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.profile', 'profile')
-      .leftJoinAndSelect('user.course', 'course')
-      .where('username = :username AND password = MD5(:password)', {
-        username,
-        password,
-      })
-      .andWhere('active = :active', {
+    const user = await this.prismaClient.user.findFirst({
+      include: {
+        course: true,
+        profile: true,
+      },
+      where: {
+        username, //TODO change to email
+        password: crypto.createHash('md5').update(password).digest('hex'),
         active: true,
-      })
-      .getOneOrFail();
+      },
+    });
 
     return user;
   }

@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model acc {
+  id             Int              @id @default(autoincrement()) @db.UnsignedInt
+  quantity       Int
+  description    String           @db.VarChar(255)
+  certificate    String           @db.VarChar(255)
+  created_at     DateTime         @default(now()) @db.Timestamp(0)
+  user_id        Int              @db.UnsignedInt
+  acc_status_id  Int              @default(2) @db.UnsignedInt
+  acc_type_id    Int              @db.UnsignedInt
+  acc_variant_id Int              @db.UnsignedInt
+  acc_status     acc_status       @relation(fields: [acc_status_id], references: [id], onDelete: Cascade, map: "FK_acc__acc_status")
+  acc_type       acc_type         @relation(fields: [acc_type_id], references: [id], onDelete: Cascade, map: "FK_acc__acc_type")
+  acc_variant    acc_variant      @relation(fields: [acc_variant_id], references: [id], onDelete: Cascade, map: "FK_acc__acc_variant")
+  user           user             @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "FK_acc__user")
+  acc_assessments acc_assessment[]
+
+  @@index([acc_status_id], map: "FK_acc__acc_status")
+  @@index([acc_type_id], map: "FK_acc__acc_type")
+  @@index([acc_variant_id], map: "FK_acc__acc_variant")
+  @@index([user_id], map: "FK_acc__user")
+}
+
+model acc_assessment {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  description String   @db.VarChar(255)
+  created_at  DateTime @default(now()) @db.Timestamp(0)
+  acc_id      Int      @db.UnsignedInt
+  user_id     Int      @db.UnsignedInt
+  acc         acc      @relation(fields: [acc_id], references: [id], onDelete: Cascade, map: "FK_acc_assessment__acc")
+  user        user     @relation(fields: [user_id], references: [id], onDelete: Cascade, map: "FK_acc_assessment__user")
+
+  @@index([acc_id], map: "FK_acc_assessment__acc")
+  @@index([user_id], map: "FK_acc_assessment__user")
+}
+
+model acc_status {
+  id   Int    @id @default(autoincrement()) @db.UnsignedInt
+  name String @db.VarChar(255)
+  accs  acc[]
+}
+
+model acc_type {
+  id                      Int                  @id @default(autoincrement()) @db.UnsignedInt
+  name                    String               @db.VarChar(255)
+  point_limit             Int
+  description             String?              @db.VarChar(255)
+  unity_of_measurement_id Int                  @db.UnsignedInt
+  accs                     acc[]
+  unity_of_measurement    unity_of_measurement @relation(fields: [unity_of_measurement_id], references: [id], onDelete: Cascade, map: "FK_acc_type__unity_of_measurement")
+  acc_variants             acc_variant[]
+
+  @@index([unity_of_measurement_id], map: "FK_acc_type__unity_of_measurement")
+}
+
+model acc_variant {
+  id               Int      @id @default(autoincrement()) @db.UnsignedInt
+  description      String?  @db.VarChar(255)
+  points_per_unity Float    @db.Float
+  acc_type_id      Int      @db.UnsignedInt
+  accs              acc[]
+  acc_type         acc_type @relation(fields: [acc_type_id], references: [id], onDelete: Cascade, map: "FK_variante_de_acc__acc_type")
+
+  @@index([acc_type_id], map: "FK_variante_de_acc__acc_type")
+}
+
+model course {
+  id   Int    @id @default(autoincrement()) @db.UnsignedInt
+  name String @db.VarChar(255)
+  users user[]
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement())
+  timestamp BigInt
+  name      String @db.VarChar(255)
+}
+
+model profile {
+  id   Int    @id @default(autoincrement()) @db.UnsignedInt
+  name String @db.VarChar(255)
+  users user[]
+}
+
+model unity_of_measurement {
+  id       Int        @id @default(autoincrement()) @db.UnsignedInt
+  name     String     @db.VarChar(255)
+  acc_types acc_type[]
+}
+
+model user {
+  id             Int              @id @default(autoincrement()) @db.UnsignedInt
+  name           String           @db.VarChar(255)
+  registration   String?          @db.VarChar(255)
+  email          String           @db.VarChar(255)
+  username       String           @db.VarChar(255)
+  password       String?          @db.VarChar(255)
+  active         Boolean          @default(true)
+  profile_id     Int              @db.UnsignedInt
+  course_id      Int?             @db.UnsignedInt
+  acc            acc[]
+  acc_assessment acc_assessment[]
+  course         course?          @relation(fields: [course_id], references: [id], onDelete: Cascade, map: "FK_user__course")
+  profile        profile          @relation(fields: [profile_id], references: [id], onDelete: Cascade, map: "FK_user__profile")
+
+  @@index([course_id], map: "FK_user__course")
+  @@index([profile_id], map: "FK_user__profile")
+}

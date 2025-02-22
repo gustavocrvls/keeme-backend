@@ -2,6 +2,10 @@ import axios from 'axios';
 import { ILoginUserDTO } from '../../modules/users/useCases/LoginUser/LoginUserDTO';
 import { IExternalAuthenticationProvider } from '../IExternalAuthenticationProvider';
 
+/**
+ * @deprecated the SIGAA Auth will no longer be used, the Provider should be removed
+ * TODO Remove it
+ */
 export class SIGAuthenticationProvider
   implements IExternalAuthenticationProvider
 {
